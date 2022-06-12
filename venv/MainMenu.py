@@ -24,7 +24,7 @@ logger = logging.getLogger()
 firstMenuKeyboard = InlineKeyboardMarkup(row_width=2)
 iikoProblemButton = InlineKeyboardButton(text='iiko', callback_data='iikoProblem')
 FRButton = InlineKeyboardButton(text='Фискальный регистратор', callback_data='FRButton')
-CashlessPaymentButton = InlineKeyboardButton(text='Безналичная оплата. Проблемы с оплатой заказа', callback_data='Cashless payment')
+CashlessPaymentButton = InlineKeyboardButton(text='Безналичная оплата. Проблемы с оплатой заказа', callback_data='CashlessPayment')
 screenButton = InlineKeyboardButton(text='Экран покупателя', callback_data='screen')
 InternetButton = InlineKeyboardButton(text='Интернет', callback_data='Internet')
 DeliveryButton = InlineKeyboardButton(text='Доставка', callback_data='Delivery')
@@ -92,16 +92,41 @@ NoConnectionToOFDButton = InlineKeyboardButton(text='После оплаты н�
 ErrorChequeButton = InlineKeyboardButton(text='После оплаты на кассе всплывает уведомление ,, При печати фискального чека произошла ошибка (-3807) ,,', callback_data='ErrorCheque')
 CashBoxProblemsKeyboard.add(FailedToSetNameButton, NoConnectionToOFDButton, ErrorChequeButton)
 
-#---------
+#Безнал оплата
 
-submitApplicationKeyboard = InlineKeyboardMarkup(row_width=1)
-applicationElbaButton = InlineKeyboardButton(text='Заявка на Эльбу', callback_data='applicationElba')
-afterSubmitApplicationButton = InlineKeyboardButton(text='После отправки заявки', callback_data='afterSubmitApplication')
-statusApplicationButton = InlineKeyboardButton(text='Статусы заявок', callback_data='statusApplication')
-statusNotSubjectButton = InlineKeyboardButton(text='Статус: "Не подлежит вознаграждению"', callback_data='statusNotSubject')
-submitApplicationKeyboard.add(applicationElbaButton, afterSubmitApplicationButton, statusApplicationButton, statusNotSubjectButton)
-statusApplicationKeyboard = InlineKeyboardMarkup(row_width=1).add(statusApplicationButton, statusNotSubjectButton)
-statusNotSubjectKyeboard = InlineKeyboardMarkup(row_width=1).add(statusNotSubjectButton)
+CashlessPaymentKeyboard = InlineKeyboardMarkup(row_width=1)
+ProblemWithPaymentOrdersButton = InlineKeyboardButton(text='Проблема с оплатой заказов', callback_data='ProblemWithPaymentOrders')
+ProblemsAfterOrderPaymentButton = InlineKeyboardButton(text='Проблемы возникшие после оплаты заказа', callback_data='ProblemsAfterOrderPayment')
+ProblemsPaymentForTheOrderButton = InlineKeyboardButton(text='Проблемы связанные с безналичной оплатой заказа', callback_data='ProblemsPaymentForTheOrder')
+CashlessPaymentKeyboard.add(ProblemWithPaymentOrdersButton, ProblemsAfterOrderPaymentButton, ProblemsPaymentForTheOrderButton)
+
+#Проблема с оплатой заказов
+
+ProblemWithPaymentOrdersKeyboard = InlineKeyboardMarkup(row_width=1)
+NoCommunicationWithDeviceButton = InlineKeyboardButton(text='При попытке оплатить заказ выдает ошибку "Нет связи с устройством"', callback_data='NoCommunicationWithDevice')
+FailedToGetDeviceSerialNumberButton = InlineKeyboardButton(text='При попытке оплатить заказ выдает ошибку "Не удалось получить серийный номер устройства"', callback_data='FailedToGetDeviceSerialNumber')
+FNStorageResourceExhaustedButton = InlineKeyboardButton(text='При попытке оплатить заказ выдает ошибку "Исчерпан ресурс хранения ФН"', callback_data='FNStorageResourceExhausted')
+FailedToSetOperatingModeButton = InlineKeyboardButton(text='При попытке оплатить заказ выдает ошибку "Не удалось установить режим работы (Произошла ошибка -3822)"', callback_data='FailedToSetOperatingMode')
+FailedToCloseCheckButton = InlineKeyboardButton(text='При попытке оплатить заказ выдает ошибку "Не удалось закрыть чек (Произошла ошибка -4015)"', callback_data='FailedToCloseCheck')
+FailedToGetPaymentMethodButton = InlineKeyboardButton(text='При попытке оплатить заказ выдает ошибку "Не удалось получить способ оплаты"', callback_data='FailedToGetPaymentMethod')
+NotSupportedInThisDeviceModeButton = InlineKeyboardButton(text='При попытке оплатить заказ выдает ошибку "Не поддерживается в данном режиме устройства"', callback_data='NotSupportedInThisDeviceMode')
+WPayingForTheOrderPrepaymentWindowAppearsButton = InlineKeyboardButton(text='При оплате заказа появляется окно предоплаты"', callback_data='WPayingForTheOrderPrepaymentWindowAppears')
+ProblemWithPaymentOrdersKeyboard.add(NoCommunicationWithDeviceButton, FailedToGetDeviceSerialNumberButton, FNStorageResourceExhaustedButton, FailedToSetOperatingModeButton, FailedToCloseCheckButton, FailedToGetPaymentMethodButton, NotSupportedInThisDeviceModeButton, WPayingForTheOrderPrepaymentWindowAppearsButton )
+
+#Проблемы возникшие после оплаты заказа
+
+ProblemsAfterOrderPaymentKeyboard = InlineKeyboardMarkup(row_width=1)
+NoConnectionToOFDNumberOfUnsentDocumentsButton = InlineKeyboardButton(text='После оплаты на кассе всплывает уведомление "Нет связи с ОФД. Колличество неотправленных докуметов: 1"', callback_data='NoConnectionToOFDNumberOfUnsentDocuments')
+AnErrorOccurredWhilePrintingTheReceiptButton = InlineKeyboardButton(text='После оплаты на кассе всплывает уведомление "При печати фискального чека произошла ошибка (-3807)"', callback_data='AnErrorOccurredWhilePrintingTheReceipt')
+ProblemsAfterOrderPaymentKeyboard.add(NoConnectionToOFDNumberOfUnsentDocumentsButton, AnErrorOccurredWhilePrintingTheReceiptButton)
+
+#Проблемы связанные с безналичной оплатой заказа
+ProblemsPaymentForTheOrderKeyboard = InlineKeyboardMarkup(row_width=1)
+PaymentTypeBankCardDoesNotWorkButton = InlineKeyboardButton(text='Не работает тип оплаты "Банковская карта"', callback_data='PaymentTypeBankCardDoesNotWork')
+BankTerminalNotWorkingBlackScreenButton = InlineKeyboardButton(text='Не работает банковский терминал, черный экран', callback_data='BankTerminalNotWorkingBlackScreen')
+ThereIsNoBankCardPaymentButton = InlineKeyboardButton(text='Нет кнопки оплаты "Баковская карта""', callback_data='ThereIsNoBankCardPayment')
+ProblemsPaymentForTheOrderKeyboard.add(PaymentTypeBankCardDoesNotWorkButton, BankTerminalNotWorkingBlackScreenButton, ThereIsNoBankCardPaymentButton)
+
 
 #Кнопки: "Получение вознаграждения"
 rewardKeyboard = InlineKeyboardMarkup(row_width=1)
@@ -157,7 +182,7 @@ widgetsButton=InlineKeyboardButton(text='Виджеты', callback_data='widgets
 QRCodeButton=InlineKeyboardButton(text='QR-код', callback_data='QRCode')
 toolsAndPromotionKeyboard.add(websiteBannersButton, socialMediaBannersButton, widgetsButton, QRCodeButton)
 
-officialRepresentativesKeyboard=InlineKeyboardMarkup(row_width=1).add(toolsAndPromotionButton, applicationElbaButton, afterSubmitApplicationButton, statusApplicationButton)
+
 
 callTechSuppKeyboard=InlineKeyboardMarkup(row_width=1)
 callTechSuppButton=InlineKeyboardButton(text="Связаться с техподдержкой", callback_data='callTechSupp')
@@ -445,11 +470,115 @@ async def ErrorCheque(callEC: types.CallbackQuery):
 
 
 
-#Блок рекомендаций продукта
-@dp.callback_query_handler(text='recommendations')
-async def recommendations(callRec: types.CallbackQuery):
-        await callRec.message.answer(text='Выберите продукт, который хотите рекомендовать или аудиторию, которой хотите рекомендовать.',reply_markup = recommendationsKeyboard)
+
+#Блок проблем с безналом
+@dp.callback_query_handler(text='CashlessPayment')
+async def CashlessPayment(callCP: types.CallbackQuery):
+        await callCP.message.answer(text='Выберите раздел проблемы',reply_markup=CashlessPaymentKeyboard)
         logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+@dp.callback_query_handler(text='ProblemWithPaymentOrders')
+async def ProblemWithPaymentOrders(callPWPO: types.CallbackQuery):
+        await callPWPO.message.answer(text='Проблема с оплатой заказов',reply_markup=ProblemWithPaymentOrdersKeyboard)
+        logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+@dp.callback_query_handler(text='ProblemsAfterOrderPayment')
+async def ProblemsAfterOrderPayment(callPAOP: types.CallbackQuery):
+        await callPAOP.message.answer(text='Проблемы возникшие после оплаты заказа',reply_markup=ProblemsAfterOrderPaymentKeyboard)
+        logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+@dp.callback_query_handler(text='ProblemsPaymentForTheOrder')
+async def ProblemsPaymentForTheOrder(callPPFTO: types.CallbackQuery):
+    await callPPFTO.message.answer(text='Проблемы связанные с безналичной оплатой заказа', reply_markup=ProblemsPaymentForTheOrderKeyboard)
+    logger.debug('Пользователь нажал кнопку "Проблемы связанные с безналичной оплатой заказа"')
+
+#Проблема с оплатой заказов
+
+@dp.callback_query_handler(text='NoCommunicationWithDevice')
+async def ProblemsPaymentForTheOrder(callPPFTO: types.CallbackQuery):
+    await callPPFTO.message.answer(text='Проверить, включен ли фискальный регистратор, так-же проверить качество подключения проводов к нему (питание+USB провода).\n'
+                                        'Так-же проверить подключение USB провода со стороны компьютера.\n'
+                                        'Если вышеперечисленные действия не помогли, то свяжитесь с техподдержкой', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+@dp.callback_query_handler(text='FailedToGetDeviceSerialNumber')
+async def FailedToGetDeviceSerialNumber(callFTGDN: types.CallbackQuery):
+    await callFTGDN.message.answer(text='Выключить фискальный регистратор на кнопку и включить заново.\n'
+                                        'Завершить процесс IIKO через диспетчер задач, запустить IIKO заново и повторить оплату.\n'
+                                        'Если вышеперечисленные действия не помогли, то свяжитесь с техподдержкой', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+@dp.callback_query_handler(text='FNStorageResourceExhausted')
+async def FNStorageResourceExhausted(callFNSRE: types.CallbackQuery):
+    await callFNSRE.message.answer(text='Связаться с техподдержкой', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+@dp.callback_query_handler(text='FailedToSetOperatingMode')
+async def FailedToSetOperatingMode(callFTSOM: types.CallbackQuery):
+    await callFTSOM.message.answer(text='Вчера сотрудники забыли закрыть кассовую смену.\n'
+                                        'Закрываем кассовую смену через iiko.\n'
+                                        'Текущий заказ можно удалить и пробить в актуальной смене.', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+@dp.callback_query_handler(text='FailedToCloseCheck')
+async def FailedToCloseCheck(callFTCC: types.CallbackQuery):
+    await callFTCC.message.answer(text='Связаться с техподдержкой', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+@dp.callback_query_handler(text='FailedToGetPaymentMethod')
+async def FailedToGetPaymentMethod(callFTGPM: types.CallbackQuery):
+    await callFTGPM.message.answer(text='Связаться с техподдержкой', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+@dp.callback_query_handler(text='NotSupportedInThisDeviceMode')
+async def NotSupportedInThisDeviceMode(callNSITDM: types.CallbackQuery):
+    await callNSITDM.message.answer(text='Необходимо выключить и включить фискальный регистратор и перезагрузить программу IIKO.\n'
+                                         'Если вышеперечисленные действия не помогли, то свяжитесь с техподдержкой', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+@dp.callback_query_handler(text='WPayingForTheOrderPrepaymentWindowAppears')
+async def WPayingForTheOrderPrepaymentWindowAppears(callWPFTOPWA: types.CallbackQuery):
+    await callWPFTOPWA.message.answer(text='1.Нажимаем кнопку "Отмена"\n'
+                                           '2. Удаляем тип оплаты "Предоплата", нажимая на крестик\n'
+                                           '3. Выбираем нужный тип оплаты, вводим сумму и снова оплачиваем заказ', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+#Проблемы возникшие после оплаты заказа
+
+@dp.callback_query_handler(text='NoConnectionToOFDNumberOfUnsentDocuments')
+async def NoConnectionToOFDNumberOfUnsentDocuments(callNCTOFDNOUD: types.CallbackQuery):
+    await callNCTOFDNOUD.message.answer(text='Такое уведомление ВСЕГДА появляется после каждого закрытого заказа. \n'
+                                           'Если в данном уведомлении количество документов больше, чем ,,1,,,  необходимо обратиться в техническую поддержку.', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+@dp.callback_query_handler(text='AnErrorOccurredWhilePrintingTheReceipt')
+async def AnErrorOccurredWhilePrintingTheReceipt(callAEOWPTR: types.CallbackQuery):
+    await callAEOWPTR.message.answer(text='Ошибка говорит о том, что фискальный регистратор не видет чековую ленту, либо она отстутсвует\n'
+                                           'Если ошибка возникла при замене рулона на новый, откройте крышку фискальника и отмотайте с рулона небольшое количество ленты.\n'
+                                           'Далее закройте крышку и повторите оплату заказа.', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+
+#Проблемы связанные с безналичной оплатой заказа
+@dp.callback_query_handler(text='PaymentTypeBankCardDoesNotWork')
+async def PaymentTypeBankCardDoesNotWork(callPTBCDNW: types.CallbackQuery):
+    await callPTBCDNW.message.answer(text='Перезагрузите компьютер.\n'
+                                           'Если не помогло, то свяжитесь с оператором', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+@dp.callback_query_handler(text='BankTerminalNotWorkingBlackScreen')
+async def BankTerminalNotWorkingBlackScreen(callBTNWBS: types.CallbackQuery):
+    await callBTNWBS.message.answer(text='Перезагрузите компьютер.\n'
+                                           'Если после перезагрузки терминал не заработал, перевоткните провода, которые идут от банковского терминала и повторно перезагрузите компьютер.\n'
+                                           'Если ничего не помогло, то звоните в банк, который вас обслуживает.', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+@dp.callback_query_handler(text='ThereIsNoBankCardPayment')
+async def ThereIsNoBankCardPayment(callTINBCP: types.CallbackQuery):
+    await callTINBCP.message.answer(text='Пишите в техподдержу с приложением фото отсутсвия данного типа оплаты.', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+
 
 #Блок еще
 @dp.callback_query_handler(text='more')
