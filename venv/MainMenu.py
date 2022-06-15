@@ -23,7 +23,7 @@ logger = logging.getLogger()
 #Главное меню
 firstMenuKeyboard = InlineKeyboardMarkup(row_width=2)
 iikoProblemButton = InlineKeyboardButton(text='iiko', callback_data='iikoProblem')
-FRButton = InlineKeyboardButton(text='Фискальный регистратор', callback_data='FRButton')
+FRButton = InlineKeyboardButton(text='Касса и Фискальный регистратор', callback_data='FRButton')
 CashlessPaymentButton = InlineKeyboardButton(text='Безналичная оплата. Проблемы с оплатой заказа', callback_data='CashlessPayment')
 screenButton = InlineKeyboardButton(text='Экран покупателя', callback_data='screen')
 InternetButton = InlineKeyboardButton(text='Интернет', callback_data='Internet')
@@ -125,17 +125,12 @@ RequestErrorInIIKOButton=InlineKeyboardButton(text='Ошибка запроса 
 TheRequiredPaymentTypeButton = InlineKeyboardButton(text='Нужного типа оплаты нет в IIKO', callback_data='TheRequiredPaymentType')
 DeliveryKeyboard.add(NoPermissionToSellButton, DisabledOnPointButton, CannotBeTransferredButton, PointOfSaleNotSyncedButton, RequestErrorInIIKOButton, TheRequiredPaymentTypeButton)
 
-#Кнопки: "Какие продукты рекомендовать"
-recommendationsKeyboard=InlineKeyboardMarkup(row_width=1)
-chooseProductButton=InlineKeyboardButton(text='Выберите продукт', url='https://support.kontur.ru/pages/viewpage.action?pageId=18350835', parse_mode='Markdown', disable_web_page_preview=True)
-chooseAudienceButton=InlineKeyboardButton(text='Выберите аудиторию', url='https://support.kontur.ru/pages/viewpage.action?pageId=83870810', parse_mode='Markdown', disable_web_page_preview=True)
-recommendationsKeyboard.add(chooseProductButton, chooseAudienceButton)
-
-termsRefPathershipsKeyboard=InlineKeyboardMarkup(row_width=1)
-whoCanParticipateButton=InlineKeyboardButton(text='Кто может участвовать', callback_data='whoCanParticipate')
-formsOfParthershipButton=InlineKeyboardButton(text='Формы партнерства', callback_data='formsOfParthership')
-howMuchCanEarnButton=InlineKeyboardButton(text='Сколько можно заработать', callback_data='howMuchCanEarn')
-termsRefPathershipsKeyboard.add(whoCanParticipateButton, formsOfParthershipButton, howMuchCanEarnButton)
+#Кнопки: "По Электронной очереди"
+ElectronicQueueAndTVKeyboard = InlineKeyboardMarkup(row_width=1)
+ServerUnavailableMessageButton=InlineKeyboardButton(text='На телевизоре появилось сообщение "Сервер Недоступен"', callback_data='ServerUnavailableMessage')
+SettingUpAnElectronicQueueButton=InlineKeyboardButton(text='Настройка электронной очереди при открытии новой точки или при замене телевизора', callback_data='SettingUpAnElectronicQueue')
+InternetConnectionNotWorkingOnTVButton=InlineKeyboardButton(text='На телевизоре не работает интернет соединение', callback_data='InternetConnectionNotWorkingOnTV')
+ElectronicQueueAndTVKeyboard.add(ServerUnavailableMessageButton, SettingUpAnElectronicQueueButton, InternetConnectionNotWorkingOnTVButton)
 
 howMuchCanEarnKeyboard=InlineKeyboardMarkup(row_width=1)
 additionalRemunerationButton=InlineKeyboardButton(text='Дополнительное вознаграждение', callback_data='additionalRemuneration')
@@ -169,7 +164,7 @@ async def firstButton(message: types.Message):
                          'Какие у вас появились вопросы?\n'
                         'Выберите интересующий раздел нажав на кнопку.', reply_markup=firstMenuKeyboard)
 
-#Блок проблем кабинета партнера--
+#Блок iiko--
 
 @dp.callback_query_handler(text='iikoProblem')
 async def iikoProblem(calliiProb: types.CallbackQuery):
@@ -230,61 +225,46 @@ async def EmployeeCantWorkHere(callECWH: types.CallbackQuery):
     await callECWH.message.answer(text='По каждому из вопросов кассиру необходимо обратиться в Отдел кадров.', reply_markup = callTechSuppKeyboard)
     logger.debug('Пользователь нажал кнопку "Частые проблемы"')
 
-@dp.callback_query_handler(text='linksAccount')
-async def linksAccount(calllAccou: types.CallbackQuery):
-        await calllAccou.message.answer(text='Раздел ссылки в кабинете партнёра: https://kontur.ru/account/partnership\n'
-                                         'Создать ссылку\n'
-                                         'Вы можете сформировать свою ссылку на любую страницу сайта Контура с кодом партнера. Для этого выберите пункт «Создать свою ссылку», который находится после списка готовых ссылок или создайте ссылку вручную. Для этого в конце ссылки на нужную страницу добавьте параметр ?p=XXXX, где вместо XXXX вставьте ваш код партнера.\n'
-                                         'Статистика\n'
-                                         'В разделе доступна подробная статистика с фильтром по дате, продукту и метке. Здесь можно получить информацию о количестве переходов, заявках и конверсии.', parse_mode='Markdown', disable_web_page_preview=True, reply_markup=linksAccountKeyboard)
+#Архивная программа
+
+@dp.callback_query_handler(text='ArchivingProgram')
+async def ArchivingProgram(callAProgram: types.CallbackQuery):
+        await callAProgram.message.answer(text='Если на торговой точке нет панели, где вы отправляете накладные в офис, то необходимо на рабочем столе найти ярлык SAdminClient\n'
+                                               'Если ярлыка нет, то нужно перейти по пути C:\SAdminClient\ и запустить файл SAClientDesktop.exe[.](https://downloader.disk.yandex.ru/preview/7c19849c54747195e4b32923e24b436833caa7fc39ab8b474a888a2f40a39e1d/62a9e929/C24lWJcR8Z0Wpl6RSD-WRd02Ahv8dYkEorV1KGwzBbNRhWzWrZoC0Xc6damtB37t95QRKAGuNuXwpz0e4Wwalg%3D%3D?uid=0&filename=%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%20%D0%B4%D0%BB%D1%8F%20%D1%87%D0%B0%D1%82%D0%B0%D0%A2%D0%9F.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)\n'
+                                               'По всем остальным вопросам необходимо обратиться в техподдержку', parse_mode='Markdown', disable_web_page_preview=False, reply_markup=callTechSuppKeyboard)
         logger.debug('Пользователь нажал кнопку "Ссылки"')
 
-@dp.callback_query_handler(text='readyLinks')
-async def readyLinks(callrL: types.CallbackQuery):
-        await callrL.message.answer(text='В разделе «Ссылки» вы найдете готовые реферальные ссылки на более чем 40 продуктов, участвующих в программе. Во всех этих ссылках уже есть код партнера, что позволяет фиксировать переходы и покупки клиентов по ним. Нажмите на «Показать все ссылки», чтобы увидеть весь список.', reply_markup=backToMainMenuKeyboard)
-        logger.debug('Пользователь нажал кнопку "Готовые ссылки"')
+#Блок по Электронной очереди и телеку
+@dp.callback_query_handler(text='ServerUnavailableMessage')
+async def ServerUnavailableMessage(callSULM: types.CallbackQuery):
+        await callSULM.message.answer(text='Чтобы проверить корректность работы системы электронной очереди, необходимо:\n'
+                                            '1. Откройте браузер Google Chrome на компьютере, где находится IIKO;\n'
+                                            '2. Введите в адресную строку: http://localhost:3100/\n'
+                                            '3. Готово! На экране должна появиться электронная очередь (см. на изображении ниже). Если она появилась, то система работает корректно[.](https://downloader.disk.yandex.ru/preview/ad28a39be2237e7a189f7acdfdb8ff39e89e25cc1f496ae5f05bdfe0aff2dec3/62a9ed7f/rzQ7cVpmbwGlKJ3Jf2lrzToeSj49mKz4OXPeLrwbFnBu0bMCeBAcDwTqpPbSTlWcnKbhSwZGFJLxDlllgFNReg%3D%3D?uid=0&filename=%D0%BE%D1%87%D0%B5%D1%80%D0%B5%D0%B4%D1%8C.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)\n'
+                                           'Далее переходите к настройке работы электронной очереди на телевизоре, размещенном на торговой точке.', parse_mode='Markdown', disable_web_page_preview=False, reply_markup=callTechSuppKeyboard)
+        logger.debug('Пользователь нажал кнопку "Ссылки"')
 
-@dp.callback_query_handler(text='createLinks')
-async def createLinks(callcL: types.CallbackQuery):
-        await callcL.message.answer(text='Вы можете сформировать свою ссылку на любую страницу сайта Контура с кодом партнера. Для этого выберите пункт «Создать свою ссылку», который находится после списка готовых ссылок или создайте ссылку вручную. Для этого в конце ссылки на нужную страницу добавьте параметр ?p=XXXX, где вместо XXXX вставьте ваш код партнера.', reply_markup=backToMainMenuKeyboard)
-        logger.debug('Пользователь нажал кнопку "Создать ссылки"')
+@dp.callback_query_handler(text='SettingUpAnElectronicQueue')
+async def SettingUpAnElectronicQueue(callSUAEQ: types.CallbackQuery):
+        await callSUAEQ.message.answer(text='Если на торговой точке нет панели, где вы отправляете накладные в офис, то необходимо на рабочем столе найти ярлык SAdminClient\n'
+                                               'Если ярлыка нет, то нужно перейти по пути C:\SAdminClient\ и запустить файл SAClientDesktop.exe[.](https://downloader.disk.yandex.ru/preview/7c19849c54747195e4b32923e24b436833caa7fc39ab8b474a888a2f40a39e1d/62a9e929/C24lWJcR8Z0Wpl6RSD-WRd02Ahv8dYkEorV1KGwzBbNRhWzWrZoC0Xc6damtB37t95QRKAGuNuXwpz0e4Wwalg%3D%3D?uid=0&filename=%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%20%D0%B4%D0%BB%D1%8F%20%D1%87%D0%B0%D1%82%D0%B0%D0%A2%D0%9F.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)\n'
+                                               'По всем остальным вопросам необходимо обратиться в техподдержку', parse_mode='Markdown', disable_web_page_preview=False, reply_markup=callTechSuppKeyboard)
+        logger.debug('Пользователь нажал кнопку "Ссылки"')
 
-@dp.callback_query_handler(text='statistics')
-async def statistics(callsts: types.CallbackQuery):
-        await callsts.message.answer(text='В разделе доступна подробная статистика с фильтром по дате, продукту и метке. Здесь можно получить информацию о количестве переходов, заявках и конверсии.', reply_markup=backToMainMenuKeyboard)
-        logger.debug('Пользователь нажал кнопку "Статистика"')
+@dp.callback_query_handler(text='InternetConnectionNotWorkingOnTV')
+async def InternetConnectionNotWorkingOnTV(callICNWOT: types.CallbackQuery):
+        await callICNWOT.message.answer(text='Если на торговой точке нет панели, где вы отправляете накладные в офис, то необходимо на рабочем столе найти ярлык SAdminClient\n'
+                                               'Если ярлыка нет, то нужно перейти по пути C:\SAdminClient\ и запустить файл SAClientDesktop.exe[.](https://downloader.disk.yandex.ru/preview/7c19849c54747195e4b32923e24b436833caa7fc39ab8b474a888a2f40a39e1d/62a9e929/C24lWJcR8Z0Wpl6RSD-WRd02Ahv8dYkEorV1KGwzBbNRhWzWrZoC0Xc6damtB37t95QRKAGuNuXwpz0e4Wwalg%3D%3D?uid=0&filename=%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%20%D0%B4%D0%BB%D1%8F%20%D1%87%D0%B0%D1%82%D0%B0%D0%A2%D0%9F.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)\n'
+                                               'По всем остальным вопросам необходимо обратиться в техподдержку', parse_mode='Markdown', disable_web_page_preview=False, reply_markup=callTechSuppKeyboard)
+        logger.debug('Пользователь нажал кнопку "Ссылки"')
 
-@dp.callback_query_handler(text='applicationAccount')
-async def applicationAccount(callappAcc: types.CallbackQuery):
-        await callappAcc.message.answer(text='В [разделе](https://kontur.ru/account/partnership/orders) можно увидеть список заявок ваших клиентов. Воспользуйтесь фильтром по дате, продукту в заявке, статусу. Нажмите на интересующую строку и посмотрите историю работы с каждой заявкой и строкам в счете.',parse_mode='Markdown', disable_web_page_preview=True,reply_markup =applicationAccountKeyboard)
-        logger.debug('Пользователь нажал кнопку "Заявки"')
+#Блок видеонаблюдения
 
-@dp.callback_query_handler(text='sandingApplication')
-async def sandingApplication(callsndApp: types.CallbackQuery):
-        await callsndApp.message.answer(text='Чтобы отправить заявку за клиента:\n'
-                                            '1. Зайдите в кабинет [партнера](https://kontur.ru/account/login?ReturnUrl=%2faccount%2fpartnership)\n'
-                                            '2. В «Инструментах продвижения продуктов» выберите «Отправить заявку».\n'
-                                            '3. Выберите продукт в списке.\n'
-                                            '4. Внесите почту, телефон, название организации, ИНН и КПП клиента.\n'
-                                            '5. В комментариях укажите пожелания клиента или необходимый тариф. Если открылся список дополнительных опций, то отметьте нужное.',parse_mode='Markdown', disable_web_page_preview=True,reply_markup=submitApplicationKeyboard)
-        logger.debug('Пользователь нажал кнопку "Отправка заявки"')
+@dp.callback_query_handler(text='CCTV')
+async def CCTV(callCCTV: types.CallbackQuery):
+        await callCCTV.message.answer(text='Для того, чтобы заявка была взята в работу, необходимо поставить задачу в битрикс на Старцева Андрея https://sushimarke.bitrix24.ru/', parse_mode='Markdown', disable_web_page_preview=True, reply_markup=callTechSuppKeyboard)
+        logger.debug('Пользователь нажал кнопку "Ссылки"')
 
-@dp.callback_query_handler(text='statusApplication')
-async def statusApplication(callstsApp: types.CallbackQuery):
-        await callstsApp.message.answer(text='Каждой заявке присваивается статус, который означает ход ее обработки менеджером.\n'
-                                             '🔸В работе — менеджер взял заявку в работу. Ожидайте смену статуса..\n'
-                                             '🔸Отказ — на момент поступления заявки по клиенту уже велась работа, либо клиент не новый. Также отказ устанавливается, если по заявке нет выставленных счетов в течение 60 дней. Наведите курсор на статус и узнайте причину отказа.\n'
-                                             '🔸Выставлен — менеджер выставил клиенту счет, ожидание оплаты.\n'
-                                             '🔸Оплачен — клиент оплатил счет.\n'
-                                             '🔸Нет оплаты — счет выставили, но клиент его еще не оплатил.\n'
-                                             '🔸Подлежит вознаграждению — по счету будет начислено вознаграждение.\n'
-                                             '🔸Вознагражден — вознаграждение уже начислено и находится в отчете, сумма указана рядом со статусом.\n', reply_markup=backToMainMenuKeyboard)
-        logger.debug('Пользователь нажал кнопку "Статусы заявки"')
-
-@dp.callback_query_handler(text='listApplicationExcel')
-async def listApplicationExcel(calllAppExc: types.CallbackQuery):
-        await calllAppExc.message.answer(text='Есть возможность выгрузить заявки списком в Excel, чтобы детально проанализировать информацию об источниках. Воспользуйтесь кнопкой «Скачать» справа от фильтров.', reply_markup=backToMainMenuKeyboard)
-        logger.debug('Пользователь нажал кнопку "Выгрузка списка заявок в Excel"')
 
 #Блок получения вознаграждения
 @dp.callback_query_handler(text='rewardButton')
