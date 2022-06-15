@@ -35,39 +35,26 @@ ProblemsInTheOfficeButton = InlineKeyboardButton(text='Проблемы в оф�
 OtherButton = InlineKeyboardButton(text='Другое', callback_data='Other')
 firstMenuKeyboard.add(iikoProblemButton, FRButton,CashlessPaymentButton, screenButton, InternetButton, DeliveryButton, ArchivingProgramButton, CCTVButton, ElectronicQueueAndTVButton, ProblemsInTheOfficeButton, OtherButton )#, helpButton)
 
-#Кнопки: "Вход в кабинет партнера"
+#Кнопки: "По IIKO"
 
-loginAccountPartnersKeyboard= InlineKeyboardMarkup (row_width=1)
-frequentProblemButton= InlineKeyboardButton(text='Частые проблемы', callback_data='frequentProblem')
-accountPartnersButton= InlineKeyboardButton(text='Кабинет партнера', callback_data='accountPartners')
-loginAccountPartnersKeyboard.add(frequentProblemButton, accountPartnersButton)
+IIKOKeyboard= InlineKeyboardMarkup (row_width=1)
+ErrorsToOrderStatusesAndProgramOperationButton = InlineKeyboardButton(text='Ошибки связанные со статусами заказов и работы программы', callback_data='ErrorsToOrderStatusesAndProgramOperation')
+ErrorsTheOpeningAndClosingOfTheCashRegisterShiftButton= InlineKeyboardButton(text='Ошибки связанные с открытием и закрытием кассовой смены', callback_data='ErrorsTheOpeningAndClosingOfTheCashRegisterShift')
+IIKOKeyboard.add(ErrorsToOrderStatusesAndProgramOperationButton, ErrorsTheOpeningAndClosingOfTheCashRegisterShiftButton)
 
+ErrorsToOrderStatusesAndProgramOperationKeyboard = InlineKeyboardMarkup (row_width=1)
+WhenCloseProgramDoesNotCloseButton = InlineKeyboardButton(text='При закрытии программы, она начинает висеть и не закрывается.', callback_data='WhenCloseProgramDoesNotClose')
+AYellowMessageAppearedButton = InlineKeyboardButton(text='Появилось сообщение желтого цвета, в верхнем левом углу экрана в IIKO', callback_data='AYellowMessageAppeared')
+TheRequiredProductIsNotInTheListButton = InlineKeyboardButton(text='Нет необходимого товара в списке/поиске при формировании актов списания и пр.', callback_data='TheRequiredProductIsNotInTheList')
+TheChefInIikoSousChefDoesNotSeeOrdersButton = InlineKeyboardButton(text='Повар в iikoSousChef не видит заказов. Хотя ранее все работало.', callback_data='TheChefInIikoSousChefDoesNotSeeOrders')
+ErrorsToOrderStatusesAndProgramOperationKeyboard.add(WhenCloseProgramDoesNotCloseButton, AYellowMessageAppearedButton, TheRequiredProductIsNotInTheListButton, TheChefInIikoSousChefDoesNotSeeOrdersButton)
 
-accountProblemKeyboard = InlineKeyboardMarkup(row_width=1)
-accountPartnersProblemButton = InlineKeyboardButton(text='Чужие данные', callback_data='otherData')
-otherDataButton = InlineKeyboardButton(text='Другой код', callback_data='otherCode')
-lostAccessButton = InlineKeyboardButton(text='Пропал доступ', callback_data='lostAccess')
-helpButton = InlineKeyboardButton(text='Помощь человека', callback_data='helpButton')
-accountProblemKeyboard.add(accountPartnersProblemButton, otherDataButton, lostAccessButton)#, helpButton)
+ErrorsTheOpeningAndClosingOfTheCashRegisterShiftKeyboard = InlineKeyboardMarkup (row_width=1)
+FailedToSetCashierNameButton = InlineKeyboardButton(text='При открытии кассовой смены выдает ошибку "Не удалось задать имя кассира..."', callback_data='FailedToSetCashierName')
+HoursHaveExpiredYouNeedToCloseShiftButton = InlineKeyboardButton(text='При попытке оплатить заказ выдаёт ошибку "Истекли 24 часа, необходимо закрыть смену"', callback_data='HoursHaveExpiredYouNeedToCloseShift')
+EmployeeCantWorkHereButton = InlineKeyboardButton(text='При попытке Авторизации пишет: «Нет ИНН», «Нет сотрудника», «Сотрудник не может тут работать»', callback_data='EmployeeCantWorkHere')
+ErrorsTheOpeningAndClosingOfTheCashRegisterShiftKeyboard.add(FailedToSetCashierNameButton, HoursHaveExpiredYouNeedToCloseShiftButton, EmployeeCantWorkHereButton)
 
-
-accountPartnersKeyboard = InlineKeyboardMarkup(row_width=1)
-mainPageButton = InlineKeyboardButton(text='Главная страница', callback_data='mainPage')
-linksAccountButton = InlineKeyboardButton(text='Ссылки', callback_data='linksAccount')
-applicationAccountButton = InlineKeyboardButton(text='Заявки', callback_data='applicationAccount')
-accountPartnersKeyboard.add(mainPageButton, linksAccountButton, applicationAccountButton)
-
-linksAccountKeyboard = InlineKeyboardMarkup(row_width=1)
-readyLinksButton = InlineKeyboardButton(text='Готовые ссылки', callback_data='readyLinks')
-createLinksButton = InlineKeyboardButton(text='Создать ссылку', callback_data='createLinks')
-statisticsButton = InlineKeyboardButton(text='Статистика', callback_data='statistics')
-linksAccountKeyboard.add(readyLinksButton, createLinksButton, statisticsButton)
-
-applicationAccountKeyboard = InlineKeyboardMarkup(row_width=1)
-sandingApplicationButton = InlineKeyboardButton(text='Отправка заявки', callback_data='sandingApplication')
-statusApplicationButton = InlineKeyboardButton(text='Статусы заявок', callback_data='statusApplication')
-listApplicationExcelButton = InlineKeyboardButton(text='Выгрузка списка заявок в Excel', callback_data='listApplicationExcel')
-applicationAccountKeyboard.add(sandingApplicationButton, statusApplicationButton, listApplicationExcelButton)
 
 #Кнопки: "Фискальный регистратор"
 FRButtonKeyboard = InlineKeyboardMarkup(row_width=1)
@@ -184,59 +171,64 @@ async def firstButton(message: types.Message):
 
 #Блок проблем кабинета партнера--
 
-@dp.callback_query_handler(text='accountProblemButton')
-async def callAccountProblemKeyboard(callAcc: types.CallbackQuery):
-    await callAcc.message.answer('Зайдите на сайт kontur.ru в раздел Реферальная программа - https://kontur.ru/partnership/online и нажмите «Войти в кабинет партнера».\n'
-                              'Заходить в кабинет партнера необходимо по электронной почте, указанной при регистрации в реферальной программе.', reply_markup=loginAccountPartnersKeyboard)
+@dp.callback_query_handler(text='iikoProblem')
+async def iikoProblem(calliiProb: types.CallbackQuery):
+    await calliiProb.message.answer('Выберите раздел проблемы', reply_markup=IIKOKeyboard)
     logger.debug('Пользователь нажал кнопку "Вход в кабинет партнера"')
 
-
-@dp.callback_query_handler(text='frequentProblem')
-async def frequentProblem(callfP: types.CallbackQuery):
-    await callfP.message.answer(text='Список частых проблем со входом в кабинет партнёра и как их решить.',reply_markup = accountProblemKeyboard)
+@dp.callback_query_handler(text='ErrorsToOrderStatusesAndProgramOperation')
+async def ErrorsToOrderStatusesAndProgramOperation(callETOSAPO: types.CallbackQuery):
+    await callETOSAPO.message.answer(text='Ошибки связанные со статусами заказов и работы программы:', reply_markup = ErrorsToOrderStatusesAndProgramOperationKeyboard)
     logger.debug('Пользователь нажал кнопку "Частые проблемы"')
 
-@dp.callback_query_handler(text='otherData')
-async def callOtherData(callOD: types.CallbackQuery):
-    await callOD.message.answer('Если при входе в кабинет партнёра или при регистрации в реферальной программе вы видите чужое ФИО, то значит к аккаунту по вашей почте установилось имя из ЭЦП, которая привязана к аккаунту.\n'
-                                      'Решение:\n'
-                                      '1 Вы можете зайти в личный кабинет и поменять ФИО - https://cabinet.kontur.ru/\n'
-                                      '2 Если вы участвуете в реферальной программе как физлицо и ФИО из аккаунта должны быть на этой почте, например, по ней вы работаете в Экстерне, то вам нужно зарегистрировать новую почту на ваши ФИО. После регистрации напишите на почту part@skbkontur.ru и мы подключим дополнительный аккаунт к реферальному коду.', reply_markup=backToMainMenuKeyboard)
+@dp.callback_query_handler(text='ErrorsTheOpeningAndClosingOfTheCashRegisterShift')
+async def ErrorsTheOpeningAndClosingOfTheCashRegisterShift(callETOACOTCRS: types.CallbackQuery):
+    await callETOACOTCRS.message.answer(text='Ошибки связанные с открытием и закрытием кассовой смены:', reply_markup = ErrorsTheOpeningAndClosingOfTheCashRegisterShiftKeyboard)
+    logger.debug('Пользователь нажал кнопку "Частые проблемы"')
+
+@dp.callback_query_handler(text='WhenCloseProgramDoesNotClose')
+async def WhenCloseProgramDoesNotClose(callWCPDNC: types.CallbackQuery):
+    await callWCPDNC.message.answer('Перезагрузите компьютер.', reply_markup=callTechSuppKeyboard)
     logger.debug('Пользователь нажал кнопку "Чужие данные"')
 
-@dp.callback_query_handler(text='otherCode')
-async def otherCode(callOC: types.CallbackQuery):
-        await callOC.message.answer(text='Если вы авторизовались по вашей почте и в кабинете партнёра теперь отображается новый код, то значит произошло объединение аккаунтов и вы создали новый кабинет партнёра.\n'
-                                       'Напишите на почту part@skbkontur.ru и мы поможем восстановить доступ к старому аккаунту.', reply_markup=backToMainMenuKeyboard)
+@dp.callback_query_handler(text='AYellowMessageAppeared')
+async def AYellowMessageAppeared(callAYMA: types.CallbackQuery):
+        await callAYMA.message.answer(text='Закрываем на крестик, не обращаем внимания на это событие.', reply_markup=callTechSuppKeyboard)
         logger.debug('Пользователь нажал кнопку "Другой код"')
 
-@dp.callback_query_handler(text='lostAccess')
-async def lostAccess(callLA: types.CallbackQuery):
-        await callLA.message.answer(text='Возможно 2 сценария, почему так произошло:\n'
-                                       '1) Вы авторизованы по ЭЦП, а аккаунт привязан к почте. Вам нужно выйти из аккаунта и войти по почте.\n'
-                                       '2) Если вы точно знаете, что заходите по нужной почте и пропал доступ в кабинет партнёра, то значит произошло объединение аккаунтов.\n'
-                                       'Напишите на почту part@skbkontur.ru с вашей почты, которая была подключена к реферальному коду и мы поможем восстановить доступ.\n', reply_markup=backToMainMenuKeyboard)
-        logger.debug('Пользователь нажал кнопку "Пропал доступ"')
-
-@dp.callback_query_handler(text='accountPartners')
-async def accountPartners(callaP: types.CallbackQuery):
-        await callaP.message.answer(text='Выберите раздел кабинет партнёра', reply_markup=accountPartnersKeyboard)
+@dp.callback_query_handler(text='TheRequiredProductIsNotInTheList')
+async def TheRequiredProductIsNotInTheList(callTRPINITL: types.CallbackQuery):
+        await callTRPINITL.message.answer(text='Необходимо проверить включены ли фильтры, позволяющие осуществить поиск, а именно: «Вся номенкл.» а также поиск по «Артикул» и «Код» должны быть выделены жёлтым цветом[.](https://downloader.disk.yandex.ru/preview/3cba7e3ff09569e3be52e80672e4ac6c97426f075a6f27a63332af8942c6a2e0/62a9d873/d0i8uuZ70gOS25grgQS1L3tULxkGzTinepbZrG0mpwnlTSftT-A5760nIzFfbN9OvgN3zLH-m_bKBZxpj24wnw%3D%3D?uid=0&filename=%D0%92%D0%BE%D0%BF%D1%80%D0%BE%D1%81%205.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=958x912)', parse_mode='Markdown', disable_web_page_preview=False, reply_markup=callTechSuppKeyboard)
         logger.debug('Пользователь нажал кнопку "Аккаунт партнера"')
 
-@dp.callback_query_handler(text='mainPage')
-async def mainPage(callmP: types.CallbackQuery):
-        await callmP.message.answer(text='*Анкета*\n'
-                                         'На [главной странице](https://kontur.ru/account/partnership) кабинета партнера в блоке Анкета можно увидеть следующие данные: ФИО, электронная почта, телефон, код партнера. ФИО и почту при необходимости вы можете изменить самостоятельно в [личном кабинете](https://cabinet.kontur.ru/).\n'
-                                         '\n'
-                                         '*Код партнера*\n'
-                                         'Уникальный партнерский код присваивается сразу после регистрации в программе. Он помогает фиксировать клиента за вами. Код вшит во все инструменты кабинета партнера.\n'
-                                         '\n'
-                                         '*Новости*\n'
-                                         'С центрального баннера, расположенного на главной странице кабинета, можно перейти к новостям реферальной программы и Контура в целом.\n'
-                                         '\n'
-                                         '*Инструменты продвижения продуктов*\n'
-                                         'Инструменты продвижения продуктов находятся на главной странице кабинета партнера. Ими можно пользоваться сразу после регистрации.\n', parse_mode='Markdown', disable_web_page_preview=True, reply_markup=toolsAndPromotionKeyboard)
-        logger.debug('Пользователь нажал кнопку "Главная страница"')
+@dp.callback_query_handler(text='TheChefInIikoSousChefDoesNotSeeOrders')
+async def TheChefInIikoSousChefDoesNotSeeOrders(callTCIISCDNSO: types.CallbackQuery):
+        await callTCIISCDNSO.message.answer(text='1)На экране повара необходимо зайти в настройки.\n'
+                                                 '2)Включить все статусы для отображения:\n'
+                                                 'Ожидает\n'
+                                                 'Готовится\n'
+                                                 'Приготовлено\n'
+                                                 'Подано[.](https://downloader.disk.yandex.ru/preview/4efb3509be203a5c0f88c304df1d4f52705ef55c0c192ae662768bf98ca7d58d/62a9d873/hAgBFsYa986PT0j0AELyP3tULxkGzTinepbZrG0mpwl8zdN8fP0mrPrjfgUBqamZ0Xlyqrs9heLpT1euRuLiqQ%3D%3D?uid=0&filename=%D0%92%D0%BE%D0%BF%D1%80%D0%BE%D1%81%206.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=958x912)\n'
+                                                 '3) Если данное решение не помогло, необходимо обратиться в техническую поддержку', parse_mode='Markdown', disable_web_page_preview=False, reply_markup=callTechSuppKeyboard)
+
+        logger.debug('Пользователь нажал кнопку "Аккаунт партнера"')
+
+@dp.callback_query_handler(text='FailedToSetCashierName')
+async def FailedToSetCashierName(callFTSCN: types.CallbackQuery):
+    await callFTSCN.message.answer(text='Связаться с техподдержкой', reply_markup = callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Частые проблемы"')
+
+@dp.callback_query_handler(text='HoursHaveExpiredYouNeedToCloseShift')
+async def HoursHaveExpiredYouNeedToCloseShift(callHHEYNTCS: types.CallbackQuery):
+    await callHHEYNTCS.message.answer(text='Вчера сотрудники забыли закрыть кассовую смену.\n'
+                                           'Закрываем кассовую смену через iiko.\n'
+                                           'Текущий заказ можно удалить и пробить в актуальной смене.', reply_markup = callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Частые проблемы"')
+
+@dp.callback_query_handler(text='EmployeeCantWorkHere')
+async def EmployeeCantWorkHere(callECWH: types.CallbackQuery):
+    await callECWH.message.answer(text='По каждому из вопросов кассиру необходимо обратиться в Отдел кадров.', reply_markup = callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Частые проблемы"')
 
 @dp.callback_query_handler(text='linksAccount')
 async def linksAccount(calllAccou: types.CallbackQuery):
