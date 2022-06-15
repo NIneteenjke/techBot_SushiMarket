@@ -128,33 +128,21 @@ ThereIsNoBankCardPaymentButton = InlineKeyboardButton(text='Нет кнопки 
 ProblemsPaymentForTheOrderKeyboard.add(PaymentTypeBankCardDoesNotWorkButton, BankTerminalNotWorkingBlackScreenButton, ThereIsNoBankCardPaymentButton)
 
 
-#Кнопки: "Получение вознаграждения"
-rewardKeyboard = InlineKeyboardMarkup(row_width=1)
-termsAccrualButton=InlineKeyboardButton(text='Условия начисления', callback_data='termsAccrual')
-freeKAPButton=InlineKeyboardButton(text='Бесплатная КЭП для физлиц', callback_data='freeKAP')
-sendReportOnDiadokButton=InlineKeyboardButton(text='Отправить отчет в диадок', callback_data='sendReportOnDiadok')
-whenComesButton=InlineKeyboardButton(text='Когда приходит', callback_data='whenComes')
-notAcceptReportButton=InlineKeyboardButton(text='Не приняли отчет', callback_data='notAcceptReport')
-moneyNotComeButton=InlineKeyboardButton(text='Не пришли деньги', callback_data='moneyNotCome')
-getRewardedWODiadokButton=InlineKeyboardButton(text='Получить вознаграждения без Диадока', callback_data='getRewardedWODiadok')
-partnersOSNOButton=InlineKeyboardButton(text='Партнерам на ОСНО', callback_data='partnersOSNO')
-notTakeApplicatonButton=InlineKeyboardButton(text='Не учли заявку', callback_data='notTakeApplicaton')
-rewardKeyboard.add(termsAccrualButton,freeKAPButton, whenComesButton, sendReportOnDiadokButton)
-sendReportOnDiadokKeyboard=InlineKeyboardMarkup(row_width=1).add(partnersOSNOButton, freeKAPButton, notAcceptReportButton, moneyNotComeButton, getRewardedWODiadokButton )
-whenComesKeyboard=InlineKeyboardMarkup(row_width=1).add(whenComesButton, notAcceptReportButton)
+#Кнопки: "По доставке"
+DeliveryKeyboard = InlineKeyboardMarkup(row_width=1)
+NoPermissionToSellButton=InlineKeyboardButton(text='У продукта ... нет разрешения продаваться в выбраной ценовой категории', callback_data='NoPermissionToSell')
+DisabledOnPointButton=InlineKeyboardButton(text='Тип оплаты ... отключен на точке', callback_data='DisabledOnPoint')
+CannotBeTransferredButton=InlineKeyboardButton(text='Продукт ... не может быть передан в IIIKO', callback_data='CannotBeTransferred')
+PointOfSaleNotSyncedButton=InlineKeyboardButton(text='Не синхронизирована торговая точка IIKO программой доставки', callback_data='PointOfSaleNotSynced')
+RequestErrorInIIKOButton=InlineKeyboardButton(text='Ошибка запроса в IIKO (не передаются заказы)', callback_data='RequestErrorInIIKO')
+TheRequiredPaymentTypeButton = InlineKeyboardButton(text='Нужного типа оплаты нет в IIKO', callback_data='TheRequiredPaymentType')
+DeliveryKeyboard.add(NoPermissionToSellButton, DisabledOnPointButton, CannotBeTransferredButton, PointOfSaleNotSyncedButton, RequestErrorInIIKOButton, TheRequiredPaymentTypeButton)
 
 #Кнопки: "Какие продукты рекомендовать"
 recommendationsKeyboard=InlineKeyboardMarkup(row_width=1)
 chooseProductButton=InlineKeyboardButton(text='Выберите продукт', url='https://support.kontur.ru/pages/viewpage.action?pageId=18350835', parse_mode='Markdown', disable_web_page_preview=True)
 chooseAudienceButton=InlineKeyboardButton(text='Выберите аудиторию', url='https://support.kontur.ru/pages/viewpage.action?pageId=83870810', parse_mode='Markdown', disable_web_page_preview=True)
 recommendationsKeyboard.add(chooseProductButton, chooseAudienceButton)
-
-#Кнопки: "Еще"
-moreKeyboard=InlineKeyboardMarkup(row_width=1)
-officialRepresentativesButton=InlineKeyboardButton(text='Официальным представителям', callback_data='officialRepresentatives')
-termsRefPathershipsButton=InlineKeyboardButton(text='Условия реферального партнерства', callback_data='termsRefPatherships')
-toolsAndPromotionButton=InlineKeyboardButton(text='Инструменты и продвижение', callback_data='toolsAndPromotion')
-moreKeyboard.add(officialRepresentativesButton, notTakeApplicatonButton, accountPartnersButton, termsRefPathershipsButton, toolsAndPromotionButton )
 
 termsRefPathershipsKeyboard=InlineKeyboardMarkup(row_width=1)
 whoCanParticipateButton=InlineKeyboardButton(text='Кто может участвовать', callback_data='whoCanParticipate')
@@ -576,6 +564,43 @@ async def BankTerminalNotWorkingBlackScreen(callBTNWBS: types.CallbackQuery):
 @dp.callback_query_handler(text='ThereIsNoBankCardPayment')
 async def ThereIsNoBankCardPayment(callTINBCP: types.CallbackQuery):
     await callTINBCP.message.answer(text='Пишите в техподдержу с приложением фото отсутсвия данного типа оплаты.', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+#Блок "По доставке"
+@dp.callback_query_handler(text='Delivery')
+async def Delivery(callDelivery: types.CallbackQuery):
+    await callDelivery.message.answer(text='Выберете раздел проблемы', reply_markup=DeliveryKeyboard)
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+
+@dp.callback_query_handler(text='NoPermissionToSell')
+async def NoPermissionToSell(callNPTS: types.CallbackQuery):
+    await callNPTS.message.answer(text='Необходимо обратиться к специалисту по ценообразованию Евтиной Дарье +7-913-680-80-90', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+@dp.callback_query_handler(text='DisabledOnPoint')
+async def DisabledOnPoint(callDOP: types.CallbackQuery):
+    await callDOP.message.answer(text='Связаться с техподдержкой', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+@dp.callback_query_handler(text='CannotBeTransferred')
+async def CannotBeTransferred(callCBT: types.CallbackQuery):
+    await callCBT.message.answer(text='Необходимо обратиться в службу доставки по тел. 8-800-700-67-76', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+@dp.callback_query_handler(text='PointOfSaleNotSynced')
+async def PointOfSaleNotSynced(callPOSNS: types.CallbackQuery):
+    await callPOSNS.message.answer(text='Необходимо обратиться в службу доставки по тел. 8-800-700-67-76', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+@dp.callback_query_handler(text='RequestErrorInIIKO')
+async def RequestErrorInIIKO(callREII: types.CallbackQuery):
+    await callREII.message.answer(text='Связаться с техподдержкой', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+@dp.callback_query_handler(text='TheRequiredPaymentType')
+async def TheRequiredPaymentType(callTRPT: types.CallbackQuery):
+    await callTRPT.message.answer(text='Связаться с техподдержкой', reply_markup=callTechSuppKeyboard)
     logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
 
 
