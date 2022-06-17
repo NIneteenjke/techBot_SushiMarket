@@ -114,6 +114,21 @@ BankTerminalNotWorkingBlackScreenButton = InlineKeyboardButton(text='Не раб
 ThereIsNoBankCardPaymentButton = InlineKeyboardButton(text='Нет кнопки оплаты "Баковская карта""', callback_data='ThereIsNoBankCardPayment')
 ProblemsPaymentForTheOrderKeyboard.add(PaymentTypeBankCardDoesNotWorkButton, BankTerminalNotWorkingBlackScreenButton, ThereIsNoBankCardPaymentButton)
 
+#Кнопки по интернету
+
+InternetKeyboard = InlineKeyboardMarkup(row_width=1)
+InternetOnCashboxButton = InlineKeyboardButton(text='Интернет на кассе', callback_data=InternetOnCashbox)
+WIFIButton = InlineKeyboardButton(text='Wi-Fi', callback_data=WIFI)
+OtherInternetButton=InlineKeyboardButton(text='Другое', callback_data=OtherInternet)
+InternetKeyboard.add(InternetOnCashboxButton, WIFIButton, OtherInternetButton)
+
+InternetOnCashboxKeyboard = InlineKeyboardMarkup(row_width=1)
+NoConnectionsAvailableButton = InlineKeyboardButton(text='Нет доступных подключений', callback_data=NoConnectionsAvailable)
+WithoutInternetAccessButton = InlineKeyboardButton(text='Без доступа к Интернету', callback_data=WithoutInternetAccess)
+InternetOnCashboxKeyboard.add(NoConnectionsAvailableButton, WithoutInternetAccessButton)
+
+
+
 
 #Кнопки: "По доставке"
 DeliveryKeyboard = InlineKeyboardMarkup(row_width=1)
