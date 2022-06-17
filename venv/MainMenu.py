@@ -60,7 +60,8 @@ ErrorsTheOpeningAndClosingOfTheCashRegisterShiftKeyboard.add(FailedToSetCashierN
 FRButtonKeyboard = InlineKeyboardMarkup(row_width=1)
 ProblemsPayButton = InlineKeyboardButton(text='Проблемы при попытке оплатить заказ', callback_data='ProblemsPay')
 CashBoxProblemsButton = InlineKeyboardButton(text='Проблемы с кассой (после оплаты и при открытии смены)', callback_data='CashBoxProblems')
-FRButtonKeyboard.add(ProblemsPayButton, CashBoxProblemsButton)
+OtherFRButton = InlineKeyboardButton(text='Другое', callback_data='OtherFR')
+FRButtonKeyboard.add(ProblemsPayButton, CashBoxProblemsButton, OtherFRButton)
 
 ProblemsPayKeyboard = InlineKeyboardMarkup(row_width=1)
 NoConnectionWDeviceButton = InlineKeyboardButton(text='Нет связи с устройством', callback_data='NoConnectionWDevice')
@@ -79,6 +80,11 @@ NoConnectionToOFDButton = InlineKeyboardButton(text='После оплаты н�
 ErrorChequeButton = InlineKeyboardButton(text='После оплаты на кассе всплывает уведомление ,, При печати фискального чека произошла ошибка (-3807) ,,', callback_data='ErrorCheque')
 CashBoxProblemsKeyboard.add(FailedToSetNameButton, NoConnectionToOFDButton, ErrorChequeButton)
 
+OtherFRKeyboard = InlineKeyboardMarkup(row_width=1)
+JammedCarvingKnifeButton = InlineKeyboardButton(text='Заклинил нож авторезчика', callback_data='JammedCarvingKnife')
+JammedCarvingKnifeSecondButton = InlineKeyboardButton(text='Заклинил нож авторезчика', callback_data='JammedCarvingKnifeSecond')
+DisableAutoCutterButton = InlineKeyboardButton(text='Отключить авторезчик', callback_data='DisableAutoCutter')
+OtherFRKeyboard.add(JammedCarvingKnifeButton, JammedCarvingKnifeSecondButton, DisableAutoCutterButton)
 #Безнал оплата
 
 CashlessPaymentKeyboard = InlineKeyboardMarkup(row_width=1)
@@ -117,17 +123,21 @@ ProblemsPaymentForTheOrderKeyboard.add(PaymentTypeBankCardDoesNotWorkButton, Ban
 #Кнопки по интернету
 
 InternetKeyboard = InlineKeyboardMarkup(row_width=1)
-InternetOnCashboxButton = InlineKeyboardButton(text='Интернет на кассе', callback_data=InternetOnCashbox)
-WIFIButton = InlineKeyboardButton(text='Wi-Fi', callback_data=WIFI)
-OtherInternetButton=InlineKeyboardButton(text='Другое', callback_data=OtherInternet)
+InternetOnCashboxButton = InlineKeyboardButton(text='Интернет на кассе', callback_data='InternetOnCashbox')
+WIFIButton = InlineKeyboardButton(text='Wi-Fi', callback_data='WIFI')
+OtherInternetButton=InlineKeyboardButton(text='Другое', callback_data='OtherInternet')
 InternetKeyboard.add(InternetOnCashboxButton, WIFIButton, OtherInternetButton)
 
 InternetOnCashboxKeyboard = InlineKeyboardMarkup(row_width=1)
-NoConnectionsAvailableButton = InlineKeyboardButton(text='Нет доступных подключений', callback_data=NoConnectionsAvailable)
-WithoutInternetAccessButton = InlineKeyboardButton(text='Без доступа к Интернету', callback_data=WithoutInternetAccess)
+NoConnectionsAvailableButton = InlineKeyboardButton(text='Нет доступных подключений', callback_data='NoConnectionsAvailable')
+WithoutInternetAccessButton = InlineKeyboardButton(text='Без доступа к Интернету', callback_data='WithoutInternetAccess')
 InternetOnCashboxKeyboard.add(NoConnectionsAvailableButton, WithoutInternetAccessButton)
 
-
+OtherInternetKeyboard = InlineKeyboardMarkup(row_width=1)
+YellowTriangleButton = InlineKeyboardButton(text='Желтый треугольник', callback_data='YellowTriangle')
+RedCrossButton = InlineKeyboardButton(text='Красный крестик, сетевой кабель не подключен', callback_data='RedCross')
+InternetConnectionStatusButton = InlineKeyboardButton(text='Статус интернет соединения', callback_data='InternetConnectionStatus')
+OtherInternetKeyboard.add(YellowTriangleButton, RedCrossButton, InternetConnectionStatusButton)
 
 
 #Кнопки: "По доставке"
@@ -381,6 +391,21 @@ async def ProblemsPay(callsPP: types.CallbackQuery):
 async def CashBoxProblems(callsCBP: types.CallbackQuery):
         await callsCBP.message.answer(text='Проблемы с кассой', reply_markup=CashBoxProblemsKeyboard)
 
+@dp.callback_query_handler(text='OtherFR')
+async def OtherFR(callOFR: types.CallbackQuery):
+        await callOFR.message.answer(text='Какая проблема:', reply_markup=OtherFRKeyboard)
+
+@dp.callback_query_handler(text='JammedCarvingKnife')
+async def JammedCarvingKnife(callJCK: types.CallbackQuery):
+        await callJCK.message.answer(text='Заклинил нож авторезчика[.](https://downloader.disk.yandex.ru/preview/35b1eb5205679498ff3b17a4045e10993adcfed08570a8d40be20ac275912e17/62acf0ad/ESxb9eO2_yOmY-D99Xdd3HKLjK3Tbuf5Fe8yWan6E55P8ljA1o_gTN5cwHdckOW_la0JuxGYXGpXwJ1Gjlqm4g%3D%3D?uid=0&filename=%D0%97%D0%B0%D0%BA%D0%BB%D0%B8%D0%BD%D0%B8%D0%BB%20%D0%BD%D0%BE%D0%B6%20%D0%B0%D0%B2%D1%82%D0%BE%D0%BE%D1%82%D1%80%D0%B5%D0%B7%D1%87%D0%B8%D0%BA%D0%B0.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
+
+@dp.callback_query_handler(text='JammedCarvingKnifeSecond')
+async def JammedCarvingKnifeSecond(callJCKS: types.CallbackQuery):
+        await callJCKS.message.answer(text='Заклинил нож авторезчика 2[.](https://downloader.disk.yandex.ru/preview/27cd4ed31021d6ec6f78f285da16416084e24759caa08f5c2006122be00632a3/62acf0d7/h6mfhyaWonI9UKVtlgtmTHKLjK3Tbuf5Fe8yWan6E56mzpxop76MmjFidzZxWDuWwK7184_0ojAfzYPGu2ckvw%3D%3D?uid=0&filename=%D0%97%D0%B0%D0%BA%D0%BB%D0%B8%D0%BD%D0%B8%D0%BB%20%D0%BD%D0%BE%D0%B6%20%D0%B0%D0%B2%D1%82%D0%BE%D0%BE%D1%82%D1%80%D0%B5%D0%B7%D1%87%D0%B8%D0%BA%D0%B0%202.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
+
+@dp.callback_query_handler(text='DisableAutoCutter')
+async def DisableAutoCutter(callDAC: types.CallbackQuery):
+        await callDAC.message.answer(text='Отключить авторезчик[.](https://downloader.disk.yandex.ru/preview/519e9afcff0eec82b397610517f74d87952c45fe39dc33ca020ae345f44a415d/62acf0f0/q4tF9qL4jasrDr9GpYO620Nr5e5Udatibtj0bReQGm6EYDJgGEQeRyUpeQa3gdxcsVgPMTKA-j4bjIs8NBhKlA%3D%3D?uid=0&filename=%D0%9E%D1%82%D0%BA%D0%BB%D1%8E%D1%87%D0%B8%D1%82%D1%8C%20%D0%B0%D0%B2%D1%82%D0%BE%D0%BE%D1%82%D1%80%D0%B5%D0%B7%D1%87%D0%B8%D0%BA.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
 
 #Блок проблем при попытке оплатить заказ
 @dp.callback_query_handler(text='NoConnectionWDevice')
@@ -444,6 +469,54 @@ async def ErrorCheque(callEC: types.CallbackQuery):
                                            'Далее закройте крышку и повторите оплату заказа.', reply_markup=callTechSuppKeyboard)
 
 
+#Блок Интернет
+@dp.callback_query_handler(text='Internet')
+async def Internet(callInternet: types.CallbackQuery):
+        await callInternet.message.answer(text='Проблемы с интернетом',reply_markup=InternetKeyboard)
+        logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+@dp.callback_query_handler(text='WIFI')
+async def WIFI(callWIFI: types.CallbackQuery):
+        await callWIFI.message.answer(text='Ваш Wi-Fi должен называться Sushi-market или Lavash, пароль s240203S. \n'
+                                           'Если нет сети или не подходит пароль, то необходимо обратиться в техническую поддержку по номеру +7 965 979 0000',reply_markup=callTechSuppKeyboard)
+        logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+@dp.callback_query_handler(text='OtherInternet')
+async def OtherInternet(callOtherInternet: types.CallbackQuery):
+        await callOtherInternet.message.answer(text='Проблемы с интернетом',reply_markup=OtherInternetKeyboard)
+        logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+@dp.callback_query_handler(text='InternetOnCashbox')
+async def InternetOnCashbox(callIOC: types.CallbackQuery):
+        await callIOC.message.answer(text='Какая ошибка',reply_markup=InternetOnCashboxKeyboard)
+        logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+@dp.callback_query_handler(text='YellowTriangle')
+async def YellowTriangle(callYT: types.CallbackQuery):
+        await callYT.message.answer(text='[Желтый треугольник](https://downloader.disk.yandex.ru/preview/b22c342aea620ad46c15a88304f7fc573304fe4a9f812c03140655b1b39f8ba7/62ace058/JbFVi7i4XV4Zv0YKduCAPHKLjK3Tbuf5Fe8yWan6E57jkAiD7sPJ4VuuC4Vf4Gkde1m3CqwFVek9eujpawprow%3D%3D?uid=0&filename=%D0%96%D0%B5%D0%BB%D1%82%D1%8B%D0%B9%20%D1%82%D1%80%D0%B5%D1%83%D0%B3%D0%BE%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
+        logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+@dp.callback_query_handler(text='RedCross')
+async def RedCross(callRCB: types.CallbackQuery):
+        await callRCB.message.answer(text='[Красный крестик, сетевой кабель не подключен](https://downloader.disk.yandex.ru/preview/dfbc00062b3145d2c11608c5ac2f1b108ce965b9cde813d93446b7de2e942c04/62ace1be/mgkU1n_8Vi1MNKsOdDT0yENr5e5Udatibtj0bReQGm7-X43trLRD5dGdUTvthkmKszd-NAm4833rZ-b705eMfA%3D%3D?uid=0&filename=%D0%9A%D1%80%D0%B0%D1%81%D0%BD%D1%8B%D0%B9_%D0%BA%D1%80%D0%B5%D1%81%D1%82%D0%B8%D0%BA%2C_%D1%81%D0%B5%D1%82%D0%B5%D0%B2%D0%BE%D0%B9_%D0%BA%D0%B0%D0%B1%D0%B5%D0%BB%D1%8C_%D0%BD%D0%B5_%D0%BF%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
+        logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+@dp.callback_query_handler(text='InternetConnectionStatus')
+async def InternetConnectionStatus(callICS: types.CallbackQuery):
+        await callICS.message.answer(text='[Статус интернет соединения](https://downloader.disk.yandex.ru/preview/19f84a8b95831e5a9bc6033ddda9b32660bfb42911f7434d0c9b9c50a7dd6aaf/62ace2fe/jDBaigMQTnHYwbC4tRxrLENr5e5Udatibtj0bReQGm49GqOKFJtoE-pzYM66y6rsmbiQFBZcJBeKMLYkdd6KQA%3D%3D?uid=0&filename=%D0%A1%D1%82%D0%B0%D1%82%D1%83%D1%81%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%BD%D0%B5%D1%82%20%D1%81%D0%BE%D0%B5%D0%B4%D0%B8%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
+        logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+@dp.callback_query_handler(text='NoConnectionsAvailable')
+async def NoConnectionsAvailable(callNCA: types.CallbackQuery):
+        await callNCA.message.answer(text='Если видите сообщение о том, что нет доступных подключений или сетевой кабель не подключен, значит надо проверить включен ли роутер, горит ли на нем индикация.\n'
+                                          'После этого проверьте, что к компьютеру сзади подключен интернет-кабель как на картинке. Если все подключено, то необходимо обра-титься в техническую поддержку по номеру +7 965 979 0000[.](https://downloader.disk.yandex.ru/preview/56cb8b9224a7f95a97ad6adb0dcdb851225cf5427e9e5cacaa7fb96bb9d7e1f3/62ace72d/UrmWVy8I0OwS-E89lFYgvivzHcdL1yT8PRYuhcftfausgWFinoW3kJacFMAsWEFD6OAcsESJGUwPMJ9LBbLLtw%3D%3D?uid=0&filename=%D0%BD%D0%B5%D1%82%20%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%BD%D1%8B%D1%85%20%D0%BF%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B9.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)', parse_mode='Markdown',  reply_markup=callTechSuppKeyboard)
+        logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+@dp.callback_query_handler(text='WithoutInternetAccess')
+async def WithoutInternetAccess(callWIA: types.CallbackQuery):
+        await callWIA.message.answer(text='Если вы видите желтый треугольник и сообщение «Без доступа к Ин-тернету», то необходимо презагрузить роутер.\n'
+                                          ' Отключить его из розетки, по-дождать минуту и подключить обратно. Подождите 5 минут, если не зарабо-тал, то необходимо обратиться к провайдеру, который предоставляет интернет. ',reply_markup=callTechSuppKeyboard)
+        logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
 
 
 #Блок проблем с безналом
