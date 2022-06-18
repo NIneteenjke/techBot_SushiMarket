@@ -177,6 +177,33 @@ widgetsButton=InlineKeyboardButton(text='Виджеты', callback_data='widgets
 QRCodeButton=InlineKeyboardButton(text='QR-код', callback_data='QRCode')
 toolsAndPromotionKeyboard.add(websiteBannersButton, socialMediaBannersButton, widgetsButton, QRCodeButton)
 
+#Блок проблем в офисе
+
+ProblemsInTheOfficeKeyboard=InlineKeyboardMarkup(row_width=1)
+RemoteNotWorkingButton=InlineKeyboardButton(text='Не работает удаленка', callback_data='RemoteNotWorking')
+MailProblemButton=InlineKeyboardButton(text='Проблема с почтой', callback_data='MailProblem')
+NoAccessToRMSButton=InlineKeyboardButton(text='Нет доступа к РМС', callback_data='NoAccessToRMS')
+ChainProblemButton=InlineKeyboardButton(text='Проблема с чейном', callback_data='ChainProblem')
+ThePrinterIsNotWorkingButton=InlineKeyboardButton(text='Принтер не работает или есть ошибка в работе принтера', callback_data='ThePrinterIsNotWorking')
+TheScannerDoesNotWorkButton=InlineKeyboardButton(text='Сканер не работает или есть ошибка в работе принтера', callback_data='TheScannerDoesNotWork')
+ProblemsInTheOfficeKeyboard.add(RemoteNotWorkingButton, MailProblemButton, NoAccessToRMSButton,  ChainProblemButton, ThePrinterIsNotWorkingButton, TheScannerDoesNotWorkButton)
+
+NoAccessToRMSKeyboard = InlineKeyboardMarkup(row_width=1)
+LicenseRestrictionButton=InlineKeyboardButton(text='Лиценционное ограничение: невозможно получить подключение', callback_data='LicenseRestriction')
+NoAccessToTheServerButton=InlineKeyboardButton(text='Адрес сервера горит серым и ошибка "нет доступа к серверу"', callback_data='NoAccessToTheServer')
+NoAccessToRMSKeyboard.add(LicenseRestrictionButton, NoAccessToTheServerButton)
+
+ChainProblemKeyboard = InlineKeyboardMarkup(row_width=1)
+NoAccessToTheServerChainButton=InlineKeyboardButton(text='Адрес сервера горит серым и ошибка "нет доступа к серверу"', callback_data='NoAccessToTheServerChain')
+ServerIsNotAnIIKO_RMSButton=InlineKeyboardButton(text='Адрес сервера горит желтым и ошибка "указаный сервер не является сервером IIKO_RMS"', callback_data='ServerIsNotAnIIKO_RMS')
+ChainProblemKeyboard.add(NoAccessToTheServerChainButton, ServerIsNotAnIIKO_RMSButton)
+
+ThePrinterIsNotWorkingKeyboard = InlineKeyboardMarkup(row_width=1)
+TheRedLightIsOnButton=InlineKeyboardButton(text='Горит красная лампочка', callback_data='TheRedLightIsOn')
+CartridgeReplacementButton= InlineKeyboardButton(text='Замена картриджа', callback_data='CartridgeReplacement')
+PaperJamButton=InlineKeyboardButton(text='Замятие бумаги', callback_data='PaperJam')
+DoesntPickUpPaperButton=InlineKeyboardButton(text='Не захватывает бумагу', callback_data='DoesntPickUpPaper')
+ThePrinterIsNotWorkingKeyboard.add(TheRedLightIsOnButton, CartridgeReplacementButton, PaperJamButton, DoesntPickUpPaperButton)
 
 
 callTechSuppKeyboard=InlineKeyboardMarkup(row_width=1)
@@ -663,7 +690,88 @@ async def TheRequiredPaymentType(callTRPT: types.CallbackQuery):
     await callTRPT.message.answer(text='Связаться с техподдержкой', reply_markup=callTechSuppKeyboard)
     logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
 
+#Блок проблемы в офисе
 
+@dp.callback_query_handler(text='ProblemsInTheOffice')
+async def ProblemsInTheOffice(callPITO: types.CallbackQuery):
+        await callPITO.message.answer(text='Какая у вас проблема', reply_markup=ProblemsInTheOfficeKeyboard)
+        logger.debug('Пользователь нажал кнопку "Еще"')
+
+@dp.callback_query_handler(text='RemoteNotWorking')
+async def RemoteNotWorking(callRNW: types.CallbackQuery):
+    await callRNW.message.answer(text='Нажмите сочетание клавиш ctrl+alt+end. Далее нажмите "выйти"\n'
+                                       'Если не помогло (кнопка, по которой переход на структуру ниже)\n'
+                                       '1) Требуется открыть Сайт https://rds.itfood.ru\n'
+                                       '2) Ввести свой логин (Фамилия@rds.itfood.ru) и пароль \n'
+                                       'Если пускает на сайт, скачать ярлык удаленки и авторизоваться через него \n'
+                                       'Если не пускает через новый ярлык обратиться в техническую поддержку\n'
+                                       'Если не пускает на сайт обратиться в техническую поддержку', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+
+@dp.callback_query_handler(text='MailProblem')
+async def MailProblem(callMP: types.CallbackQuery):
+        await callMP.message.answer(text='Необходимо связаться с техподдержкой', reply_markup=callTechSuppKeyboard)
+        logger.debug('Пользователь нажал кнопку "Еще"')
+
+@dp.callback_query_handler(text='NoAccessToRMS')
+async def NoAccessToRMS(callNATRMS: types.CallbackQuery):
+        await callNATRMS.message.answer(text='Какая проблема', reply_markup=NoAccessToRMSKeyboard)
+        logger.debug('Пользователь нажал кнопку "Еще"')
+
+@dp.callback_query_handler(text='LicenseRestriction')
+async def LicenseRestriction(callLR: types.CallbackQuery):
+        await callLR.message.answer(text='Необходимо связаться с техподдержкой', reply_markup=callTechSuppKeyboard)
+        logger.debug('Пользователь нажал кнопку "Еще"')
+
+@dp.callback_query_handler(text='NoAccessToTheServer')
+async def NoAccessToTheServer(callNATHS: types.CallbackQuery):
+        await callNATHS.message.answer(text='Проверьте, что все данные введены верно и выбран нужный РМС. ', reply_markup=callTechSuppKeyboard)
+        logger.debug('Пользователь нажал кнопку "Еще"')
+
+@dp.callback_query_handler(text='ChainProblem')
+async def ChainProblem(callCP: types.CallbackQuery):
+        await callCP.message.answer(text='Проблема работы с чейном[.](https://downloader.disk.yandex.ru/preview/e09460847d377af5608a91f0afe6b05f80350d7652402db5aac561c5e840a8dd/62ada0ab/GZ6ue5U6azFiZG2A22dLBK5bqM_xoyxzFLuVJEgQ4VmApg5Hbhyvz0UmC9rbUtcsW9cKY9sxub0Ybi3QkTQRXQ%3D%3D?uid=0&filename=%D0%9F%D1%80%D0%BE%D0%B1%D0%BB%D0%B5%D0%BC%D1%8B%20%D1%81%20%D1%87%D0%B5%D0%B9%D0%BD%D0%BE%D0%BC.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=ChainProblemKeyboard)
+        logger.debug('Пользователь нажал кнопку "Еще"')
+
+@dp.callback_query_handler(text='NoAccessToTheServerChain')
+async def NoAccessToTheServerChain(callNATTSC: types.CallbackQuery):
+        await callNATTSC.message.answer(text='Проверьте, что все данные введены верно и выбран нужный чейн. ', reply_markup=callTechSuppKeyboard)
+        logger.debug('Пользователь нажал кнопку "Еще"')
+
+@dp.callback_query_handler(text='ServerIsNotAnIIKO_RMS')
+async def ServerIsNotAnIIKO_RMS(callSINAIIKO: types.CallbackQuery):
+        await callSINAIIKO.message.answer(text='Вы зашли не в ту программу, откройте Iiko Chain Operations', reply_markup=callTechSuppKeyboard)
+        logger.debug('Пользователь нажал кнопку "Еще"')
+
+@dp.callback_query_handler(text='ThePrinterIsNotWorking')
+async def ThePrinterIsNotWorking(callTPINW: types.CallbackQuery):
+        await callTPINW.message.answer(text='Какая ошибка:', reply_markup=ThePrinterIsNotWorkingKeyboard)
+        logger.debug('Пользователь нажал кнопку "Еще"')
+
+@dp.callback_query_handler(text='TheRedLightIsOn')
+async def TheRedLightIsOn(callTRLIO: types.CallbackQuery):
+        await callTRLIO.message.answer(text='Горит красная лампочка[.](https://downloader.disk.yandex.ru/preview/6ee9f33c09b2b7c725515ee8a634119653526779f78499bd2544ee4402607f83/62ada3bd/x2x0eXjAEGU5P7NTgB8JCHKLjK3Tbuf5Fe8yWan6E571q0ksErggXOItoggv-AdgDN4y4TzPIcL8FxPe-ysDHw%3D%3D?uid=0&filename=%D0%93%D0%BE%D1%80%D0%B8%D1%82%20%D0%BA%D1%80%D0%B0%D1%81%D0%BD%D0%B0%D1%8F%20%D0%BB%D0%B0%D0%BC%D0%BF%D0%BE%D1%87%D0%BA%D0%B0.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
+        logger.debug('Пользователь нажал кнопку "Еще"')
+
+@dp.callback_query_handler(text='CartridgeReplacement')
+async def CartridgeReplacement(callCR: types.CallbackQuery):
+        await callCR.message.answer(text='Замена картриджа[.](https://downloader.disk.yandex.ru/preview/1ec07ce4453834768deac1a6ae919c2f7e6ea222d891fde3052dba40e85ba939/62ada4a0/rUMg5EvJQG9BkU51jTsu7Qg1Z-aWW0T3iycPDE0GAbD3g6-DwDpgyOtFX2DNOI_RbxpnhvFuVdzJBFGVR7NIGQ%3D%3D?uid=0&filename=%D0%97%D0%B0%D0%BC%D0%B5%D0%BD%D0%B0%20%D0%BA%D0%B0%D1%80%D1%82%D1%80%D0%B8%D0%B4%D0%B6%D0%B0.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
+        logger.debug('Пользователь нажал кнопку "Еще"')
+
+@dp.callback_query_handler(text='PaperJam')
+async def PaperJam(callPJ: types.CallbackQuery):
+        await callPJ.message.answer(text='Замятие бумаги[.](https://downloader.disk.yandex.ru/preview/8c34b0686a22c409d1af56f87d857b488fdb6a3ba06fdaf403747359f9bcc1eb/62ada51d/F7CcQnnbpI0znnFPCRe2oENr5e5Udatibtj0bReQGm7hC6cogl5SUTO09Fqzv1hgtjkvOVSsyfpbfWlgf6lfaw%3D%3D?uid=0&filename=%D0%97%D0%B0%D0%BC%D1%8F%D1%82%D0%B8%D0%B5%20%D0%B1%D1%83%D0%BC%D0%B0%D0%B3%D0%B8.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
+        logger.debug('Пользователь нажал кнопку "Еще"')
+
+@dp.callback_query_handler(text='DoesntPickUpPaper')
+async def DoesntPickUpPaper(callDPUP: types.CallbackQuery):
+        await callDPUP.message.answer(text='Не захватывает бумагу[.](https://downloader.disk.yandex.ru/preview/2200bdca4aff74a993f319909df609cc88e50cc645b8fcbd8f9e1c15fd90400d/62ada5b6/GebBYtHOvmeosMGf8FO0KENr5e5Udatibtj0bReQGm7HeBd2IcR7xPOWIBmfeP3IQ4KRPfGogVH5MbFleOAdOA%3D%3D?uid=0&filename=%D0%9D%D0%B5%20%D0%B7%D0%B0%D1%85%D0%B2%D0%B0%D1%82%D1%8B%D0%B2%D0%B0%D0%B5%D1%82%20%D0%B1%D1%83%D0%BC%D0%B0%D0%B3%D1%83.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
+        logger.debug('Пользователь нажал кнопку "Еще"')
+
+@dp.callback_query_handler(text='TheScannerDoesNotWork')
+async def TheScannerDoesNotWork(callTSDNW: types.CallbackQuery):
+        await callTSDNW.message.answer(text='Ошибка "Освободите блокиратор[.](https://downloader.disk.yandex.ru/preview/7988bcc0653b181632b3fb9cf1e9a2ad976ed68ecc595f29137ddeb148212320/62adac2b/Ix2bbpCmQXgOkbvzRq1iOENr5e5Udatibtj0bReQGm5G3PEtPaqaOP2SNF_0YYSZEWMm0JVOlTwoL75h8hqfxw%3D%3D?uid=0&filename=%D0%9E%D1%88%D0%B8%D0%B1%D0%BA%D0%B0%20%D0%9E%D1%81%D0%B2%D0%BE%D0%B1%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%20%D0%B1%D0%BB%D0%BE%D0%BA%D0%B8%D1%80%D0%B0%D1%82%D0%BE%D1%80.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)"',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
+        logger.debug('Пользователь нажал кнопку "Еще"')
 
 #Блок еще
 @dp.callback_query_handler(text='more')
