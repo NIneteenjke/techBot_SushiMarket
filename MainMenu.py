@@ -13,10 +13,10 @@ from aiogram.utils.markdown import hlink
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
-bot = Bot(token='5570461721:AAFy2ZLk3yKjN6Ej6XUFF60HdQqWwRGshxc')
+bot = Bot(token='')
 dp = Dispatcher(bot)
 log_format='%(asctime)s - %(filename)s: - %(message)s - %(name)s'
-logging.basicConfig(level='DEBUG', filename='metrics.log',format=log_format, datefmt='%Y-%m-%d %H:%M:%S')
+logging.basicConfig(level='DEBUG', filename='metrics.log', format=log_format, datefmt='%Y-%m-%d %H:%M:%S')
 
 logger = logging.getLogger()
 
@@ -339,7 +339,7 @@ async def ServerUnavailableMessage(callSULM: types.CallbackQuery):
 
 @dp.callback_query_handler(text='SettingUpAnElectronicQueue')
 async def SettingUpAnElectronicQueue(callSUAEQ):
-    document=open('pic\Инструкция_по_настройке_электронной_очереди_на_телевизоре.pdf', 'rb')
+    document=open('pic/Инструкция_по_настройке_электронной_очереди_на_телевизоре.pdf', 'rb')
     await callSUAEQ.message.answer_document(document)
 
 
@@ -356,184 +356,98 @@ async def InternetConnectionNotWorkingOnTV(callICNWOT: types.CallbackQuery):
 
 @dp.callback_query_handler(text='CCTV')
 async def CCTV(callCCTV: types.CallbackQuery):
-        await callCCTV.message.answer(text='Для того, чтобы заявка была взята в работу, необходимо поставить задачу в битрикс на Старцева Андрея https://sushimarke.bitrix24.ru/', parse_mode='Markdown', disable_web_page_preview=True, reply_markup=callTechSuppKeyboard)
-        logger.debug('Пользователь нажал кнопку "Ссылки"')
+    await callCCTV.message.answer(text='Для того, чтобы заявка была взята в работу, необходимо поставить задачу в битрикс на Старцева Андрея https://sushimarke.bitrix24.ru/', parse_mode='Markdown', disable_web_page_preview=True, reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Ссылки"')
 
-
-#Блок получения вознаграждения
-@dp.callback_query_handler(text='rewardButton')
-async def rewardButton(callRew: types.CallbackQuery):
-        await callRew.message.answer(text='Как получить вознаграждение можно узнать по коротким, но подробным видеороликам.\n'
-                                          '[Как получить вознаграждение физическим лицам](https://support.kontur.ru/pages/viewpage.action?pageId=83871245#id-%D0%9F%D0%BE%D0%BB%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5%D0%B2%D0%BE%D0%B7%D0%BD%D0%B0%D0%B3%D1%80%D0%B0%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F-%D0%92%D0%B8%D0%B4%D0%B5%D0%BE%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F%C2%AB%D0%9A%D0%B0%D0%BA%D0%BF%D0%BE%D0%BB%D1%83%D1%87%D0%B8%D1%82%D1%8C%D0%B2%D0%BE%D0%B7%D0%BD%D0%B0%D0%B3%D1%80%D0%B0%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%D1%84%D0%B8%D0%B7%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%BC%D0%BB%D0%B8%D1%86%D0%B0%D0%BC%C2%BB)\n'
-                                          '[Как получить вознаграждение юридическим лицам/ИП](https://support.kontur.ru/pages/viewpage.action?pageId=83871245#id-%D0%9F%D0%BE%D0%BB%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5%D0%B2%D0%BE%D0%B7%D0%BD%D0%B0%D0%B3%D1%80%D0%B0%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D1%8F-%D0%92%D0%B8%D0%B4%D0%B5%D0%BE%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%86%D0%B8%D1%8F%C2%AB%D0%9A%D0%B0%D0%BA%D0%BF%D0%BE%D0%BB%D1%83%D1%87%D0%B8%D1%82%D1%8C%D0%B2%D0%BE%D0%B7%D0%BD%D0%B0%D0%B3%D1%80%D0%B0%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%D1%8E%D1%80%D0%B8%D0%B4%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%BC%D0%BB%D0%B8%D1%86%D0%B0%D0%BC%C2%BB)\n'
-                                          'Для получения вознаграждения понадобится КЭП.\n'
-                                          '🔸КЭП для юрлиц или ИП\n'
-                                          'Партнеры-юрлица или ИП, у которых нет электронной подписи, должны выпустить ее самостоятельно.\n'
-                                          '🔸КЭП для физлиц\n'
-                                          'Партнеры-физлица, у которых нет электронной подписи, могут получить ее бесплатно.',parse_mode='Markdown', disable_web_page_preview=True, reply_markup = rewardKeyboard)
-        logger.debug('Пользователь нажал кнопку "Получаение вознаграждения"')
-
-@dp.callback_query_handler(text='termsAccrual')
-async def termsAccrual(callAccural: types.CallbackQuery):
-        await callAccural.message.answer(text='Вознаграждение начисляется только за новых клиентов по продукту. Продления не входят в реферальную программу.\n'
-                                              'Вознаграждение начисляется за все новые сервисы, которые купит клиент по вашей заявке в течение 60 дней.\n'
-                                              'Вознаграждение начисляется ежемесячно, в рублях, после достижения минимальной суммы реализации по всем продуктам.\n'
-                                              'С размерами агентского вознаграждения по каждому продукту можно ознакомиться в [таблице](https://kontur.ru/partnership/online/rules#7).',parse_mode='Markdown', disable_web_page_preview=True,reply_markup=whenComesKeyboard)
-        logger.debug('Пользователь нажал кнопку "Условия начисления"')
-
-@dp.callback_query_handler(text='whenComes')
-async def whenComes(callwC: types.CallbackQuery):
-        await callwC.message.answer(text='Вознаграждение поступает в виде отчета на вкладку [«Вознаграждение»](https://kontur.ru/account/partnership/prize) к 15 числу месяца за предыдущий период.\n'
-                                         'Если оплата по заявке была в декабре, то вознаграждение придёт 15 января, если оплата была в январе, то 15 февраля.',parse_mode='Markdown', disable_web_page_preview=True, reply_markup=backToMainMenuKeyboard)
-        logger.debug('Пользователь нажал кнопку "Когда приходит"')
-
-@dp.callback_query_handler(text='notTakeApplication')
-async def notTakeApplicaton(callnTA: types.CallbackQuery):
-        await callnTA.message.answer(text='Если вы не нашли заявку в итоговом отчете, сначала необходимо проверить, что:\n'
-                                          '🔸Счет был полностью оплачен.\n'
-                                          '🔸Оплата счета прошла в прошлом отчетном месяце.\n'
-                                          'Если все верно, напишите об ошибке на part@skbkontur.ru с указанием кода партнера и данными по заявке.',parse_mode='Markdown', disable_web_page_preview=True, reply_markup=backToMainMenuKeyboard)
-        logger.debug('Пользователь нажал кнопку "Не учли заявку"')
-
-@dp.callback_query_handler(text='sendReportOnDiadok')
-async def sendReportOnDiadok(callsRoD: types.CallbackQuery):
-        await callsRoD.message.answer(text='Чтобы отправить отчет о вознаграждении в СКБ Контур и получить вознаграждение, необходимо отправить отчёт в Диадок.\n'
-                                           '[Как отправить отчёт](https://support.kontur.ru/pages/viewpage.action?pageId=83871219)\n'
-                                           'Если у вас несколько отчетов, то отправьте их каждый по отдельности.\n'
-                                           'После проверки отчета вознаграждение будет перечислено в течение 5 рабочих дней.\n'
-                                           'У физлиц из итоговой суммы вознаграждения удерживается 13% НДФЛ.', parse_mode='Markdown', disable_web_page_preview=True,reply_markup=sendReportOnDiadokKeyboard)
-        logger.debug('Пользователь нажал кнопку "Отправить отчет в диадок"')
-
-@dp.callback_query_handler(text='freeKAP')
-async def freeKAP(callfKAP: types.CallbackQuery):
-        await callfKAP.message.answer(text='Чтобы выпустить электронную подпись для получения вознаграждения для физлица, отправьте, пожалуйста, на почту part@skbkontur.ru актуальную информацию: \n'
-                                           '🔸ФИО\n'
-                                           '🔸Регион, город/населенный пункт по месту где можете удостоверить личность\n'
-                                           '🔸Телефон\n'
-                                           '🔸Адрес электронной почты\n'
-                                           '🔸ИНН\n'
-                                           '🔸Код партнёра.\n'
-                                           'После получения подписи вы сможете отправить отчёт в Диадок для получения вознаграждения.',reply_markup=backToMainMenuKeyboard)
-        logger.debug('Пользователь нажал кнопку "Бесплатная КЭП для физлиц"')
-
-@dp.callback_query_handler(text='notAcceptReport')
-async def notAcceptReport(callnAR: types.CallbackQuery):
-        await callnAR.message.answer(text='Если отчет по вознаграждению был отклонен с комментарием: «Вы выслали документы в «Головное подразделение» СКБ Контур — это значит, что вы отправили отчет на неверное подразделение. Документы на получение агентского вознаграждения необходимо отправлять в подразделение «Отчетность партнеров все регионы». Отправьте отчет заново, выбрав верное подразделение.', reply_markup=backToMainMenuKeyboard)
-        logger.debug('Пользователь нажал кнопку "Не приняли отчет"')
-
-@dp.callback_query_handler(text='moneyNotCome')
-async def moneyNotCome(callmNC: types.CallbackQuery):
-        await callmNC.message.answer(text='Если прошло больше 8 дней после отправки отчета о вознаграждении в Диадок, а деньги не поступили на ваш расчетный счет, проверьте:\n'
-                                          '🔸Отчет должен быть отправлен на подразделение ЗАО «ПФ «СКБ Контур», ИНН: 6663003127, подразделение «Отчетность партнеров, все регионы».\n'
-                                          '🔸Отчет должен быть подписан сертификатом физлица, если вы участвуете в программе как физическое лицо или сертификатом юрлица, если вы участвуете в программе как юридическое лицо.\n'
-                                          'Если все верно, напишите о проблеме на part@skbkontur.ru с указанием кода партнера.', reply_markup=backToMainMenuKeyboard)
-        logger.debug('Пользователь нажал кнопку "Не пришли деньги"')
-
-@dp.callback_query_handler(text='getRewardedWODiadok')
-async def getRewardedWODiadok(callgRWOD: types.CallbackQuery):
-        await callgRWOD.message.answer(text='Получить вознаграждение без электронной подписи могут только физические лица. При этом ставка вознаграждения будет снижена на 40% из-за того, что мы не получаем от партнера подписанных отчетных документов.\n'
-                                            'Чтобы вывести вознаграждение по ускоренному способу, при формировании отчета на последнем этапе выберите «Ускоренный способ». Ожидайте денежный перевод в течение 5-ти рабочих дней.', reply_markup=backToMainMenuKeyboard)
-        logger.debug('Пользователь нажал кнопку "Получить вознаграждения без Диадок"')
-
-@dp.callback_query_handler(text='partnersOSNO')
-async def partnersOSNO(callpOSNO: types.CallbackQuery):
-        await callpOSNO.message.answer(text='Юрлица или ИП, имеющие режим налогообложения ОСНО, обязаны отчитываться по НДС, поэтому при выставлении счета и акта Контуру за оказанные услуги, им также необходимо предоставить счет-фактуру (далее — с/ф). Счет, акт и отчет формируются автоматически в кабинете партнера при начислении вознаграждения, а с/ф необходимо подготовить самостоятельно.\n'
-                                            'Какие требования к счету-фактуре:\n'
-                                            '🔸С/ф должна быть сформирована в xml формате в соответствии с приказом 820.\n'
-                                            '🔸С/ф формируется в своей бухгалтерской программе или, если программа не позволяет сформировать с/ф в xml формате, можно создать ее вручную в Диадоке: в меню Документы в списке «Создать в редакторе» выберите «Счет-фактура». Откроется страница создания счета-фактуры. Заполните поля. Подробнее в статье Создание счета-фактуры.\n'
-                                            '🔸В с/ф «Наименование товара» в колонке (1а) укажите в соответствии с наименованием в акте в сформированном в кабинете партнера отчете по вознаграждению.\n'
-                                            '🔸Дата с/ф должна совпадать с датой акта в сформированном в кабинете партнера отчете по вознаграждению.\n'
-                                            '🔸С/ф необходимо отправлять в Диадок в одном пакете с отчетом по вознаграждению (счет, акт и таблица отчета), сформированном в кабинете партнера.\n', reply_markup=backToMainMenuKeyboard)
-        logger.debug('Пользователь нажал кнопку "Партнерам ОСНО"')
 
 #Блок Фискальный Регистратор
 @dp.callback_query_handler(text='FRButton')
 async def FRButton(callsFRButton: types.CallbackQuery):
-        await callsFRButton.message.answer(text='Проблемы с фискальным регистратором', reply_markup=FRButtonKeyboard)
+    await callsFRButton.message.answer(text='Проблемы с фискальным регистратором', reply_markup=FRButtonKeyboard)
 
 
 @dp.callback_query_handler(text='ProblemsPay')
 async def ProblemsPay(callsPP: types.CallbackQuery):
-        await callsPP.message.answer(text='Проблемы при попытке оплатить заказ', reply_markup=ProblemsPayKeyboard)
+    await callsPP.message.answer(text='Проблемы при попытке оплатить заказ', reply_markup=ProblemsPayKeyboard)
 
 @dp.callback_query_handler(text='CashBoxProblems')
 async def CashBoxProblems(callsCBP: types.CallbackQuery):
-        await callsCBP.message.answer(text='Проблемы с кассой', reply_markup=CashBoxProblemsKeyboard)
+    await callsCBP.message.answer(text='Проблемы с кассой', reply_markup=CashBoxProblemsKeyboard)
 
 @dp.callback_query_handler(text='OtherFR')
 async def OtherFR(callOFR: types.CallbackQuery):
-        await callOFR.message.answer(text='Какая проблема:', reply_markup=OtherFRKeyboard)
+    await callOFR.message.answer(text='Какая проблема:', reply_markup=OtherFRKeyboard)
 
 @dp.callback_query_handler(text='JammedCarvingKnife')
 async def JammedCarvingKnife(callJCK: types.CallbackQuery):
-        await callJCK.message.answer(text='Заклинил нож авторезчика[.](https://downloader.disk.yandex.ru/preview/35b1eb5205679498ff3b17a4045e10993adcfed08570a8d40be20ac275912e17/62acf0ad/ESxb9eO2_yOmY-D99Xdd3HKLjK3Tbuf5Fe8yWan6E55P8ljA1o_gTN5cwHdckOW_la0JuxGYXGpXwJ1Gjlqm4g%3D%3D?uid=0&filename=%D0%97%D0%B0%D0%BA%D0%BB%D0%B8%D0%BD%D0%B8%D0%BB%20%D0%BD%D0%BE%D0%B6%20%D0%B0%D0%B2%D1%82%D0%BE%D0%BE%D1%82%D1%80%D0%B5%D0%B7%D1%87%D0%B8%D0%BA%D0%B0.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
+    await callJCK.message.answer(text='Заклинил нож авторезчика[.](https://downloader.disk.yandex.ru/preview/35b1eb5205679498ff3b17a4045e10993adcfed08570a8d40be20ac275912e17/62acf0ad/ESxb9eO2_yOmY-D99Xdd3HKLjK3Tbuf5Fe8yWan6E55P8ljA1o_gTN5cwHdckOW_la0JuxGYXGpXwJ1Gjlqm4g%3D%3D?uid=0&filename=%D0%97%D0%B0%D0%BA%D0%BB%D0%B8%D0%BD%D0%B8%D0%BB%20%D0%BD%D0%BE%D0%B6%20%D0%B0%D0%B2%D1%82%D0%BE%D0%BE%D1%82%D1%80%D0%B5%D0%B7%D1%87%D0%B8%D0%BA%D0%B0.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
 
 @dp.callback_query_handler(text='JammedCarvingKnifeSecond')
 async def JammedCarvingKnifeSecond(callJCKS: types.CallbackQuery):
-        await callJCKS.message.answer(text='Заклинил нож авторезчика 2[.](https://downloader.disk.yandex.ru/preview/27cd4ed31021d6ec6f78f285da16416084e24759caa08f5c2006122be00632a3/62acf0d7/h6mfhyaWonI9UKVtlgtmTHKLjK3Tbuf5Fe8yWan6E56mzpxop76MmjFidzZxWDuWwK7184_0ojAfzYPGu2ckvw%3D%3D?uid=0&filename=%D0%97%D0%B0%D0%BA%D0%BB%D0%B8%D0%BD%D0%B8%D0%BB%20%D0%BD%D0%BE%D0%B6%20%D0%B0%D0%B2%D1%82%D0%BE%D0%BE%D1%82%D1%80%D0%B5%D0%B7%D1%87%D0%B8%D0%BA%D0%B0%202.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
+    await callJCKS.message.answer(text='Заклинил нож авторезчика 2[.](https://downloader.disk.yandex.ru/preview/27cd4ed31021d6ec6f78f285da16416084e24759caa08f5c2006122be00632a3/62acf0d7/h6mfhyaWonI9UKVtlgtmTHKLjK3Tbuf5Fe8yWan6E56mzpxop76MmjFidzZxWDuWwK7184_0ojAfzYPGu2ckvw%3D%3D?uid=0&filename=%D0%97%D0%B0%D0%BA%D0%BB%D0%B8%D0%BD%D0%B8%D0%BB%20%D0%BD%D0%BE%D0%B6%20%D0%B0%D0%B2%D1%82%D0%BE%D0%BE%D1%82%D1%80%D0%B5%D0%B7%D1%87%D0%B8%D0%BA%D0%B0%202.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
 
 @dp.callback_query_handler(text='DisableAutoCutter')
 async def DisableAutoCutter(callDAC: types.CallbackQuery):
-        await callDAC.message.answer(text='Отключить авторезчик[.](https://downloader.disk.yandex.ru/preview/519e9afcff0eec82b397610517f74d87952c45fe39dc33ca020ae345f44a415d/62acf0f0/q4tF9qL4jasrDr9GpYO620Nr5e5Udatibtj0bReQGm6EYDJgGEQeRyUpeQa3gdxcsVgPMTKA-j4bjIs8NBhKlA%3D%3D?uid=0&filename=%D0%9E%D1%82%D0%BA%D0%BB%D1%8E%D1%87%D0%B8%D1%82%D1%8C%20%D0%B0%D0%B2%D1%82%D0%BE%D0%BE%D1%82%D1%80%D0%B5%D0%B7%D1%87%D0%B8%D0%BA.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
+    await callDAC.message.answer(text='Отключить авторезчик[.](https://downloader.disk.yandex.ru/preview/519e9afcff0eec82b397610517f74d87952c45fe39dc33ca020ae345f44a415d/62acf0f0/q4tF9qL4jasrDr9GpYO620Nr5e5Udatibtj0bReQGm6EYDJgGEQeRyUpeQa3gdxcsVgPMTKA-j4bjIs8NBhKlA%3D%3D?uid=0&filename=%D0%9E%D1%82%D0%BA%D0%BB%D1%8E%D1%87%D0%B8%D1%82%D1%8C%20%D0%B0%D0%B2%D1%82%D0%BE%D0%BE%D1%82%D1%80%D0%B5%D0%B7%D1%87%D0%B8%D0%BA.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
 
 #Блок проблем при попытке оплатить заказ
 @dp.callback_query_handler(text='NoConnectionWDevice')
 async def NoConnectionWDevice(callsNCWD: types.CallbackQuery):
-        await callsNCWD.message.answer(text='Проверить, включен ли фискальный регистратор, так-же проверить качество подключения проводов к нему (питание+ЮСБ провода).\n'
+    await callsNCWD.message.answer(text='Проверить, включен ли фискальный регистратор, так-же проверить качество подключения проводов к нему (питание+ЮСБ провода).\n'
                                             'Так-же проверить подключение ЮСБ провода со стороны компьютера.\n'
                                             'Если вышеперечисленные действия не помогли - обратиться в техподдержку.', reply_markup=callTechSuppKeyboard)
 
 @dp.callback_query_handler(text='FNStorage')
 async def FNStorage(callaFNStorage: types.CallbackQuery):
-        await callaFNStorage.message.answer(text='Необходимо обратиться в техническую поддержку.',reply_markup=callTechSuppKeyboard)
-        logger.debug('Пользователь нажал кнопку "После отправки заявки"')
+    await callaFNStorage.message.answer(text='Необходимо обратиться в техническую поддержку.',reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "После отправки заявки"')
 
 @dp.callback_query_handler(text='FailedSerialNumber')
 async def FailedSerialNumber(callsFSN: types.CallbackQuery):
-        await callsFSN.message.answer(text='Выключить фискальный регистратор на кнопку и включить заново.\n'
+    await callsFSN.message.answer(text='Выключить фискальный регистратор на кнопку и включить заново.\n'
                                              'Завершить процесс IIKO через диспетчер задач, запустить IIKO заново и повторить оплату.\n'
                                              'Если вышеперечисленные действия не помогли - обратиться в техподдержку.', reply_markup=callTechSuppKeyboard)
-        logger.debug('Пользователь нажал кнопку "Статусы заявок"')
+    logger.debug('Пользователь нажал кнопку "Статусы заявок"')
 
 @dp.callback_query_handler(text='CloseShift')
 async def CloseShift(callsCShift: types.CallbackQuery):
-        await callsCShift.message.answer(text='Вчера сотрудники забыли закрыть кассовую смену.\n'
+    await callsCShift.message.answer(text='Вчера сотрудники забыли закрыть кассовую смену.\n'
                                            'Закрываем кассовую смену через iiko.\n'
                                             'Текущий заказ можно удалить и пробить в актуальной смене.', reply_markup=callTechSuppKeyboard)
-        logger.debug('Пользователь нажал кнопку "Статус: Не подлежит вознаграждению"')
+    logger.debug('Пользователь нажал кнопку "Статус: Не подлежит вознаграждению"')
 
 @dp.callback_query_handler(text='FailedOperatingMode')
 async def FailedOperatingMode(callFOM: types.CallbackQuery):
-        await callFOM.message.answer(text='Вчера сотрудники забыли закрыть кассовую смену. \n'
+    await callFOM.message.answer(text='Вчера сотрудники забыли закрыть кассовую смену. \n'
                                          'Закрываем кассовую смену через iiko. Текущий заказ можно удалить и пробить в актуальной смене.', reply_markup=callTechSuppKeyboard)
 
 @dp.callback_query_handler(text='FailedToCloseCheck')
 async def FailedToCloseCheck(callFTC: types.CallbackQuery):
-        await callFTC.message.answer(text='Необходимо обратиться в техническую поддержку.', reply_markup=callTechSuppKeyboard)
+    await callFTC.message.answer(text='Необходимо обратиться в техническую поддержку.', reply_markup=callTechSuppKeyboard)
 
 @dp.callback_query_handler(text='FailedToGetPaymentMethod')
 async def FailedToGetPaymentMethod(callFTGM: types.CallbackQuery):
-        await callFTGM.message.answer(text='Необходимо обратиться в техническую поддержку.', reply_markup=callTechSuppKeyboard)
+    await callFTGM.message.answer(text='Необходимо обратиться в техническую поддержку.', reply_markup=callTechSuppKeyboard)
 
 @dp.callback_query_handler(text='NotSupportedDeviceMode')
 async def NotSupportedDeviceMode(callNSDM: types.CallbackQuery):
-        await callNSDM.message.answer(text='Необходимо выключить и включить фискальный регистратор и перезагрузить программу IIKO.\n'
+    await callNSDM.message.answer(text='Необходимо выключить и включить фискальный регистратор и перезагрузить программу IIKO.\n'
                                            'Если вышеперечисленные действия не помогли - обратиться в техподдержку.', reply_markup=callTechSuppKeyboard)
 
 #Блок проблем с кассой (после оплаты и при открытии смены)
 
 @dp.callback_query_handler(text='FailedToSetName')
 async def FailedToSetName(callFTSN: types.CallbackQuery):
-        await callFTSN.message.answer(text='Необходимо обратиться в техническую поддержку.', reply_markup=callTechSuppKeyboard)
+    await callFTSN.message.answer(text='Необходимо обратиться в техническую поддержку.', reply_markup=callTechSuppKeyboard)
 
 @dp.callback_query_handler(text='NoConnectionToOFD')
 async def NoConnectionToOFD(callNCTOFD: types.CallbackQuery):
-        await callNCTOFD.message.answer(text='Такое уведомление ВСЕГДА появляется после каждого закрытого заказа\n'
+    await callNCTOFD.message.answer(text='Такое уведомление ВСЕГДА появляется после каждого закрытого заказа\n'
                                            ' Если в данном уведомлении количество документов больше, чем ,,1,, необходимо обратиться в техническую поддержку.', reply_markup=callTechSuppKeyboard)
 
 @dp.callback_query_handler(text='ErrorCheque')
 async def ErrorCheque(callEC: types.CallbackQuery):
-        await callEC.message.answer(text='Данная ошибка говорит о том, что фискальный регистратор не видет чековую ленту, либо она отстутсвует.\n'
+    await callEC.message.answer(text='Данная ошибка говорит о том, что фискальный регистратор не видет чековую ленту, либо она отстутсвует.\n'
                                            'Если ошибка возникла при замене рулона на новый, откройте крышку фискальника и отмотайте с рулона небольшое количество ленты.\n'
                                            'Далее закройте крышку и повторите оплату заказа.', reply_markup=callTechSuppKeyboard)
 
@@ -541,68 +455,68 @@ async def ErrorCheque(callEC: types.CallbackQuery):
 #Блок Интернет
 @dp.callback_query_handler(text='Internet')
 async def Internet(callInternet: types.CallbackQuery):
-        await callInternet.message.answer(text='Проблемы с интернетом',reply_markup=InternetKeyboard)
-        logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+    await callInternet.message.answer(text='Проблемы с интернетом',reply_markup=InternetKeyboard)
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
 
 @dp.callback_query_handler(text='WIFI')
 async def WIFI(callWIFI: types.CallbackQuery):
-        await callWIFI.message.answer(text='Ваш Wi-Fi должен называться Sushi-market или Lavash, пароль s240203S. \n'
+    await callWIFI.message.answer(text='Ваш Wi-Fi должен называться Sushi-market или Lavash, пароль s240203S. \n'
                                            'Если нет сети или не подходит пароль, то необходимо обратиться в техническую поддержку по номеру +7 965 979 0000',reply_markup=callTechSuppKeyboard)
-        logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
 
 @dp.callback_query_handler(text='OtherInternet')
 async def OtherInternet(callOtherInternet: types.CallbackQuery):
-        await callOtherInternet.message.answer(text='Проблемы с интернетом',reply_markup=OtherInternetKeyboard)
-        logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+    await callOtherInternet.message.answer(text='Проблемы с интернетом',reply_markup=OtherInternetKeyboard)
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
 
 @dp.callback_query_handler(text='InternetOnCashbox')
 async def InternetOnCashbox(callIOC: types.CallbackQuery):
-        await callIOC.message.answer(text='Какая ошибка',reply_markup=InternetOnCashboxKeyboard)
-        logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+    await callIOC.message.answer(text='Какая ошибка',reply_markup=InternetOnCashboxKeyboard)
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
 
 @dp.callback_query_handler(text='YellowTriangle')
 async def YellowTriangle(callYT: types.CallbackQuery):
-        await callYT.message.answer(text='[Желтый треугольник](https://downloader.disk.yandex.ru/preview/b22c342aea620ad46c15a88304f7fc573304fe4a9f812c03140655b1b39f8ba7/62ace058/JbFVi7i4XV4Zv0YKduCAPHKLjK3Tbuf5Fe8yWan6E57jkAiD7sPJ4VuuC4Vf4Gkde1m3CqwFVek9eujpawprow%3D%3D?uid=0&filename=%D0%96%D0%B5%D0%BB%D1%82%D1%8B%D0%B9%20%D1%82%D1%80%D0%B5%D1%83%D0%B3%D0%BE%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
-        logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+    await callYT.message.answer(text='[Желтый треугольник](https://downloader.disk.yandex.ru/preview/b22c342aea620ad46c15a88304f7fc573304fe4a9f812c03140655b1b39f8ba7/62ace058/JbFVi7i4XV4Zv0YKduCAPHKLjK3Tbuf5Fe8yWan6E57jkAiD7sPJ4VuuC4Vf4Gkde1m3CqwFVek9eujpawprow%3D%3D?uid=0&filename=%D0%96%D0%B5%D0%BB%D1%82%D1%8B%D0%B9%20%D1%82%D1%80%D0%B5%D1%83%D0%B3%D0%BE%D0%BB%D1%8C%D0%BD%D0%B8%D0%BA.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
 
 @dp.callback_query_handler(text='RedCross')
 async def RedCross(callRCB: types.CallbackQuery):
-        await callRCB.message.answer(text='[Красный крестик, сетевой кабель не подключен](https://downloader.disk.yandex.ru/preview/dfbc00062b3145d2c11608c5ac2f1b108ce965b9cde813d93446b7de2e942c04/62ace1be/mgkU1n_8Vi1MNKsOdDT0yENr5e5Udatibtj0bReQGm7-X43trLRD5dGdUTvthkmKszd-NAm4833rZ-b705eMfA%3D%3D?uid=0&filename=%D0%9A%D1%80%D0%B0%D1%81%D0%BD%D1%8B%D0%B9_%D0%BA%D1%80%D0%B5%D1%81%D1%82%D0%B8%D0%BA%2C_%D1%81%D0%B5%D1%82%D0%B5%D0%B2%D0%BE%D0%B9_%D0%BA%D0%B0%D0%B1%D0%B5%D0%BB%D1%8C_%D0%BD%D0%B5_%D0%BF%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
-        logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+    await callRCB.message.answer(text='[Красный крестик, сетевой кабель не подключен](https://downloader.disk.yandex.ru/preview/dfbc00062b3145d2c11608c5ac2f1b108ce965b9cde813d93446b7de2e942c04/62ace1be/mgkU1n_8Vi1MNKsOdDT0yENr5e5Udatibtj0bReQGm7-X43trLRD5dGdUTvthkmKszd-NAm4833rZ-b705eMfA%3D%3D?uid=0&filename=%D0%9A%D1%80%D0%B0%D1%81%D0%BD%D1%8B%D0%B9_%D0%BA%D1%80%D0%B5%D1%81%D1%82%D0%B8%D0%BA%2C_%D1%81%D0%B5%D1%82%D0%B5%D0%B2%D0%BE%D0%B9_%D0%BA%D0%B0%D0%B1%D0%B5%D0%BB%D1%8C_%D0%BD%D0%B5_%D0%BF%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
 
 @dp.callback_query_handler(text='InternetConnectionStatus')
 async def InternetConnectionStatus(callICS: types.CallbackQuery):
-        await callICS.message.answer(text='[Статус интернет соединения](https://downloader.disk.yandex.ru/preview/19f84a8b95831e5a9bc6033ddda9b32660bfb42911f7434d0c9b9c50a7dd6aaf/62ace2fe/jDBaigMQTnHYwbC4tRxrLENr5e5Udatibtj0bReQGm49GqOKFJtoE-pzYM66y6rsmbiQFBZcJBeKMLYkdd6KQA%3D%3D?uid=0&filename=%D0%A1%D1%82%D0%B0%D1%82%D1%83%D1%81%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%BD%D0%B5%D1%82%20%D1%81%D0%BE%D0%B5%D0%B4%D0%B8%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
-        logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+    await callICS.message.answer(text='[Статус интернет соединения](https://downloader.disk.yandex.ru/preview/19f84a8b95831e5a9bc6033ddda9b32660bfb42911f7434d0c9b9c50a7dd6aaf/62ace2fe/jDBaigMQTnHYwbC4tRxrLENr5e5Udatibtj0bReQGm49GqOKFJtoE-pzYM66y6rsmbiQFBZcJBeKMLYkdd6KQA%3D%3D?uid=0&filename=%D0%A1%D1%82%D0%B0%D1%82%D1%83%D1%81%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%BD%D0%B5%D1%82%20%D1%81%D0%BE%D0%B5%D0%B4%D0%B8%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
 
 @dp.callback_query_handler(text='NoConnectionsAvailable')
 async def NoConnectionsAvailable(callNCA: types.CallbackQuery):
-        await callNCA.message.answer(text='Если видите сообщение о том, что нет доступных подключений или сетевой кабель не подключен, значит надо проверить включен ли роутер, горит ли на нем индикация.\n'
+    await callNCA.message.answer(text='Если видите сообщение о том, что нет доступных подключений или сетевой кабель не подключен, значит надо проверить включен ли роутер, горит ли на нем индикация.\n'
                                           'После этого проверьте, что к компьютеру сзади подключен интернет-кабель как на картинке. Если все подключено, то необходимо обра-титься в техническую поддержку по номеру +7 965 979 0000[.](https://downloader.disk.yandex.ru/preview/56cb8b9224a7f95a97ad6adb0dcdb851225cf5427e9e5cacaa7fb96bb9d7e1f3/62ace72d/UrmWVy8I0OwS-E89lFYgvivzHcdL1yT8PRYuhcftfausgWFinoW3kJacFMAsWEFD6OAcsESJGUwPMJ9LBbLLtw%3D%3D?uid=0&filename=%D0%BD%D0%B5%D1%82%20%D0%B4%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%BD%D1%8B%D1%85%20%D0%BF%D0%BE%D0%B4%D0%BA%D0%BB%D1%8E%D1%87%D0%B5%D0%BD%D0%B8%D0%B9.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)', parse_mode='Markdown',  reply_markup=callTechSuppKeyboard)
-        logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
 
 @dp.callback_query_handler(text='WithoutInternetAccess')
 async def WithoutInternetAccess(callWIA: types.CallbackQuery):
-        await callWIA.message.answer(text='Если вы видите желтый треугольник и сообщение «Без доступа к Ин-тернету», то необходимо презагрузить роутер.\n'
+    await callWIA.message.answer(text='Если вы видите желтый треугольник и сообщение «Без доступа к Ин-тернету», то необходимо презагрузить роутер.\n'
                                           ' Отключить его из розетки, по-дождать минуту и подключить обратно. Подождите 5 минут, если не зарабо-тал, то необходимо обратиться к провайдеру, который предоставляет интернет. ',reply_markup=callTechSuppKeyboard)
-        logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
 
 
 #Блок проблем с безналом
 @dp.callback_query_handler(text='CashlessPayment')
 async def CashlessPayment(callCP: types.CallbackQuery):
-        await callCP.message.answer(text='Выберите раздел проблемы',reply_markup=CashlessPaymentKeyboard)
-        logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+    await callCP.message.answer(text='Выберите раздел проблемы',reply_markup=CashlessPaymentKeyboard)
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
 
 @dp.callback_query_handler(text='ProblemWithPaymentOrders')
 async def ProblemWithPaymentOrders(callPWPO: types.CallbackQuery):
-        await callPWPO.message.answer(text='Проблема с оплатой заказов',reply_markup=ProblemWithPaymentOrdersKeyboard)
-        logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+    await callPWPO.message.answer(text='Проблема с оплатой заказов',reply_markup=ProblemWithPaymentOrdersKeyboard)
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
 
 @dp.callback_query_handler(text='ProblemsAfterOrderPayment')
 async def ProblemsAfterOrderPayment(callPAOP: types.CallbackQuery):
-        await callPAOP.message.answer(text='Проблемы возникшие после оплаты заказа',reply_markup=ProblemsAfterOrderPaymentKeyboard)
-        logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
+    await callPAOP.message.answer(text='Проблемы возникшие после оплаты заказа',reply_markup=ProblemsAfterOrderPaymentKeyboard)
+    logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
 
 @dp.callback_query_handler(text='ProblemsPaymentForTheOrder')
 async def ProblemsPaymentForTheOrder(callPPFTO: types.CallbackQuery):
@@ -736,8 +650,8 @@ async def TheRequiredPaymentType(callTRPT: types.CallbackQuery):
 
 @dp.callback_query_handler(text='ProblemsInTheOffice')
 async def ProblemsInTheOffice(callPITO: types.CallbackQuery):
-        await callPITO.message.answer(text='Какая у вас проблема', reply_markup=ProblemsInTheOfficeKeyboard)
-        logger.debug('Пользователь нажал кнопку "Еще"')
+    await callPITO.message.answer(text='Какая у вас проблема', reply_markup=ProblemsInTheOfficeKeyboard)
+    logger.debug('Пользователь нажал кнопку "Еще"')
 
 @dp.callback_query_handler(text='RemoteNotWorking')
 async def RemoteNotWorking(callRNW: types.CallbackQuery):
@@ -752,208 +666,78 @@ async def RemoteNotWorking(callRNW: types.CallbackQuery):
 
 @dp.callback_query_handler(text='MailProblem')
 async def MailProblem(callMP: types.CallbackQuery):
-        await callMP.message.answer(text='Необходимо связаться с техподдержкой', reply_markup=callTechSuppKeyboard)
-        logger.debug('Пользователь нажал кнопку "Еще"')
+    await callMP.message.answer(text='Необходимо связаться с техподдержкой', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Еще"')
 
 @dp.callback_query_handler(text='NoAccessToRMS')
 async def NoAccessToRMS(callNATRMS: types.CallbackQuery):
-        await callNATRMS.message.answer(text='Какая проблема', reply_markup=NoAccessToRMSKeyboard)
-        logger.debug('Пользователь нажал кнопку "Еще"')
+    await callNATRMS.message.answer(text='Какая проблема', reply_markup=NoAccessToRMSKeyboard)
+    logger.debug('Пользователь нажал кнопку "Еще"')
 
 @dp.callback_query_handler(text='LicenseRestriction')
 async def LicenseRestriction(callLR: types.CallbackQuery):
-        await callLR.message.answer(text='Необходимо связаться с техподдержкой', reply_markup=callTechSuppKeyboard)
-        logger.debug('Пользователь нажал кнопку "Еще"')
+    await callLR.message.answer(text='Необходимо связаться с техподдержкой', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Еще"')
 
 @dp.callback_query_handler(text='NoAccessToTheServer')
 async def NoAccessToTheServer(callNATHS: types.CallbackQuery):
-        await callNATHS.message.answer(text='Проверьте, что все данные введены верно и выбран нужный РМС. ', reply_markup=callTechSuppKeyboard)
-        logger.debug('Пользователь нажал кнопку "Еще"')
+    await callNATHS.message.answer(text='Проверьте, что все данные введены верно и выбран нужный РМС. ', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Еще"')
 
 @dp.callback_query_handler(text='ChainProblem')
 async def ChainProblem(callCP: types.CallbackQuery):
-        await callCP.message.answer(text='Проблема работы с чейном[.](https://downloader.disk.yandex.ru/preview/e09460847d377af5608a91f0afe6b05f80350d7652402db5aac561c5e840a8dd/62ada0ab/GZ6ue5U6azFiZG2A22dLBK5bqM_xoyxzFLuVJEgQ4VmApg5Hbhyvz0UmC9rbUtcsW9cKY9sxub0Ybi3QkTQRXQ%3D%3D?uid=0&filename=%D0%9F%D1%80%D0%BE%D0%B1%D0%BB%D0%B5%D0%BC%D1%8B%20%D1%81%20%D1%87%D0%B5%D0%B9%D0%BD%D0%BE%D0%BC.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=ChainProblemKeyboard)
-        logger.debug('Пользователь нажал кнопку "Еще"')
+    await callCP.message.answer(text='Проблема работы с чейном[.](https://downloader.disk.yandex.ru/preview/e09460847d377af5608a91f0afe6b05f80350d7652402db5aac561c5e840a8dd/62ada0ab/GZ6ue5U6azFiZG2A22dLBK5bqM_xoyxzFLuVJEgQ4VmApg5Hbhyvz0UmC9rbUtcsW9cKY9sxub0Ybi3QkTQRXQ%3D%3D?uid=0&filename=%D0%9F%D1%80%D0%BE%D0%B1%D0%BB%D0%B5%D0%BC%D1%8B%20%D1%81%20%D1%87%D0%B5%D0%B9%D0%BD%D0%BE%D0%BC.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=ChainProblemKeyboard)
+    logger.debug('Пользователь нажал кнопку "Еще"')
 
 @dp.callback_query_handler(text='NoAccessToTheServerChain')
 async def NoAccessToTheServerChain(callNATTSC: types.CallbackQuery):
-        await callNATTSC.message.answer(text='Проверьте, что все данные введены верно и выбран нужный чейн. ', reply_markup=callTechSuppKeyboard)
-        logger.debug('Пользователь нажал кнопку "Еще"')
+    await callNATTSC.message.answer(text='Проверьте, что все данные введены верно и выбран нужный чейн. ', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Еще"')
 
 @dp.callback_query_handler(text='ServerIsNotAnIIKO_RMS')
 async def ServerIsNotAnIIKO_RMS(callSINAIIKO: types.CallbackQuery):
-        await callSINAIIKO.message.answer(text='Вы зашли не в ту программу, откройте Iiko Chain Operations', reply_markup=callTechSuppKeyboard)
-        logger.debug('Пользователь нажал кнопку "Еще"')
+    await callSINAIIKO.message.answer(text='Вы зашли не в ту программу, откройте Iiko Chain Operations', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Еще"')
 
 @dp.callback_query_handler(text='ThePrinterIsNotWorking')
 async def ThePrinterIsNotWorking(callTPINW: types.CallbackQuery):
-        await callTPINW.message.answer(text='Какая ошибка:', reply_markup=ThePrinterIsNotWorkingKeyboard)
-        logger.debug('Пользователь нажал кнопку "Еще"')
+    await callTPINW.message.answer(text='Какая ошибка:', reply_markup=ThePrinterIsNotWorkingKeyboard)
+    logger.debug('Пользователь нажал кнопку "Еще"')
 
 @dp.callback_query_handler(text='TheRedLightIsOn')
 async def TheRedLightIsOn(callTRLIO: types.CallbackQuery):
-        await callTRLIO.message.answer(text='Горит красная лампочка[.](https://downloader.disk.yandex.ru/preview/6ee9f33c09b2b7c725515ee8a634119653526779f78499bd2544ee4402607f83/62ada3bd/x2x0eXjAEGU5P7NTgB8JCHKLjK3Tbuf5Fe8yWan6E571q0ksErggXOItoggv-AdgDN4y4TzPIcL8FxPe-ysDHw%3D%3D?uid=0&filename=%D0%93%D0%BE%D1%80%D0%B8%D1%82%20%D0%BA%D1%80%D0%B0%D1%81%D0%BD%D0%B0%D1%8F%20%D0%BB%D0%B0%D0%BC%D0%BF%D0%BE%D1%87%D0%BA%D0%B0.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
-        logger.debug('Пользователь нажал кнопку "Еще"')
+    await callTRLIO.message.answer(text='Горит красная лампочка[.](https://downloader.disk.yandex.ru/preview/6ee9f33c09b2b7c725515ee8a634119653526779f78499bd2544ee4402607f83/62ada3bd/x2x0eXjAEGU5P7NTgB8JCHKLjK3Tbuf5Fe8yWan6E571q0ksErggXOItoggv-AdgDN4y4TzPIcL8FxPe-ysDHw%3D%3D?uid=0&filename=%D0%93%D0%BE%D1%80%D0%B8%D1%82%20%D0%BA%D1%80%D0%B0%D1%81%D0%BD%D0%B0%D1%8F%20%D0%BB%D0%B0%D0%BC%D0%BF%D0%BE%D1%87%D0%BA%D0%B0.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Еще"')
 
 @dp.callback_query_handler(text='CartridgeReplacement')
 async def CartridgeReplacement(callCR: types.CallbackQuery):
-        await callCR.message.answer(text='Замена картриджа[.](https://downloader.disk.yandex.ru/preview/1ec07ce4453834768deac1a6ae919c2f7e6ea222d891fde3052dba40e85ba939/62ada4a0/rUMg5EvJQG9BkU51jTsu7Qg1Z-aWW0T3iycPDE0GAbD3g6-DwDpgyOtFX2DNOI_RbxpnhvFuVdzJBFGVR7NIGQ%3D%3D?uid=0&filename=%D0%97%D0%B0%D0%BC%D0%B5%D0%BD%D0%B0%20%D0%BA%D0%B0%D1%80%D1%82%D1%80%D0%B8%D0%B4%D0%B6%D0%B0.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
-        logger.debug('Пользователь нажал кнопку "Еще"')
+    await callCR.message.answer(text='Замена картриджа[.](https://downloader.disk.yandex.ru/preview/1ec07ce4453834768deac1a6ae919c2f7e6ea222d891fde3052dba40e85ba939/62ada4a0/rUMg5EvJQG9BkU51jTsu7Qg1Z-aWW0T3iycPDE0GAbD3g6-DwDpgyOtFX2DNOI_RbxpnhvFuVdzJBFGVR7NIGQ%3D%3D?uid=0&filename=%D0%97%D0%B0%D0%BC%D0%B5%D0%BD%D0%B0%20%D0%BA%D0%B0%D1%80%D1%82%D1%80%D0%B8%D0%B4%D0%B6%D0%B0.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Еще"')
 
 @dp.callback_query_handler(text='PaperJam')
 async def PaperJam(callPJ: types.CallbackQuery):
-        await callPJ.message.answer(text='Замятие бумаги[.](https://downloader.disk.yandex.ru/preview/8c34b0686a22c409d1af56f87d857b488fdb6a3ba06fdaf403747359f9bcc1eb/62ada51d/F7CcQnnbpI0znnFPCRe2oENr5e5Udatibtj0bReQGm7hC6cogl5SUTO09Fqzv1hgtjkvOVSsyfpbfWlgf6lfaw%3D%3D?uid=0&filename=%D0%97%D0%B0%D0%BC%D1%8F%D1%82%D0%B8%D0%B5%20%D0%B1%D1%83%D0%BC%D0%B0%D0%B3%D0%B8.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
-        logger.debug('Пользователь нажал кнопку "Еще"')
+    await callPJ.message.answer(text='Замятие бумаги[.](https://downloader.disk.yandex.ru/preview/8c34b0686a22c409d1af56f87d857b488fdb6a3ba06fdaf403747359f9bcc1eb/62ada51d/F7CcQnnbpI0znnFPCRe2oENr5e5Udatibtj0bReQGm7hC6cogl5SUTO09Fqzv1hgtjkvOVSsyfpbfWlgf6lfaw%3D%3D?uid=0&filename=%D0%97%D0%B0%D0%BC%D1%8F%D1%82%D0%B8%D0%B5%20%D0%B1%D1%83%D0%BC%D0%B0%D0%B3%D0%B8.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Еще"')
 
 @dp.callback_query_handler(text='DoesntPickUpPaper')
 async def DoesntPickUpPaper(callDPUP: types.CallbackQuery):
-        await callDPUP.message.answer(text='Не захватывает бумагу[.](https://downloader.disk.yandex.ru/preview/2200bdca4aff74a993f319909df609cc88e50cc645b8fcbd8f9e1c15fd90400d/62ada5b6/GebBYtHOvmeosMGf8FO0KENr5e5Udatibtj0bReQGm7HeBd2IcR7xPOWIBmfeP3IQ4KRPfGogVH5MbFleOAdOA%3D%3D?uid=0&filename=%D0%9D%D0%B5%20%D0%B7%D0%B0%D1%85%D0%B2%D0%B0%D1%82%D1%8B%D0%B2%D0%B0%D0%B5%D1%82%20%D0%B1%D1%83%D0%BC%D0%B0%D0%B3%D1%83.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
-        logger.debug('Пользователь нажал кнопку "Еще"')
+    await callDPUP.message.answer(text='Не захватывает бумагу[.](https://downloader.disk.yandex.ru/preview/2200bdca4aff74a993f319909df609cc88e50cc645b8fcbd8f9e1c15fd90400d/62ada5b6/GebBYtHOvmeosMGf8FO0KENr5e5Udatibtj0bReQGm7HeBd2IcR7xPOWIBmfeP3IQ4KRPfGogVH5MbFleOAdOA%3D%3D?uid=0&filename=%D0%9D%D0%B5%20%D0%B7%D0%B0%D1%85%D0%B2%D0%B0%D1%82%D1%8B%D0%B2%D0%B0%D0%B5%D1%82%20%D0%B1%D1%83%D0%BC%D0%B0%D0%B3%D1%83.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Еще"')
 
 @dp.callback_query_handler(text='TheScannerDoesNotWork')
 async def TheScannerDoesNotWork(callTSDNW: types.CallbackQuery):
-        await callTSDNW.message.answer(text='Ошибка "Освободите блокиратор[.](https://downloader.disk.yandex.ru/preview/7988bcc0653b181632b3fb9cf1e9a2ad976ed68ecc595f29137ddeb148212320/62adac2b/Ix2bbpCmQXgOkbvzRq1iOENr5e5Udatibtj0bReQGm5G3PEtPaqaOP2SNF_0YYSZEWMm0JVOlTwoL75h8hqfxw%3D%3D?uid=0&filename=%D0%9E%D1%88%D0%B8%D0%B1%D0%BA%D0%B0%20%D0%9E%D1%81%D0%B2%D0%BE%D0%B1%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%20%D0%B1%D0%BB%D0%BE%D0%BA%D0%B8%D1%80%D0%B0%D1%82%D0%BE%D1%80.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)"',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
-        logger.debug('Пользователь нажал кнопку "Еще"')
-
-#Блок еще
-@dp.callback_query_handler(text='more')
-async def more(callm: types.CallbackQuery):
-        await callm.message.answer(text='Другие вопросы', reply_markup=moreKeyboard)
-        logger.debug('Пользователь нажал кнопку "Еще"')
-
-
-@dp.callback_query_handler(text='officialRepresentatives')
-async def officialRepresentatives(calloR: types.CallbackQuery):
-        await calloR.message.answer(text='Если вы уже сотрудничаете с Контуром как официальный представитель, то вы тоже можете использовать кабинет партнёра для отправки заявок за клиента.\n'
-                                         '🔸Если у вас открыт прайс на продукт и у клиента нет брони, то он попадёт к вам на обслуживание, и вы выступите как L-агент и S-агент. \n'
-                                         '🔸Если у вас не открыт прайс на продукт или клиент уже забронирован, то он уйдёт по распределению в другой отдел продаж, а вы получите вознаграждение как L-агент.', reply_markup=officialRepresentativesKeyboard)
-        logger.debug('Пользователь нажал кнопку "Официальным представителям"')
-
-@dp.callback_query_handler(text='termsRefPatherships')
-async def termsRefPatherships(calltRP: types.CallbackQuery):
-        await calltRP.message.answer(text='Реферальная программа — это упрощенная форма сотрудничества по [договору-оферте](https://kontur.ru/partnership/online/oferta). При регистрации каждому партнеру присваивается уникальный партнерский код. Его можно увидеть в [кабинете партнера](https://kontur.ru/account/partnership) в блоке «Анкета». Все инструменты кабинета содержат такой код. Он позволяет системе фиксировать клиента за вами.\n'
-                                          'Партнеры рекомендуют сервисы Контура с помощью реферальных ссылок и других инструментов кабинета партнера. Продажу сервисов осуществляет Контур, а партнеру начисляется вознаграждение за привлеченных новых клиентов. Вознаграждение приходит в виде отчета в кабинет партнера на следующий месяц после оплаты клиентом сервиса.',parse_mode='Markdown', disable_web_page_preview=True, reply_markup=termsRefPathershipsKeyboard)
-        logger.debug('Пользователь нажал кнопку "Условия реферального партнерства"')
-
-@dp.callback_query_handler(text='whoCanParticipate')
-async def whoCanParticipate(callwCP: types.CallbackQuery):
-        await callwCP.message.answer(text='Кто может участвовать\n'
-                                          '🔸Бухгалтеры, вебмастера, физические и юридические лица, которым интересно данное предложение.\n'
-                                          '🔸SMM-специалисты, занимающиеся продвижением услуг в социальных сетях.\n'
-                                          '🔸Владельцы специализированных порталов и блогов (бухгалтерия, бизнес).\n'
-                                          '🔸Любые лояльные пользователи, которые готовы рекомендовать продукты СКБ Контур для решения бизнес-задач своим коллегам, друзьям и знакомым.\n'
-                                          'Кто не может участвовать\n'
-                                          '🔸Физические лица, состоящие с СКБ Контур в трудовых отношениях.\n'
-                                          '🔸Юридические лица, оказывающие СКБ Контур услуги по аналогичным договорам.\n'
-                                          '🔸Иные аффилированные с СКБ Контур физические и юридические лица.', reply_markup=backToMainMenuKeyboard)
-        logger.debug('Пользователь нажал кнопку "Кто может учавствовать"')
-
-@dp.callback_query_handler(text='howMuchCanEarn')
-async def howMuchCanEarn(callhMCE: types.CallbackQuery):
-        await callhMCE.message.answer(text='Вознаграждение — фиксированный процент от оплаты новых пользователей, которые отправили заявку/зарегистрировались в сервисе СКБ Контур с партнерским кодом или перешли по реферальной ссылке партнера. Размер вознаграждения зависит от выбранного сервиса — от 5 до 50%. В среднем наши партнеры зарабатывают 20 000 рублей в месяц. Посмотрите [таблицу](https://kontur.ru/partnership/online/rules#7) вознаграждения по продуктам.', parse_mode='Markdown', disable_web_page_preview=True, reply_markup=howMuchCanEarnKeyboard)
-        logger.debug('Пользователь нажал кнопку "Сколько можно заработать"')
-
-@dp.callback_query_handler(text='additionalRemuneration')
-async def additionalRemuneration(callaRem: types.CallbackQuery):
-        await callaRem.message.answer(text='Если вы приведете в программу другого реферального партнера, то мы будем начислять вам дополнительные 2% от оплаченных счетов его клиентов. Для этого воспользуйтесь инструментом «Приводите новых партнеров» на главной странице кабинета.', reply_markup=backToMainMenuKeyboard)
-        logger.debug('Пользователь нажал кнопку "Дополнительные вознаграждения"')
-
-@dp.callback_query_handler(text='formsOfParthership')
-async def formsOfParthership(callfOP: types.CallbackQuery):
-        await callfOP.message.answer(text='Формы партнерства:', reply_markup=formsOfParthershipKeyboard)
-        logger.debug('Пользователь нажал кнопку "Формы партнерства"')
-
-@dp.callback_query_handler(text='otherPatnershipOption')
-async def otherPatnershipOption(calloPO: types.CallbackQuery):
-        await calloPO.message.answer(text='Официальный представитель\n'
-                                          'Форма сотрудничества для юридических лиц и ИП, по которой после прохождения обучения и заключения договора партнер становится официальным представителем – Сервисным центром. Это подразумевает полное взаимодействие с клиентом на всех этапах: консультирование, работа с продажами и продлениями.\n'
-                                          'Если вас интересует данный тип сотрудничества, то оставьте заявку на странице и обсудите варианты сотрудничества.\n'
-                                          'Международное партнерство\n'
-                                          'Почта для зарубежных партнеров world@skbkontur.ru.', reply_markup=backToMainMenuKeyboard)
-        logger.debug('Пользователь нажал кнопку "Другие варианты партнерства"')
-
-@dp.callback_query_handler(text='naturalPerson')
-async def naturalPerson(callnP: types.CallbackQuery):
-        await callnP.message.answer(text='Из вознаграждения удерживается НДФЛ — 13 %. \n'
-                                         'Бесплатная КЭП для получения вознаграждения.', reply_markup=naturalPersonKeyboard)
-        logger.debug('Пользователь нажал кнопку "Физлицо"')
-
-@dp.callback_query_handler(text='selfEmployed')
-async def selfEmployed(callsE: types.CallbackQuery):
-        await callsE.message.answer(text='Юридически самозанятое население из-за спецрежима не имеет права работать по агентской схеме и по агентскому договору, который является основным в реферальной программе. Самозанятый может работать в программе как физлицо, но из суммы вознаграждения будет вычитываться и уплачиваться в ФНС 13% НДФЛ.', reply_markup=backToMainMenuKeyboard)
-        logger.debug('Пользователь нажал кнопку "Самозанятый"')
-
-@dp.callback_query_handler(text='urFace')
-async def urFace(calluF: types.CallbackQuery):
-        await calluF.message.answer(text='Нет вычета НДФЛ 13 %.\n'
-                                         'Необходимо приобрести электронную подпись на юрлицо, если ее нет.\n'
-                                         'Для перечисления вознаграждения у партнера должен быть открыт счет в банке.', reply_markup=backToMainMenuKeyboard)
-        logger.debug('Пользователь нажал кнопку "Юрлицо\ИП"')
-
-@dp.callback_query_handler(text='retiree')
-async def retiree(callretiree: types.CallbackQuery):
-        await callretiree.message.answer(text='Пенсионерам не запрещено участвовать в программе, но есть свои нюансы. В момент вывода вознаграждения на счет мы подаем данные в ПФР о полученном вами доходе.\n'
-                                              'Потенциальному партнеру, который является пенсионером, необходимо уточнить в своем отделении ПФР, повлияет ли доход по агентскому договору на пенсионные отчисления. При необходимости можно зарегистрировать кабинет на другого человека.', reply_markup=backToMainMenuKeyboard)
-        logger.debug('Пользователь нажал кнопку "Пенсионеры"')
-
-@dp.callback_query_handler(text='toolsAndPromotion')
-async def toolsAndPromotion(calltAP: types.CallbackQuery):
-        await calltAP.message.answer(text='Чтобы рекомендовать сервисы Контура, используйте [инструменты продвижения](https://kontur.ru/partnership/tools) из кабинета партнера. Инструменты бесплатны, пользоваться ими можно сразу после регистрации в реферальной программе.', parse_mode='Markdown', disable_web_page_preview=True, reply_markup=toolsAndPromotionKeyboard)
-        logger.debug('Пользователь нажал кнопку "Инструменты и продвежение"')
-
-@dp.callback_query_handler(text='websiteBanners')
-async def websiteBanners(callwB: types.CallbackQuery):
-        await callwB.message.answer(text='Если у вас есть свой интернет-ресурс — сайт или блог, то разместите на нем рекламные баннеры продуктов Контура. Все баннеры разработаны нашими дизайнерами и отлично смотрятся на любых сайтах. Это удобный инструмент онлайн-продвижения.\n'
-                                         'Как разместить баннер:\n'
-                                         '1. Нажмите «Подготовить баннер».\n'
-                                         '2. Выберите продукт в списке, нажав на его название.\n'
-                                         '3. Выберите нужный размер. Выберите страницу для ссылки и проставьте метку SUBID, если нужно.\n'
-                                         '4. Нажмите «Скопировать код». Полученный код теперь можно вставить на сайт[.](https://support.kontur.ru/download/attachments/16221763/014.png)',parse_mode='Markdown', reply_markup=backToMainMenuKeyboard)
-        logger.debug('Пользователь нажал кнопку "Банеры для сайта"')
-
-@dp.callback_query_handler(text='socialMediaBanners')
-async def widgets(callwidgets: types.CallbackQuery):
-        await callwidgets.message.answer(text='У нас есть готовые баннеры для соцсетей, с помощью которых партнеры могут продвигаться и в этом онлайн-канале. Чтобы разместить баннер в социальной сети:\n'
-                                              '1. Нажмите «Разместить пост» в блоке «Публикация баннера в социальных сетях».\n'
-                                              '2. Выберите продукт в списке, баннер и нажмите «Публиковать».\n'
-                                              '3. В открывшемся окне выберите, куда будет вести ссылка и установите метку SUBID, если нужно.\n'
-                                              '4. Нажмите на значок той социальной сети, где хотите разместить ссылку: Вконтакте, Facebook, Одноклассники, Instagram.\n'
-                                              '5. Выберите, куда опубликовать подготовленный баннер: на свою страницу, в сообщество или поделиться им в личных сообщениях.')
-        logger.debug('Пользователь нажал кнопку "Банеры для соцсетей "')
-
-@dp.callback_query_handler(text='widgets')
-async def widgets(callwidgets: types.CallbackQuery):
-        await callwidgets.message.answer(text='С помощью виджетов клиенты смогут оставлять заявки на продукты Контура, не уходя с вашего сайта. При этом заявки будут уходить с вашим кодом партнера.\n'
-                                              'Все виджеты можно найти в разделе [Инструменты](https://kontur.ru/partnership/tools) и на главной странице кабинета партнера.\n'
-                                              'Доступны несколько типов виджетов:\n'
-                                              '🔸Виджет формы заявки. Чтобы получить виджет — заполните форму: укажите ваш код партнера, продукт. Получите HTML-код, скопируйте его и интегрируйте на свой сайт сами или с помощью разработчика вашего сайта.\n'
-                                              '🔸Виджет продуктовой строки поиска. Данный тип виджета демонстрирует возможность поиска в сервисе. Доступны виджеты по продуктам: Диадок, Фокус, Светофор, Норматив, Закупки.\n'
-                                              '🔸Виджет подбора сертификата подписи.\n'
-                                              '🔸Виджет калькулятора и виджет цен. Встройте на сайт калькулятор отпускных, больничных, декретных от Контур.Бухгалтерии, чтобы продемонстрировать возможности сервиса и заинтересовать им[.](https://www.mindomo.com/ru/mindmap/mind-map-4f85d62500074a8bb7c2baabfddc6cb9#:~:text=https%3A//support.kontur.ru/download/attachments/16221763/019.png)', parse_mode='Markdown', reply_markup=backToMainMenuKeyboard)
-        logger.debug('Пользователь нажал кнопку "Виджеты"')
-
-@dp.callback_query_handler(text='QRCode')
-async def QRCode(callQRCode: types.CallbackQuery):
-        await callQRCode.message.answer(text='QR-код — это двухмерный штрихкод, который содержит зашифрованную информацию: ссылку на сайт или соцсеть, текст или статью. Ваши офлайн-клиенты, наведя камеру мобильного на QR-код, размещенный на визитке или листовке, смогут перейти на сайт или другой онлайн-ресурс\n'
-                                             'Чтобы сгенерировать QR-код со своей реферальной ссылкой:\n'
-                                             '1. Нажмите «Получить QR-код» в инструментах продвижения кабинета партнера.\n'
-                                             '2. Откроется генератор QR-кодов. В поле «URL-адрес» введите реферальную ссылку со своим партнерским кодом. Как создать такую ссылку, читайте выше в разделе «Реферальные ссылки».\n'
-                                             '3. Произведите настройки внешнего вида и нажмите «Создать QR-код». В правой части страницы сгенерируется QR-код.\n'
-                                             '4. Выберите формат, в котором будете его сохранять: PNG или SVG. Нажмите «Скачать».\n'
-                                             '5. Дождитесь, пока картинка скачается на ваше устройство.\n', reply_markup=backToMainMenuKeyboard)
-        logger.debug('Пользователь нажал кнопку "QR-код"')
-
-
+    await callTSDNW.message.answer(text='Ошибка "Освободите блокиратор[.](https://downloader.disk.yandex.ru/preview/7988bcc0653b181632b3fb9cf1e9a2ad976ed68ecc595f29137ddeb148212320/62adac2b/Ix2bbpCmQXgOkbvzRq1iOENr5e5Udatibtj0bReQGm5G3PEtPaqaOP2SNF_0YYSZEWMm0JVOlTwoL75h8hqfxw%3D%3D?uid=0&filename=%D0%9E%D1%88%D0%B8%D0%B1%D0%BA%D0%B0%20%D0%9E%D1%81%D0%B2%D0%BE%D0%B1%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%20%D0%B1%D0%BB%D0%BE%D0%BA%D0%B8%D1%80%D0%B0%D1%82%D0%BE%D1%80.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)"',parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Еще"')
 
 @dp.callback_query_handler(text='Other')
 async def Other(callOther: types.CallbackQuery):
-        await callOther.message.answer(text='Связаться с тех поддержкой', reply_markup=callTechSuppKeyboard)
-        logger.debug('Пользователь нажал кнопку "QR-код"')
+    await callOther.message.answer(text='Связаться с тех поддержкой', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "QR-код"')
 
 #Кнопка возврата
 @dp.callback_query_handler(text='backToMainMenu')
 async def backToMainMenu(callbTMM: types.CallbackQuery):
-        await callbTMM.message.answer(text='Выберите интересующий раздел', reply_markup=firstMenuKeyboard)
+    await callbTMM.message.answer(text='Выберите интересующий раздел', reply_markup=firstMenuKeyboard)
 
 
 @dp.callback_query_handler(text='helpButton')
