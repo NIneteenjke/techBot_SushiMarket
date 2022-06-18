@@ -85,6 +85,15 @@ JammedCarvingKnifeButton = InlineKeyboardButton(text='Заклинил нож а
 JammedCarvingKnifeSecondButton = InlineKeyboardButton(text='Заклинил нож авторезчика', callback_data='JammedCarvingKnifeSecond')
 DisableAutoCutterButton = InlineKeyboardButton(text='Отключить авторезчик', callback_data='DisableAutoCutter')
 OtherFRKeyboard.add(JammedCarvingKnifeButton, JammedCarvingKnifeSecondButton, DisableAutoCutterButton)
+
+
+#Экран покупателя
+screenKeyboard = InlineKeyboardMarkup(row_width=1)
+NoPicturesBlackScreenButton = InlineKeyboardButton(text='Нет картинок. Черный экран', callback_data='NoPicturesBlackScreen')
+NoPicturesWhiteScreenButton = InlineKeyboardButton(text='Нет картинок. Белый экран', callback_data='NoPicturesWhiteScreen')
+ErrorOnTheScreenBuyerButton = InlineKeyboardButton(text='На экране покупателя ошибка «Нет сигнала»', callback_data='ErrorOnTheScreenBuyer')
+screenKeyboard.add(NoPicturesBlackScreenButton, NoPicturesWhiteScreenButton, ErrorOnTheScreenBuyerButton )
+
 #Безнал оплата
 
 CashlessPaymentKeyboard = InlineKeyboardMarkup(row_width=1)
@@ -207,8 +216,9 @@ ThePrinterIsNotWorkingKeyboard.add(TheRedLightIsOnButton, CartridgeReplacementBu
 
 
 callTechSuppKeyboard=InlineKeyboardMarkup(row_width=1)
-callTechSuppButton=InlineKeyboardButton(text="Связаться с техподдержкой", callback_data='callTechSupp')
-callTechSuppKeyboard.add(callTechSuppButton)#, helpButton)
+callTechSuppButton=InlineKeyboardButton(text="Связаться с техподдержкой", url='https://t.me/+wGeFnHb6ACBkOWFi',parse_mode='Markdown', disable_web_page_preview=True, callback_data='callTechSupp')
+backToMainMenuButton=InlineKeyboardButton(text="Вернуться на главное меню",callback_data='backToMainMenu')
+callTechSuppKeyboard.add(callTechSuppButton, backToMainMenuButton)#, helpButton)
 
 @dp.message_handler(commands='start')
 async def firstButton(message: types.Message):
@@ -276,6 +286,33 @@ async def HoursHaveExpiredYouNeedToCloseShift(callHHEYNTCS: types.CallbackQuery)
 async def EmployeeCantWorkHere(callECWH: types.CallbackQuery):
     await callECWH.message.answer(text='По каждому из вопросов кассиру необходимо обратиться в Отдел кадров.', reply_markup = callTechSuppKeyboard)
     logger.debug('Пользователь нажал кнопку "Частые проблемы"')
+
+#Экран покупателя
+@dp.callback_query_handler(text='screen')
+async def screen(callscreen: types.CallbackQuery):
+    await callscreen.message.answer(text='Какая у вас ошибка?:', reply_markup = screenKeyboard)
+    logger.debug('Пользователь нажал кнопку "Частые проблемы"')
+
+@dp.callback_query_handler(text='NoPicturesBlackScreen')
+async def NoPicturesBlackScreen(callNPBS: types.CallbackQuery):
+    await callNPBS.message.answer(text='1.Выключите и включите экран покупателя, убедитесь, что запущена программа iiko.\n'
+                                       '2.Выйдите на рабочий стол и правой кнопкой мыши нажмите на любое свободное место, выберите «Параметры экрана»\n'
+                                       '3.В открывшемся окне нужно найти пункт «Несколько дисплеев» и в нем выбрать «Расширить эти экраны» и сохранить\n'
+                                       '4.Если эти действия не помогли или в предыдущем пункте не отображается второй экран обратитесь в техподдержку[.](https://downloader.disk.yandex.ru/preview/521a83d844e5db61a5f6c34082e6eb3bd5abc516018ccc03b478edb535ee00c8/62ae01db/8YutTHL1-KXXXyNdsGXSi7dFe3lZhuIBDAkrsa9RokqBOT3otlxb4L0ZY9vRyZNgwayUiwbHeDO8hfh4byqR8Q%3D%3D?uid=0&filename=%D1%87%D0%B5%D1%80%D0%BD%D1%8B%D0%B9%20%D1%8D%D0%BA%D1%80%D0%B0%D0%BD.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup = callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Частые проблемы"')
+
+@dp.callback_query_handler(text='NoPicturesWhiteScreen')
+async def NoPicturesWhiteScreen(callNPWS: types.CallbackQuery):
+    await callNPWS.message.answer(text='Перезагрузите компьютер. Если проблема сохранилась, необходимо, чтобы Ваш управляющий обратился в отдел маркетинга к Никитенко Анастасии.', reply_markup = callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Частые проблемы"')
+
+@dp.callback_query_handler(text='ErrorOnTheScreenBuyer')
+async def ErrorOnTheScreenBuyer(callEOTSB: types.CallbackQuery):
+    await callEOTSB.message.answer(text='1.Выключите компьютер. Сзади на экране покупателя отключите и подключите оба кабеля.\n'
+                                        '2.Если у вас компьютер новой модели, как на картинке, то необходимо на экране покупателя найти кнопки. Выключите и включите экран, нажмите кнопку SELECT и, в появившемся меню, с помощью кнопок «+» или «-» выберите пункт DP (Display Port) и еще раз нажмите SELECT.\n'
+                                        '3.Перезагрузите компьютер, включите iiko. Если после полной загрузки изображения так и не появились обратитесь в техподдержку[.](https://downloader.disk.yandex.ru/preview/dd319708affe1134d100ee43732c87538ae6439cb0d5ebbb6aa35dc1b0976790/62ae02ad/knlohDtvQKYMq_MhqyNUHFPSm-SVx5vLBpTPrbcn0geiQ2TsaOjakpfe6ywj_gpQOxYUtZgGGuNW9NiMJ0xFvg%3D%3D?uid=0&filename=noSig.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)', parse_mode='Markdown', reply_markup = callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Частые проблемы"')
+
 
 #Архивная программа
 
