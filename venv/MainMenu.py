@@ -214,7 +214,7 @@ callTechSuppKeyboard.add(callTechSuppButton)#, helpButton)
 async def firstButton(message: types.Message):
     await message.answer('Здравствуйте!\n'
                          'Какие у вас появились вопросы?\n'
-                        'Выберите интересующий раздел нажав на кнопку.', reply_markup=firstMenuKeyboard)
+                        'Выберите интересующий раздел, нажав на кнопку.', reply_markup=firstMenuKeyboard)
 
 #Блок iiko--
 
@@ -240,17 +240,17 @@ async def WhenCloseProgramDoesNotClose(callWCPDNC: types.CallbackQuery):
 
 @dp.callback_query_handler(text='AYellowMessageAppeared')
 async def AYellowMessageAppeared(callAYMA: types.CallbackQuery):
-        await callAYMA.message.answer(text='Закрываем на крестик, не обращаем внимания на это событие.', reply_markup=callTechSuppKeyboard)
-        logger.debug('Пользователь нажал кнопку "Другой код"')
+    await callAYMA.message.answer(text='Закрываем на крестик, не обращаем внимания на это событие.', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Другой код"')
 
 @dp.callback_query_handler(text='TheRequiredProductIsNotInTheList')
 async def TheRequiredProductIsNotInTheList(callTRPINITL: types.CallbackQuery):
-        await callTRPINITL.message.answer(text='Необходимо проверить включены ли фильтры, позволяющие осуществить поиск, а именно: «Вся номенкл.» а также поиск по «Артикул» и «Код» должны быть выделены жёлтым цветом[.](https://downloader.disk.yandex.ru/preview/3cba7e3ff09569e3be52e80672e4ac6c97426f075a6f27a63332af8942c6a2e0/62a9d873/d0i8uuZ70gOS25grgQS1L3tULxkGzTinepbZrG0mpwnlTSftT-A5760nIzFfbN9OvgN3zLH-m_bKBZxpj24wnw%3D%3D?uid=0&filename=%D0%92%D0%BE%D0%BF%D1%80%D0%BE%D1%81%205.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=958x912)', parse_mode='Markdown', disable_web_page_preview=False, reply_markup=callTechSuppKeyboard)
-        logger.debug('Пользователь нажал кнопку "Аккаунт партнера"')
+    await callTRPINITL.message.answer(text='Необходимо проверить включены ли фильтры, позволяющие осуществить поиск, а именно: «Вся номенкл.» а также поиск по «Артикул» и «Код» должны быть выделены жёлтым цветом[.](https://downloader.disk.yandex.ru/preview/3cba7e3ff09569e3be52e80672e4ac6c97426f075a6f27a63332af8942c6a2e0/62a9d873/d0i8uuZ70gOS25grgQS1L3tULxkGzTinepbZrG0mpwnlTSftT-A5760nIzFfbN9OvgN3zLH-m_bKBZxpj24wnw%3D%3D?uid=0&filename=%D0%92%D0%BE%D0%BF%D1%80%D0%BE%D1%81%205.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=958x912)', parse_mode='Markdown', disable_web_page_preview=False, reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Аккаунт партнера"')
 
 @dp.callback_query_handler(text='TheChefInIikoSousChefDoesNotSeeOrders')
 async def TheChefInIikoSousChefDoesNotSeeOrders(callTCIISCDNSO: types.CallbackQuery):
-        await callTCIISCDNSO.message.answer(text='1)На экране повара необходимо зайти в настройки.\n'
+    await callTCIISCDNSO.message.answer(text='1)На экране повара необходимо зайти в настройки.\n'
                                                  '2)Включить все статусы для отображения:\n'
                                                  'Ожидает\n'
                                                  'Готовится\n'
@@ -258,7 +258,7 @@ async def TheChefInIikoSousChefDoesNotSeeOrders(callTCIISCDNSO: types.CallbackQu
                                                  'Подано[.](https://downloader.disk.yandex.ru/preview/4efb3509be203a5c0f88c304df1d4f52705ef55c0c192ae662768bf98ca7d58d/62a9d873/hAgBFsYa986PT0j0AELyP3tULxkGzTinepbZrG0mpwl8zdN8fP0mrPrjfgUBqamZ0Xlyqrs9heLpT1euRuLiqQ%3D%3D?uid=0&filename=%D0%92%D0%BE%D0%BF%D1%80%D0%BE%D1%81%206.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=958x912)\n'
                                                  '3) Если данное решение не помогло, необходимо обратиться в техническую поддержку', parse_mode='Markdown', disable_web_page_preview=False, reply_markup=callTechSuppKeyboard)
 
-        logger.debug('Пользователь нажал кнопку "Аккаунт партнера"')
+    logger.debug('Пользователь нажал кнопку "Аккаунт партнера"')
 
 @dp.callback_query_handler(text='FailedToSetCashierName')
 async def FailedToSetCashierName(callFTSCN: types.CallbackQuery):
@@ -281,34 +281,39 @@ async def EmployeeCantWorkHere(callECWH: types.CallbackQuery):
 
 @dp.callback_query_handler(text='ArchivingProgram')
 async def ArchivingProgram(callAProgram: types.CallbackQuery):
-        await callAProgram.message.answer(text='Если на торговой точке нет панели, где вы отправляете накладные в офис, то необходимо на рабочем столе найти ярлык SAdminClient\n'
+    await callAProgram.message.answer(text='Если на торговой точке нет панели, где вы отправляете накладные в офис, то необходимо на рабочем столе найти ярлык SAdminClient\n'
                                                'Если ярлыка нет, то нужно перейти по пути C:\SAdminClient\ и запустить файл SAClientDesktop.exe[.](https://downloader.disk.yandex.ru/preview/7c19849c54747195e4b32923e24b436833caa7fc39ab8b474a888a2f40a39e1d/62a9e929/C24lWJcR8Z0Wpl6RSD-WRd02Ahv8dYkEorV1KGwzBbNRhWzWrZoC0Xc6damtB37t95QRKAGuNuXwpz0e4Wwalg%3D%3D?uid=0&filename=%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%20%D0%B4%D0%BB%D1%8F%20%D1%87%D0%B0%D1%82%D0%B0%D0%A2%D0%9F.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)\n'
                                                'По всем остальным вопросам необходимо обратиться в техподдержку', parse_mode='Markdown', disable_web_page_preview=False, reply_markup=callTechSuppKeyboard)
-        logger.debug('Пользователь нажал кнопку "Ссылки"')
+    logger.debug('Пользователь нажал кнопку "Ссылки"')
 
 #Блок по Электронной очереди и телеку
+@dp.callback_query_handler(text='ElectronicQueueAndTV')
+async def ElectronicQueueAndTV(callElQATV: types.CallbackQuery):
+    await callElQATV.message.answer(text='Какая ошибка:', reply_markup=ElectronicQueueAndTVKeyboard)
+
 @dp.callback_query_handler(text='ServerUnavailableMessage')
 async def ServerUnavailableMessage(callSULM: types.CallbackQuery):
-        await callSULM.message.answer(text='Чтобы проверить корректность работы системы электронной очереди, необходимо:\n'
+    await callSULM.message.answer(text='Чтобы проверить корректность работы системы электронной очереди, необходимо:\n'
                                             '1. Откройте браузер Google Chrome на компьютере, где находится IIKO;\n'
                                             '2. Введите в адресную строку: http://localhost:3100/\n'
-                                            '3. Готово! На экране должна появиться электронная очередь (см. на изображении ниже). Если она появилась, то система работает корректно[.](https://downloader.disk.yandex.ru/preview/ad28a39be2237e7a189f7acdfdb8ff39e89e25cc1f496ae5f05bdfe0aff2dec3/62a9ed7f/rzQ7cVpmbwGlKJ3Jf2lrzToeSj49mKz4OXPeLrwbFnBu0bMCeBAcDwTqpPbSTlWcnKbhSwZGFJLxDlllgFNReg%3D%3D?uid=0&filename=%D0%BE%D1%87%D0%B5%D1%80%D0%B5%D0%B4%D1%8C.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)\n'
-                                           'Далее переходите к настройке работы электронной очереди на телевизоре, размещенном на торговой точке.', parse_mode='Markdown', disable_web_page_preview=False, reply_markup=callTechSuppKeyboard)
-        logger.debug('Пользователь нажал кнопку "Ссылки"')
+                                            '3. Готово! На экране должна появиться электронная очередь (см. на изображении ниже). Если она появилась, то система работает корректно\n'
+                                           'Далее переходите к настройке работы электронной очереди на телевизоре, размещенном на торговой точке[.](https://downloader.disk.yandex.ru/preview/5b9dd25f8256790edec75bf813452ada181acd8cad826dfce54728b405708917/62adcb39/rzQ7cVpmbwGlKJ3Jf2lrzToeSj49mKz4OXPeLrwbFnBu0bMCeBAcDwTqpPbSTlWcnKbhSwZGFJLxDlllgFNReg%3D%3D?uid=0&filename=%D0%BE%D1%87%D0%B5%D1%80%D0%B5%D0%B4%D1%8C.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)', parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Ссылки"')
 
 @dp.callback_query_handler(text='SettingUpAnElectronicQueue')
-async def SettingUpAnElectronicQueue(callSUAEQ: types.CallbackQuery):
-        await callSUAEQ.message.answer(text='Если на торговой точке нет панели, где вы отправляете накладные в офис, то необходимо на рабочем столе найти ярлык SAdminClient\n'
-                                               'Если ярлыка нет, то нужно перейти по пути C:\SAdminClient\ и запустить файл SAClientDesktop.exe[.](https://downloader.disk.yandex.ru/preview/7c19849c54747195e4b32923e24b436833caa7fc39ab8b474a888a2f40a39e1d/62a9e929/C24lWJcR8Z0Wpl6RSD-WRd02Ahv8dYkEorV1KGwzBbNRhWzWrZoC0Xc6damtB37t95QRKAGuNuXwpz0e4Wwalg%3D%3D?uid=0&filename=%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%20%D0%B4%D0%BB%D1%8F%20%D1%87%D0%B0%D1%82%D0%B0%D0%A2%D0%9F.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)\n'
-                                               'По всем остальным вопросам необходимо обратиться в техподдержку', parse_mode='Markdown', disable_web_page_preview=False, reply_markup=callTechSuppKeyboard)
-        logger.debug('Пользователь нажал кнопку "Ссылки"')
+async def SettingUpAnElectronicQueue(callSUAEQ):
+    document=open('pic\Инструкция_по_настройке_электронной_очереди_на_телевизоре.pdf', 'rb')
+    await callSUAEQ.message.answer_document(document)
+
+
+
+    logger.debug('Пользователь нажал кнопку "Ссылки"')
 
 @dp.callback_query_handler(text='InternetConnectionNotWorkingOnTV')
 async def InternetConnectionNotWorkingOnTV(callICNWOT: types.CallbackQuery):
-        await callICNWOT.message.answer(text='Если на торговой точке нет панели, где вы отправляете накладные в офис, то необходимо на рабочем столе найти ярлык SAdminClient\n'
-                                               'Если ярлыка нет, то нужно перейти по пути C:\SAdminClient\ и запустить файл SAClientDesktop.exe[.](https://downloader.disk.yandex.ru/preview/7c19849c54747195e4b32923e24b436833caa7fc39ab8b474a888a2f40a39e1d/62a9e929/C24lWJcR8Z0Wpl6RSD-WRd02Ahv8dYkEorV1KGwzBbNRhWzWrZoC0Xc6damtB37t95QRKAGuNuXwpz0e4Wwalg%3D%3D?uid=0&filename=%D0%B0%D0%BB%D0%B3%D0%BE%D1%80%D0%B8%D1%82%D0%BC%20%D0%B4%D0%BB%D1%8F%20%D1%87%D0%B0%D1%82%D0%B0%D0%A2%D0%9F.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)\n'
-                                               'По всем остальным вопросам необходимо обратиться в техподдержку', parse_mode='Markdown', disable_web_page_preview=False, reply_markup=callTechSuppKeyboard)
-        logger.debug('Пользователь нажал кнопку "Ссылки"')
+    await callICNWOT.message.answer(text='a) Если интернет подключен к телевизору через кабель, то провереьте что кабель плотно воткнут в телевизор и в роутер. Переподключите кабель.\n'
+                                         'б) Если интернет подключен к телевизору через Wi-Fi, то перезагрузите роутер (вытащив его из розетки и снова подключив). В настройках телевизора выбрать необходимую сеть.', parse_mode='Markdown', reply_markup=callTechSuppKeyboard)
+    logger.debug('Пользователь нажал кнопку "Ссылки"')
 
 #Блок видеонаблюдения
 
@@ -899,6 +904,13 @@ async def QRCode(callQRCode: types.CallbackQuery):
                                              '3. Произведите настройки внешнего вида и нажмите «Создать QR-код». В правой части страницы сгенерируется QR-код.\n'
                                              '4. Выберите формат, в котором будете его сохранять: PNG или SVG. Нажмите «Скачать».\n'
                                              '5. Дождитесь, пока картинка скачается на ваше устройство.\n', reply_markup=backToMainMenuKeyboard)
+        logger.debug('Пользователь нажал кнопку "QR-код"')
+
+
+
+@dp.callback_query_handler(text='Other')
+async def Other(callOther: types.CallbackQuery):
+        await callOther.message.answer(text='Связаться с тех поддержкой', reply_markup=callTechSuppKeyboard)
         logger.debug('Пользователь нажал кнопку "QR-код"')
 
 #Кнопка возврата
