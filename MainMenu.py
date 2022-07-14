@@ -35,25 +35,45 @@ ElectronicQueueAndTVButton = InlineKeyboardButton(text='Электронная �
 OtherButton = InlineKeyboardButton(text='Другое', callback_data='Other')
 firstMenuKeyboard.add(iikoProblemButton, FRButton,CashlessPaymentButton, screenButton, InternetButton, DeliveryButton, ArchivingProgramButton,  ElectronicQueueAndTVButton, OtherButton )#, helpButton)
 
+#Кнопки назад
+backToIIKOKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToIIKOKeyboard')
+backToErrorsToOrderStatusesAndProgramOperationKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToErrorsToOrderStatusesAndProgramOperationKeyboard')
+backToErrorsTheOpeningAndClosingOfTheCashRegisterShiftKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToErrorsTheOpeningAndClosingOfTheCashRegisterShiftKeyboard')
+backToFRButtonKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToFRButtonKeyboard')
+backToProblemsPayKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToProblemsPayKeyboard')
+backToCashBoxProblemsKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToCashBoxProblemsKeyboard')
+backToOtherFRKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToOtherFRKeyboard')
+backToscreenKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToscreenKeyboard')
+backToCashlessPaymentKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToCashlessPaymentKeyboard')
+backToProblemsAfterOrderPaymentKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToProblemsAfterOrderPaymentKeyboard')
+backToProblemWithPaymentOrdersKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToProblemWithPaymentOrdersKeyboard')
+backToProblemsPaymentForTheOrderKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToProblemsPaymentForTheOrderKeyboard')
+backToInternetKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToInternetKeyboard')
+backToInternetOnCashboxKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToInternetOnCashboxKeyboard')
+backToOtherInternetKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToOtherInternetKeyboard')
+backToDeliveryKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToDeliveryKeyboard')
+backToElectronicQueueAndTVKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToElectronicQueueAndTVKeyboard')
+backToMainMenuKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToMainMenuKeyboard')
+
 #Кнопки: "По IIKO"
 
 IIKOKeyboard= InlineKeyboardMarkup (row_width=1)
 ErrorsToOrderStatusesAndProgramOperationButton = InlineKeyboardButton(text='Ошибки связанные со статусами заказов и работы программы', callback_data='ErrorsToOrderStatusesAndProgramOperation')
 ErrorsTheOpeningAndClosingOfTheCashRegisterShiftButton= InlineKeyboardButton(text='Ошибки связанные с открытием и закрытием кассовой смены', callback_data='ErrorsTheOpeningAndClosingOfTheCashRegisterShift')
-IIKOKeyboard.add(ErrorsToOrderStatusesAndProgramOperationButton, ErrorsTheOpeningAndClosingOfTheCashRegisterShiftButton)
+IIKOKeyboard.add(ErrorsToOrderStatusesAndProgramOperationButton, ErrorsTheOpeningAndClosingOfTheCashRegisterShiftButton, backToMainMenuKeyboard)
 
 ErrorsToOrderStatusesAndProgramOperationKeyboard = InlineKeyboardMarkup (row_width=1)
 WhenCloseProgramDoesNotCloseButton = InlineKeyboardButton(text='При закрытии программы, она начинает висеть и не закрывается.', callback_data='WhenCloseProgramDoesNotClose')
 AYellowMessageAppearedButton = InlineKeyboardButton(text='Появилось сообщение желтого цвета, в верхнем левом углу экрана в IIKO', callback_data='AYellowMessageAppeared')
 TheRequiredProductIsNotInTheListButton = InlineKeyboardButton(text='Нет необходимого товара в списке/поиске при формировании актов списания и пр.', callback_data='TheRequiredProductIsNotInTheList')
 TheChefInIikoSousChefDoesNotSeeOrdersButton = InlineKeyboardButton(text='Повар в iikoSousChef не видит заказов. Хотя ранее все работало.', callback_data='TheChefInIikoSousChefDoesNotSeeOrders')
-ErrorsToOrderStatusesAndProgramOperationKeyboard.add(WhenCloseProgramDoesNotCloseButton, AYellowMessageAppearedButton, TheRequiredProductIsNotInTheListButton, TheChefInIikoSousChefDoesNotSeeOrdersButton)
+ErrorsToOrderStatusesAndProgramOperationKeyboard.add(WhenCloseProgramDoesNotCloseButton, AYellowMessageAppearedButton, TheRequiredProductIsNotInTheListButton, TheChefInIikoSousChefDoesNotSeeOrdersButton, backToIIKOKeyboard)
 
 ErrorsTheOpeningAndClosingOfTheCashRegisterShiftKeyboard = InlineKeyboardMarkup (row_width=1)
 FailedToSetCashierNameButton = InlineKeyboardButton(text='При открытии кассовой смены выдает ошибку "Не удалось задать имя кассира..."', callback_data='FailedToSetCashierName')
 HoursHaveExpiredYouNeedToCloseShiftButton = InlineKeyboardButton(text='При попытке оплатить заказ выдаёт ошибку "Истекли 24 часа, необходимо закрыть смену"', callback_data='HoursHaveExpiredYouNeedToCloseShift')
 EmployeeCantWorkHereButton = InlineKeyboardButton(text='При попытке Авторизации пишет: «Нет ИНН», «Нет сотрудника», «Сотрудник не может тут работать»', callback_data='EmployeeCantWorkHere')
-ErrorsTheOpeningAndClosingOfTheCashRegisterShiftKeyboard.add(FailedToSetCashierNameButton, HoursHaveExpiredYouNeedToCloseShiftButton, EmployeeCantWorkHereButton)
+ErrorsTheOpeningAndClosingOfTheCashRegisterShiftKeyboard.add(FailedToSetCashierNameButton, HoursHaveExpiredYouNeedToCloseShiftButton, EmployeeCantWorkHereButton, backToIIKOKeyboard)
 
 
 #Кнопки: "Фискальный регистратор"
@@ -61,7 +81,7 @@ FRButtonKeyboard = InlineKeyboardMarkup(row_width=1)
 ProblemsPayButton = InlineKeyboardButton(text='Проблемы при попытке оплатить заказ', callback_data='ProblemsPay')
 CashBoxProblemsButton = InlineKeyboardButton(text='Проблемы с кассой (после оплаты и при открытии смены)', callback_data='CashBoxProblems')
 OtherFRButton = InlineKeyboardButton(text='Другое', callback_data='OtherFR')
-FRButtonKeyboard.add(ProblemsPayButton, CashBoxProblemsButton, OtherFRButton)
+FRButtonKeyboard.add(ProblemsPayButton, CashBoxProblemsButton, OtherFRButton, backToMainMenuKeyboard)
 
 ProblemsPayKeyboard = InlineKeyboardMarkup(row_width=1)
 NoConnectionWDeviceButton = InlineKeyboardButton(text='Нет связи с устройством', callback_data='NoConnectionWDevice')
@@ -72,19 +92,19 @@ FailedOperatingModeButton = InlineKeyboardButton(text='Не удалось ус�
 FailedToCloseCheckButton = InlineKeyboardButton(text='Не удалось закрыть чек (Произошла ошибка -4015)', callback_data='FailedToCloseCheck')
 FailedToGetPaymentMethodButton = InlineKeyboardButton(text='Не удалось получить способ оплаты', callback_data='FailedToGetPaymentMethod')
 NotSupportedDeviceModeButton = InlineKeyboardButton(text='Не поддерживается в данном режиме устройства', callback_data='NotSupportedDeviceMode')
-ProblemsPayKeyboard.add(NoConnectionWDeviceButton, FailedSerialNumberButton, FNStorageButton, CloseShiftButton, FailedOperatingModeButton, FailedToCloseCheckButton, FailedToGetPaymentMethodButton, NotSupportedDeviceModeButton)
+ProblemsPayKeyboard.add(NoConnectionWDeviceButton, FailedSerialNumberButton, FNStorageButton, CloseShiftButton, FailedOperatingModeButton, FailedToCloseCheckButton, FailedToGetPaymentMethodButton, NotSupportedDeviceModeButton, backToFRButtonKeyboard)
 
 CashBoxProblemsKeyboard = InlineKeyboardMarkup(row_width=1)
 FailedToSetNameButton = InlineKeyboardButton(text='При открытии кассовой смены выдает ошибку ,,Не удалось задать имя кассира...,,', callback_data='FailedToSetName')
 NoConnectionToOFDButton = InlineKeyboardButton(text='После оплаты на кассе всплывает уведомление ,, Нет связи с ОФД. Колличество неотправленных докуметов: 1', callback_data='NoConnectionToOFD')
 ErrorChequeButton = InlineKeyboardButton(text='После оплаты на кассе всплывает уведомление ,, При печати фискального чека произошла ошибка (-3807) ,,', callback_data='ErrorCheque')
-CashBoxProblemsKeyboard.add(FailedToSetNameButton, NoConnectionToOFDButton, ErrorChequeButton)
+CashBoxProblemsKeyboard.add(FailedToSetNameButton, NoConnectionToOFDButton, ErrorChequeButton, backToFRButtonKeyboard)
 
 OtherFRKeyboard = InlineKeyboardMarkup(row_width=1)
 JammedCarvingKnifeButton = InlineKeyboardButton(text='Заклинил нож авторезчика', callback_data='JammedCarvingKnife')
 JammedCarvingKnifeSecondButton = InlineKeyboardButton(text='Заклинил нож авторезчика', callback_data='JammedCarvingKnifeSecond')
 DisableAutoCutterButton = InlineKeyboardButton(text='Отключить авторезчик', callback_data='DisableAutoCutter')
-OtherFRKeyboard.add(JammedCarvingKnifeButton, JammedCarvingKnifeSecondButton, DisableAutoCutterButton)
+OtherFRKeyboard.add(JammedCarvingKnifeButton, JammedCarvingKnifeSecondButton, DisableAutoCutterButton, backToFRButtonKeyboard)
 
 
 #Экран покупателя
@@ -92,7 +112,7 @@ screenKeyboard = InlineKeyboardMarkup(row_width=1)
 NoPicturesBlackScreenButton = InlineKeyboardButton(text='Нет картинок. Черный экран', callback_data='NoPicturesBlackScreen')
 NoPicturesWhiteScreenButton = InlineKeyboardButton(text='Нет картинок. Белый экран', callback_data='NoPicturesWhiteScreen')
 ErrorOnTheScreenBuyerButton = InlineKeyboardButton(text='На экране покупателя ошибка «Нет сигнала»', callback_data='ErrorOnTheScreenBuyer')
-screenKeyboard.add(NoPicturesBlackScreenButton, NoPicturesWhiteScreenButton, ErrorOnTheScreenBuyerButton )
+screenKeyboard.add(NoPicturesBlackScreenButton, NoPicturesWhiteScreenButton, ErrorOnTheScreenBuyerButton, backToMainMenuKeyboard )
 
 #Безнал оплата
 
@@ -100,7 +120,7 @@ CashlessPaymentKeyboard = InlineKeyboardMarkup(row_width=1)
 ProblemWithPaymentOrdersButton = InlineKeyboardButton(text='Проблема с оплатой заказов', callback_data='ProblemWithPaymentOrders')
 ProblemsAfterOrderPaymentButton = InlineKeyboardButton(text='Проблемы возникшие после оплаты заказа', callback_data='ProblemsAfterOrderPayment')
 ProblemsPaymentForTheOrderButton = InlineKeyboardButton(text='Проблемы связанные с безналичной оплатой заказа', callback_data='ProblemsPaymentForTheOrder')
-CashlessPaymentKeyboard.add(ProblemWithPaymentOrdersButton, ProblemsAfterOrderPaymentButton, ProblemsPaymentForTheOrderButton)
+CashlessPaymentKeyboard.add(ProblemWithPaymentOrdersButton, ProblemsAfterOrderPaymentButton, ProblemsPaymentForTheOrderButton, backToMainMenuKeyboard)
 
 #Проблема с оплатой заказов
 
@@ -113,21 +133,21 @@ FailedToCloseCheckButton = InlineKeyboardButton(text='"Не удалось за�
 FailedToGetPaymentMethodButton = InlineKeyboardButton(text='"Не удалось получить способ оплаты"', callback_data='FailedToGetPaymentMethod')
 NotSupportedInThisDeviceModeButton = InlineKeyboardButton(text='"Не поддерживается в данном режиме устройства"', callback_data='NotSupportedInThisDeviceMode')
 WPayingForTheOrderPrepaymentWindowAppearsButton = InlineKeyboardButton(text='При оплате заказа появляется окно предоплаты"', callback_data='WPayingForTheOrderPrepaymentWindowAppears')
-ProblemWithPaymentOrdersKeyboard.add(NoCommunicationWithDeviceButton, FailedToGetDeviceSerialNumberButton, FNStorageResourceExhaustedButton, FailedToSetOperatingModeButton, FailedToCloseCheckButton, FailedToGetPaymentMethodButton, NotSupportedInThisDeviceModeButton, WPayingForTheOrderPrepaymentWindowAppearsButton )
+ProblemWithPaymentOrdersKeyboard.add(NoCommunicationWithDeviceButton, FailedToGetDeviceSerialNumberButton, FNStorageResourceExhaustedButton, FailedToSetOperatingModeButton, FailedToCloseCheckButton, FailedToGetPaymentMethodButton, NotSupportedInThisDeviceModeButton, WPayingForTheOrderPrepaymentWindowAppearsButton, backToCashBoxProblemsKeyboard )
 
 #Проблемы возникшие после оплаты заказа
 
 ProblemsAfterOrderPaymentKeyboard = InlineKeyboardMarkup(row_width=1)
 NoConnectionToOFDNumberOfUnsentDocumentsButton = InlineKeyboardButton(text='После оплаты на кассе всплывает уведомление "Нет связи с ОФД. Колличество неотправленных докуметов: 1"', callback_data='NoConnectionToOFDNumberOfUnsentDocuments')
 AnErrorOccurredWhilePrintingTheReceiptButton = InlineKeyboardButton(text='После оплаты на кассе всплывает уведомление "При печати фискального чека произошла ошибка (-3807)"', callback_data='AnErrorOccurredWhilePrintingTheReceipt')
-ProblemsAfterOrderPaymentKeyboard.add(NoConnectionToOFDNumberOfUnsentDocumentsButton, AnErrorOccurredWhilePrintingTheReceiptButton)
+ProblemsAfterOrderPaymentKeyboard.add(NoConnectionToOFDNumberOfUnsentDocumentsButton, AnErrorOccurredWhilePrintingTheReceiptButton, backToCashBoxProblemsKeyboard)
 
 #Проблемы связанные с безналичной оплатой заказа
 ProblemsPaymentForTheOrderKeyboard = InlineKeyboardMarkup(row_width=1)
 PaymentTypeBankCardDoesNotWorkButton = InlineKeyboardButton(text='Не работает тип оплаты "Банковская карта"', callback_data='PaymentTypeBankCardDoesNotWork')
 BankTerminalNotWorkingBlackScreenButton = InlineKeyboardButton(text='Не работает банковский терминал, черный экран', callback_data='BankTerminalNotWorkingBlackScreen')
 ThereIsNoBankCardPaymentButton = InlineKeyboardButton(text='Нет кнопки оплаты "Баковская карта""', callback_data='ThereIsNoBankCardPayment')
-ProblemsPaymentForTheOrderKeyboard.add(PaymentTypeBankCardDoesNotWorkButton, BankTerminalNotWorkingBlackScreenButton, ThereIsNoBankCardPaymentButton)
+ProblemsPaymentForTheOrderKeyboard.add(PaymentTypeBankCardDoesNotWorkButton, BankTerminalNotWorkingBlackScreenButton, ThereIsNoBankCardPaymentButton, backToCashBoxProblemsKeyboard)
 
 #Кнопки по интернету
 
@@ -135,18 +155,18 @@ InternetKeyboard = InlineKeyboardMarkup(row_width=1)
 InternetOnCashboxButton = InlineKeyboardButton(text='Интернет на кассе', callback_data='InternetOnCashbox')
 WIFIButton = InlineKeyboardButton(text='Wi-Fi', callback_data='WIFI')
 OtherInternetButton=InlineKeyboardButton(text='Другое', callback_data='OtherInternet')
-InternetKeyboard.add(InternetOnCashboxButton, WIFIButton, OtherInternetButton)
+InternetKeyboard.add(InternetOnCashboxButton, WIFIButton, OtherInternetButton, backToMainMenuKeyboard)
 
 InternetOnCashboxKeyboard = InlineKeyboardMarkup(row_width=1)
 NoConnectionsAvailableButton = InlineKeyboardButton(text='Нет доступных подключений', callback_data='NoConnectionsAvailable')
 WithoutInternetAccessButton = InlineKeyboardButton(text='Без доступа к Интернету', callback_data='WithoutInternetAccess')
-InternetOnCashboxKeyboard.add(NoConnectionsAvailableButton, WithoutInternetAccessButton)
+InternetOnCashboxKeyboard.add(NoConnectionsAvailableButton, WithoutInternetAccessButton, backToInternetKeyboard)
 
 OtherInternetKeyboard = InlineKeyboardMarkup(row_width=1)
 YellowTriangleButton = InlineKeyboardButton(text='Желтый треугольник', callback_data='YellowTriangle')
 RedCrossButton = InlineKeyboardButton(text='Красный крестик, сетевой кабель не подключен', callback_data='RedCross')
 InternetConnectionStatusButton = InlineKeyboardButton(text='Статус интернет соединения', callback_data='InternetConnectionStatus')
-OtherInternetKeyboard.add(YellowTriangleButton, RedCrossButton, InternetConnectionStatusButton)
+OtherInternetKeyboard.add(YellowTriangleButton, RedCrossButton, InternetConnectionStatusButton, backToInternetKeyboard)
 
 
 #Кнопки: "По доставке"
@@ -157,62 +177,45 @@ CannotBeTransferredButton=InlineKeyboardButton(text='Продукт ... не м�
 PointOfSaleNotSyncedButton=InlineKeyboardButton(text='Не синхронизирована торговая точка IIKO программой доставки', callback_data='PointOfSaleNotSynced')
 RequestErrorInIIKOButton=InlineKeyboardButton(text='Ошибка запроса в IIKO (не передаются заказы)', callback_data='RequestErrorInIIKO')
 TheRequiredPaymentTypeButton = InlineKeyboardButton(text='Нужного типа оплаты нет в IIKO', callback_data='TheRequiredPaymentType')
-DeliveryKeyboard.add(NoPermissionToSellButton, DisabledOnPointButton, CannotBeTransferredButton, PointOfSaleNotSyncedButton, RequestErrorInIIKOButton, TheRequiredPaymentTypeButton)
+DeliveryKeyboard.add(NoPermissionToSellButton, DisabledOnPointButton, CannotBeTransferredButton, PointOfSaleNotSyncedButton, RequestErrorInIIKOButton, TheRequiredPaymentTypeButton, backToMainMenuKeyboard)
 
 #Кнопки: "По Электронной очереди"
 ElectronicQueueAndTVKeyboard = InlineKeyboardMarkup(row_width=1)
 ServerUnavailableMessageButton=InlineKeyboardButton(text='Касса недоступна', callback_data='ServerUnavailableMessage')
 SettingUpAnElectronicQueueButton=InlineKeyboardButton(text='Настройка электронной очереди при открытии новой точки или при замене телевизора', callback_data='SettingUpAnElectronicQueue')
 InternetConnectionNotWorkingOnTVButton=InlineKeyboardButton(text='На телевизоре не работает интернет соединение', callback_data='InternetConnectionNotWorkingOnTV')
-ElectronicQueueAndTVKeyboard.add(ServerUnavailableMessageButton, SettingUpAnElectronicQueueButton, InternetConnectionNotWorkingOnTVButton)
+ElectronicQueueAndTVKeyboard.add(ServerUnavailableMessageButton, SettingUpAnElectronicQueueButton, InternetConnectionNotWorkingOnTVButton, backToMainMenuKeyboard)
 
-howMuchCanEarnKeyboard=InlineKeyboardMarkup(row_width=1)
-additionalRemunerationButton=InlineKeyboardButton(text='Дополнительное вознаграждение', callback_data='additionalRemuneration')
-howMuchCanEarnKeyboard.add(additionalRemunerationButton)
 
-formsOfParthershipKeyboard=InlineKeyboardMarkup(row_width=1)
-otherPatnershipOptionButton=InlineKeyboardButton(text='Другие варианты партнерства', callback_data='otherPatnershipOption')
-naturalPersonButton=InlineKeyboardButton(text='Физлицо', callback_data='naturalPerson')
-selfEmployedButton=InlineKeyboardButton(text='Самозанятый', callback_data='selfEmployed')
-urFaceButton=InlineKeyboardButton(text='Юрлицо/ИП', callback_data='urFace')
-retireeButton=InlineKeyboardButton(text='Пенсионеры', callback_data='retiree')
-formsOfParthershipKeyboard.add(naturalPersonButton, selfEmployedButton, urFaceButton, otherPatnershipOptionButton)
-naturalPersonKeyboard=InlineKeyboardMarkup(row_width=1).add(retireeButton)
 
-toolsAndPromotionKeyboard=InlineKeyboardMarkup(row_width=1)
-websiteBannersButton=InlineKeyboardButton(text='Баннеры для сайта', callback_data='websiteBanners')
-socialMediaBannersButton=InlineKeyboardButton(text='Баннеры для соцсетей', callback_data='socialMediaBanners')
-widgetsButton=InlineKeyboardButton(text='Виджеты', callback_data='widgets')
-QRCodeButton=InlineKeyboardButton(text='QR-код', callback_data='QRCode')
-toolsAndPromotionKeyboard.add(websiteBannersButton, socialMediaBannersButton, widgetsButton, QRCodeButton)
 
 #Блок проблем в офисе
 
-ProblemsInTheOfficeKeyboard=InlineKeyboardMarkup(row_width=1)
-RemoteNotWorkingButton=InlineKeyboardButton(text='Не работает удаленка', callback_data='RemoteNotWorking')
-MailProblemButton=InlineKeyboardButton(text='Проблема с почтой', callback_data='MailProblem')
-NoAccessToRMSButton=InlineKeyboardButton(text='Нет доступа к РМС', callback_data='NoAccessToRMS')
-ChainProblemButton=InlineKeyboardButton(text='Проблема с чейном', callback_data='ChainProblem')
-ThePrinterIsNotWorkingButton=InlineKeyboardButton(text='Принтер не работает или есть ошибка в работе принтера', callback_data='ThePrinterIsNotWorking')
-TheScannerDoesNotWorkButton=InlineKeyboardButton(text='Сканер не работает или есть ошибка в работе принтера', callback_data='TheScannerDoesNotWork')
-ProblemsInTheOfficeKeyboard.add(RemoteNotWorkingButton, MailProblemButton, NoAccessToRMSButton,  ChainProblemButton, ThePrinterIsNotWorkingButton, TheScannerDoesNotWorkButton)
+# ProblemsInTheOfficeKeyboard=InlineKeyboardMarkup(row_width=1)
+# RemoteNotWorkingButton=InlineKeyboardButton(text='Не работает удаленка', callback_data='RemoteNotWorking')
+# MailProblemButton=InlineKeyboardButton(text='Проблема с почтой', callback_data='MailProblem')
+# NoAccessToRMSButton=InlineKeyboardButton(text='Нет доступа к РМС', callback_data='NoAccessToRMS')
+# ChainProblemButton=InlineKeyboardButton(text='Проблема с чейном', callback_data='ChainProblem')
+# ThePrinterIsNotWorkingButton=InlineKeyboardButton(text='Принтер не работает или есть ошибка в работе принтера', callback_data='ThePrinterIsNotWorking')
+# TheScannerDoesNotWorkButton=InlineKeyboardButton(text='Сканер не работает или есть ошибка в работе принтера', callback_data='TheScannerDoesNotWork')
+# ProblemsInTheOfficeKeyboard.add(RemoteNotWorkingButton, MailProblemButton, NoAccessToRMSButton,  ChainProblemButton, ThePrinterIsNotWorkingButton, TheScannerDoesNotWorkButton)
 
-NoAccessToRMSKeyboard = InlineKeyboardMarkup(row_width=1)
-LicenseRestrictionButton=InlineKeyboardButton(text='Лиценционное ограничение: невозможно получить подключение', callback_data='LicenseRestriction')
-NoAccessToTheServerButton=InlineKeyboardButton(text='Адрес сервера горит серым и ошибка "нет доступа к серверу"', callback_data='NoAccessToTheServer')
-NoAccessToRMSKeyboard.add(LicenseRestrictionButton, NoAccessToTheServerButton)
-
-ChainProblemKeyboard = InlineKeyboardMarkup(row_width=1)
-NoAccessToTheServerChainButton=InlineKeyboardButton(text='Адрес сервера горит серым и ошибка "нет доступа к серверу"', callback_data='NoAccessToTheServerChain')
-ServerIsNotAnIIKO_RMSButton=InlineKeyboardButton(text='Адрес сервера горит желтым и ошибка "указаный сервер не является сервером IIKO_RMS"', callback_data='ServerIsNotAnIIKO_RMS')
-ChainProblemKeyboard.add(NoAccessToTheServerChainButton, ServerIsNotAnIIKO_RMSButton)
-
-ThePrinterIsNotWorkingKeyboard = InlineKeyboardMarkup(row_width=1)
-TheRedLightIsOnButton=InlineKeyboardButton(text='Горит красная лампочка', callback_data='TheRedLightIsOn')
-CartridgeReplacementButton= InlineKeyboardButton(text='Замена картриджа', callback_data='CartridgeReplacement')
-PaperJamButton=InlineKeyboardButton(text='Замятие бумаги', callback_data='PaperJam')
-DoesntPickUpPaperButton=InlineKeyboardButton(text='Не захватывает бумагу', callback_data='DoesntPickUpPaper')
-ThePrinterIsNotWorkingKeyboard.add(TheRedLightIsOnButton, CartridgeReplacementButton, PaperJamButton, DoesntPickUpPaperButton)
+# NoAccessToRMSKeyboard = InlineKeyboardMarkup(row_width=1)
+# LicenseRestrictionButton=InlineKeyboardButton(text='Лиценционное ограничение: невозможно получить подключение', callback_data='LicenseRestriction')
+# NoAccessToTheServerButton=InlineKeyboardButton(text='Адрес сервера горит серым и ошибка "нет доступа к серверу"', callback_data='NoAccessToTheServer')
+# NoAccessToRMSKeyboard.add(LicenseRestrictionButton, NoAccessToTheServerButton)
+#
+# ChainProblemKeyboard = InlineKeyboardMarkup(row_width=1)
+# NoAccessToTheServerChainButton=InlineKeyboardButton(text='Адрес сервера горит серым и ошибка "нет доступа к серверу"', callback_data='NoAccessToTheServerChain')
+# ServerIsNotAnIIKO_RMSButton=InlineKeyboardButton(text='Адрес сервера горит желтым и ошибка "указаный сервер не является сервером IIKO_RMS"', callback_data='ServerIsNotAnIIKO_RMS')
+# ChainProblemKeyboard.add(NoAccessToTheServerChainButton, ServerIsNotAnIIKO_RMSButton)
+#
+# ThePrinterIsNotWorkingKeyboard = InlineKeyboardMarkup(row_width=1)
+# TheRedLightIsOnButton=InlineKeyboardButton(text='Горит красная лампочка', callback_data='TheRedLightIsOn')
+# CartridgeReplacementButton= InlineKeyboardButton(text='Замена картриджа', callback_data='CartridgeReplacement')
+# PaperJamButton=InlineKeyboardButton(text='Замятие бумаги', callback_data='PaperJam')
+# DoesntPickUpPaperButton=InlineKeyboardButton(text='Не захватывает бумагу', callback_data='DoesntPickUpPaper')
+# ThePrinterIsNotWorkingKeyboard.add(TheRedLightIsOnButton, CartridgeReplacementButton, PaperJamButton, DoesntPickUpPaperButton)
 
 
 callTechSuppKeyboard=InlineKeyboardMarkup(row_width=1)
@@ -220,27 +223,7 @@ callTechSuppButton=InlineKeyboardButton(text="Связаться с техпод
 backToMainMenuButton=InlineKeyboardButton(text="Вернуться на главное меню",callback_data='backToMainMenu')
 callTechSuppKeyboard.add(callTechSuppButton, backToMainMenuButton)#, helpButton)
 
-#Кнопки назад
-backToIIKOKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToIIKOKeyboard')
-backToErrorsToOrderStatusesAndProgramOperationKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToErrorsToOrderStatusesAndProgramOperationKeyboard')
-backToErrorsTheOpeningAndClosingOfTheCashRegisterShiftKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToErrorsTheOpeningAndClosingOfTheCashRegisterShiftKeyboard')
-backToFRButtonKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToFRButtonKeyboard')
-backToProblemsPayKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToProblemsPayKeyboard')
-backToOtherFRKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToOtherFRKeyboard')
-backToscreenKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToscreenKeyboard')
-backToProblemWithPaymentOrdersKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToProblemWithPaymentOrdersKeyboard')
-backToCashBoxProblemsKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToCashBoxProblemsKeyboard')
-backToProblemsAfterOrderPaymentKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToProblemsAfterOrderPaymentKeyboard')
-backToInternetKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToInternetKeyboard')
-backToInternetOnCashboxKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToInternetOnCashboxKeyboard')
-backToDeliveryKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToDeliveryKeyboard')
-backToElectronicQueueAndTVKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToElectronicQueueAndTVKeyboard')
-backTohowMuchCanEarnKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backTohowMuchCanEarnKeyboard')
-backTotoolsAndPromotionKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backTotoolsAndPromotionKeyboard')
-backToProblemsInTheOfficeKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToProblemsInTheOfficeKeyboard')
-backToNoAccessToRMSKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToNoAccessToRMSKeyboard')
-backToChainProblemKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToChainProblemKeyboard')
-backToThePrinterIsNotWorkingKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToThePrinterIsNotWorkingKeyboard')
+
 
 
 
@@ -259,7 +242,7 @@ async def iikoProblem(calliiProb: types.CallbackQuery):
 
 @dp.callback_query_handler(text='ErrorsToOrderStatusesAndProgramOperation')
 async def ErrorsToOrderStatusesAndProgramOperation(callETOSAPO: types.CallbackQuery):
-    await callETOSAPO.message.edit_text(text='Ошибки связанные со статусами заказов и работы программы:', reply_markup = ErrorsToOrderStatusesAndProgramOperationKeyboard)
+    await callETOSAPO.message.edit_text(text='Ошибки связанные со статусами заказов и работы программы:', reply_markup = ErrorsToOrderStatusesAndProgramOperationKeyboard, )
     logger.debug('Пользователь нажал кнопку "Частые проблемы"')
 
 @dp.callback_query_handler(text='ErrorsTheOpeningAndClosingOfTheCashRegisterShift')
@@ -691,10 +674,10 @@ async def TheRequiredPaymentType(callTRPT: types.CallbackQuery):
 
 #Блок проблемы в офисе
 
-@dp.callback_query_handler(text='ProblemsInTheOffice')
-async def ProblemsInTheOffice(callPITO: types.CallbackQuery):
-    await callPITO.message.edit_text(text='Какая у вас проблема', reply_markup=ProblemsInTheOfficeKeyboard)
-    logger.debug('Пользователь нажал кнопку "Еще"')
+# @dp.callback_query_handler(text='ProblemsInTheOffice')
+# async def ProblemsInTheOffice(callPITO: types.CallbackQuery):
+#     await callPITO.message.edit_text(text='Какая у вас проблема', reply_markup=ProblemsInTheOfficeKeyboard)
+#     logger.debug('Пользователь нажал кнопку "Еще"')
 
 @dp.callback_query_handler(text='RemoteNotWorking')
 async def RemoteNotWorking(callRNW: types.CallbackQuery):
@@ -712,10 +695,10 @@ async def MailProblem(callMP: types.CallbackQuery):
     await callMP.message.edit_text(text='Необходимо связаться с техподдержкой', reply_markup=callTechSuppKeyboard)
     logger.debug('Пользователь нажал кнопку "Еще"')
 
-@dp.callback_query_handler(text='NoAccessToRMS')
-async def NoAccessToRMS(callNATRMS: types.CallbackQuery):
-    await callNATRMS.message.edit_text(text='Какая проблема', reply_markup=NoAccessToRMSKeyboard)
-    logger.debug('Пользователь нажал кнопку "Еще"')
+# @dp.callback_query_handler(text='NoAccessToRMS')
+# async def NoAccessToRMS(callNATRMS: types.CallbackQuery):
+#     await callNATRMS.message.edit_text(text='Какая проблема', reply_markup=NoAccessToRMSKeyboard)
+#     logger.debug('Пользователь нажал кнопку "Еще"')
 
 @dp.callback_query_handler(text='LicenseRestriction')
 async def LicenseRestriction(callLR: types.CallbackQuery):
@@ -727,10 +710,10 @@ async def NoAccessToTheServer(callNATHS: types.CallbackQuery):
     await callNATHS.message.edit_text(text='Проверьте, что все данные введены верно и выбран нужный РМС. ', reply_markup=callTechSuppKeyboard)
     logger.debug('Пользователь нажал кнопку "Еще"')
 
-@dp.callback_query_handler(text='ChainProblem')
-async def ChainProblem(callCP: types.CallbackQuery):
-    await callCP.message.edit_text(text='Проблема работы с чейном[.](https://downloader.disk.yandex.ru/preview/e09460847d377af5608a91f0afe6b05f80350d7652402db5aac561c5e840a8dd/62ada0ab/GZ6ue5U6azFiZG2A22dLBK5bqM_xoyxzFLuVJEgQ4VmApg5Hbhyvz0UmC9rbUtcsW9cKY9sxub0Ybi3QkTQRXQ%3D%3D?uid=0&filename=%D0%9F%D1%80%D0%BE%D0%B1%D0%BB%D0%B5%D0%BC%D1%8B%20%D1%81%20%D1%87%D0%B5%D0%B9%D0%BD%D0%BE%D0%BC.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=ChainProblemKeyboard)
-    logger.debug('Пользователь нажал кнопку "Еще"')
+# @dp.callback_query_handler(text='ChainProblem')
+# async def ChainProblem(callCP: types.CallbackQuery):
+#     await callCP.message.edit_text(text='Проблема работы с чейном[.](https://downloader.disk.yandex.ru/preview/e09460847d377af5608a91f0afe6b05f80350d7652402db5aac561c5e840a8dd/62ada0ab/GZ6ue5U6azFiZG2A22dLBK5bqM_xoyxzFLuVJEgQ4VmApg5Hbhyvz0UmC9rbUtcsW9cKY9sxub0Ybi3QkTQRXQ%3D%3D?uid=0&filename=%D0%9F%D1%80%D0%BE%D0%B1%D0%BB%D0%B5%D0%BC%D1%8B%20%D1%81%20%D1%87%D0%B5%D0%B9%D0%BD%D0%BE%D0%BC.png&disposition=inline&hash=&limit=0&content_type=image%2Fpng&owner_uid=0&tknv=v2&size=2048x2048)',parse_mode='Markdown', reply_markup=ChainProblemKeyboard)
+#     logger.debug('Пользователь нажал кнопку "Еще"')
 
 @dp.callback_query_handler(text='NoAccessToTheServerChain')
 async def NoAccessToTheServerChain(callNATTSC: types.CallbackQuery):
@@ -742,10 +725,10 @@ async def ServerIsNotAnIIKO_RMS(callSINAIIKO: types.CallbackQuery):
     await callSINAIIKO.message.edit_text(text='Вы зашли не в ту программу, откройте Iiko Chain Operations', reply_markup=callTechSuppKeyboard)
     logger.debug('Пользователь нажал кнопку "Еще"')
 
-@dp.callback_query_handler(text='ThePrinterIsNotWorking')
-async def ThePrinterIsNotWorking(callTPINW: types.CallbackQuery):
-    await callTPINW.message.edit_text(text='Какая ошибка:', reply_markup=ThePrinterIsNotWorkingKeyboard)
-    logger.debug('Пользователь нажал кнопку "Еще"')
+# @dp.callback_query_handler(text='ThePrinterIsNotWorking')
+# async def ThePrinterIsNotWorking(callTPINW: types.CallbackQuery):
+#     await callTPINW.message.edit_text(text='Какая ошибка:', reply_markup=ThePrinterIsNotWorkingKeyboard)
+#     logger.debug('Пользователь нажал кнопку "Еще"')
 
 @dp.callback_query_handler(text='TheRedLightIsOn')
 async def TheRedLightIsOn(callTRLIO: types.CallbackQuery):
@@ -781,6 +764,98 @@ async def Other(callOther: types.CallbackQuery):
 @dp.callback_query_handler(text='backToMainMenu')
 async def backToMainMenu(callbTMM: types.CallbackQuery):
     await callbTMM.message.edit_text(text='Выберите интересующий раздел', reply_markup=firstMenuKeyboard)
+
+@dp.callback_query_handler(text='backToMainMenuKeyboard')
+async def backToMainMenuKeyboard(callbTMMk: types.CallbackQuery):
+    await callbTMMk.message.edit_text(text='Выберите интересующий раздел', reply_markup=firstMenuKeyboard)
+
+@dp.callback_query_handler(text='backToIIKOKeyboard')
+async def backToIIKOKeyboard(callbtIIKO: types.CallbackQuery):
+    await callbtIIKO.message.edit_text(text='Выберите раздел проблемы', reply_markup=IIKOKeyboard)
+    logger.debug('Пользователь нажал кнопку "QR-код"')
+
+@dp.callback_query_handler(text='backToErrorsToOrderStatusesAndProgramOperationKeyboard')
+async def backToErrorsToOrderStatusesAndProgramOperationKeyboard(callbtETOSAPOK: types.CallbackQuery):
+    await callbtETOSAPOK.message.edit_text(text='Ошибки связанные со статусами заказов и работы программы:', reply_markup=ErrorsToOrderStatusesAndProgramOperationKeyboard)
+    logger.debug('Пользователь нажал кнопку "QR-код"')
+
+@dp.callback_query_handler(text='backToErrorsTheOpeningAndClosingOfTheCashRegisterShiftKeyboard')
+async def backToErrorsTheOpeningAndClosingOfTheCashRegisterShiftKeyboard(callbtETOACOTCRSK: types.CallbackQuery):
+    await callbtETOACOTCRSK.message.edit_text(text='Ошибки связанные с открытием и закрытием кассовой смены:', reply_markup=ErrorsTheOpeningAndClosingOfTheCashRegisterShiftKeyboard)
+    logger.debug('Пользователь нажал кнопку "QR-код"')
+
+@dp.callback_query_handler(text='backToFRButtonKeyboard')
+async def backToFRButtonKeyboard(callbtFRBK: types.CallbackQuery):
+    await callbtFRBK.message.edit_text(text='Выберите интересующий раздел', reply_markup=FRButtonKeyboard)
+    logger.debug('Пользователь нажал кнопку "QR-код"')
+
+@dp.callback_query_handler(text='backToProblemsPayKeyboard')
+async def backToProblemsPayKeyboard(callbtPPK: types.CallbackQuery):
+    await callbtPPK.message.edit_text(text='Проблемы при попытке оплатить заказ', reply_markup=FRButtonKeyboard)
+    logger.debug('Пользователь нажал кнопку "QR-код"')
+
+@dp.callback_query_handler(text='backToCashBoxProblemsKeyboard')
+async def backToCashBoxProblemsKeyboard(callbtCBPK: types.CallbackQuery):
+    await callbtCBPK.message.edit_text(text='Проблемы с кассой', reply_markup=FRButtonKeyboard)
+    logger.debug('Пользователь нажал кнопку "QR-код"')
+
+@dp.callback_query_handler(text='backToOtherFRKeyboard')
+async def backToOtherFRKeyboard(callbtOFRK: types.CallbackQuery):
+    await callbtOFRK.message.edit_text(text='Какая проблема:', reply_markup=FRButtonKeyboard)
+    logger.debug('Пользователь нажал кнопку "QR-код"')
+
+@dp.callback_query_handler(text='backToscreenKeyboard')
+async def backToscreenKeyboard(callbTSKK: types.CallbackQuery):
+    await callbTSKK.message.edit_text(text='Выберите интересующий раздел', reply_markup=firstMenuKeyboard)
+    logger.debug('Пользователь нажал кнопку "QR-код"')
+
+@dp.callback_query_handler(text='backToCashlessPaymentKeyboard')
+async def backToCashlessPaymentKeyboard(callbtCPK: types.CallbackQuery):
+    await callbtCPK.message.edit_text(text='Выберите раздел проблемы', reply_markup=CashlessPaymentKeyboard)
+    logger.debug('Пользователь нажал кнопку "QR-код"')
+
+
+
+@dp.callback_query_handler(text='backToProblemsAfterOrderPaymentKeyboard')
+async def backToProblemsAfterOrderPaymentKeyboard(callbtPAOPK: types.CallbackQuery):
+    await callbtPAOPK.message.edit_text(text='Проблемы возникшие после оплаты заказа', reply_markup=ProblemsAfterOrderPaymentKeyboard)
+    logger.debug('Пользователь нажал кнопку "QR-код"')
+
+@dp.callback_query_handler(text='backToProblemWithPaymentOrdersKeyboard')
+async def backToProblemWithPaymentOrdersKeyboard(callbtPWPOK: types.CallbackQuery):
+    await callbtPWPOK.message.edit_text(text='Проблема с оплатой заказов', reply_markup=ProblemWithPaymentOrdersKeyboard)
+    logger.debug('Пользователь нажал кнопку "QR-код"')
+
+@dp.callback_query_handler(text='backToProblemsPaymentForTheOrderKeyboard')
+async def backToProblemsPaymentForTheOrderKeyboard(callbtPPFTOK: types.CallbackQuery):
+    await callbtPPFTOK.message.edit_text(text='Проблемы связанные с безналичной оплатой заказа', reply_markup=ProblemsPaymentForTheOrderKeyboard)
+    logger.debug('Пользователь нажал кнопку "QR-код"')
+
+@dp.callback_query_handler(text='backToInternetKeyboard')
+async def backToInternetKeyboard(callbtIK: types.CallbackQuery):
+    await callbtIK.message.edit_text(text='Проблемы с интернетом', reply_markup=InternetKeyboard)
+    logger.debug('Пользователь нажал кнопку "QR-код"')
+
+@dp.callback_query_handler(text='backToInternetOnCashboxKeyboard')
+async def backToInternetOnCashboxKeyboard(callbtIOCK: types.CallbackQuery):
+    await callbtIOCK.message.edit_text(text='Какая ошибка', reply_markup=InternetOnCashboxKeyboard)
+    logger.debug('Пользователь нажал кнопку "QR-код"')
+
+@dp.callback_query_handler(text='backToOtherInternetKeyboard')
+async def backToOtherInternetKeyboard(callbtOIK: types.CallbackQuery):
+    await callbtOIK.message.edit_text(text='Проблемы с интернетом', reply_markup=OtherInternetKeyboard)
+    logger.debug('Пользователь нажал кнопку "QR-код"')
+
+@dp.callback_query_handler(text='backToDeliveryKeyboard')
+async def backToDeliveryKeyboard(callbtTDK: types.CallbackQuery):
+    await callbtTDK.message.edit_text(text='Выберете раздел проблемы', reply_markup=DeliveryKeyboard)
+    logger.debug('Пользователь нажал кнопку "QR-код"')
+
+@dp.callback_query_handler(text='backToElectronicQueueAndTVKeyboard')
+async def backToElectronicQueueAndTVKeyboard(callbtEQATVK: types.CallbackQuery):
+    await callbtEQATVK.message.edit_text(text='Какая ошибка:', reply_markup=ElectronicQueueAndTVKeyboard)
+    logger.debug('Пользователь нажал кнопку "QR-код"')
+
 
 
 # @dp.message_handler(commands='get_id')
