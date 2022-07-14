@@ -29,11 +29,11 @@ screenButton = InlineKeyboardButton(text='Экран покупателя', call
 InternetButton = InlineKeyboardButton(text='Интернет', callback_data='Internet')
 DeliveryButton = InlineKeyboardButton(text='Доставка', callback_data='Delivery')
 ArchivingProgramButton = InlineKeyboardButton(text='Архивная программа', callback_data='ArchivingProgram')
-CCTVButton = InlineKeyboardButton(text='Видеонаблюдение', callback_data='CCTV')
+#CCTVButton = InlineKeyboardButton(text='Видеонаблюдение', callback_data='CCTV')
 ElectronicQueueAndTVButton = InlineKeyboardButton(text='Электронная очередь и ТВ', callback_data='ElectronicQueueAndTV')
-ProblemsInTheOfficeButton = InlineKeyboardButton(text='Проблемы в офисе', callback_data='ProblemsInTheOffice')
+#ProblemsInTheOfficeButton = InlineKeyboardButton(text='Проблемы в офисе', callback_data='ProblemsInTheOffice')
 OtherButton = InlineKeyboardButton(text='Другое', callback_data='Other')
-firstMenuKeyboard.add(iikoProblemButton, FRButton,CashlessPaymentButton, screenButton, InternetButton, DeliveryButton, ArchivingProgramButton, CCTVButton, ElectronicQueueAndTVButton, ProblemsInTheOfficeButton, OtherButton )#, helpButton)
+firstMenuKeyboard.add(iikoProblemButton, FRButton,CashlessPaymentButton, screenButton, InternetButton, DeliveryButton, ArchivingProgramButton,  ElectronicQueueAndTVButton, OtherButton )#, helpButton)
 
 #Кнопки: "По IIKO"
 
@@ -219,6 +219,30 @@ callTechSuppKeyboard=InlineKeyboardMarkup(row_width=1)
 callTechSuppButton=InlineKeyboardButton(text="Связаться с техподдержкой",callback_data='callTechSupp') #url='https://t.me/+wGeFnHb6ACBkOWFi',parse_mode='Markdown', disable_web_page_preview=True, callback_data='callTechSupp')
 backToMainMenuButton=InlineKeyboardButton(text="Вернуться на главное меню",callback_data='backToMainMenu')
 callTechSuppKeyboard.add(callTechSuppButton, backToMainMenuButton)#, helpButton)
+
+#Кнопки назад
+backToIIKOKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToIIKOKeyboard')
+backToErrorsToOrderStatusesAndProgramOperationKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToErrorsToOrderStatusesAndProgramOperationKeyboard')
+backToErrorsTheOpeningAndClosingOfTheCashRegisterShiftKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToErrorsTheOpeningAndClosingOfTheCashRegisterShiftKeyboard')
+backToFRButtonKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToFRButtonKeyboard')
+backToProblemsPayKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToProblemsPayKeyboard')
+backToOtherFRKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToOtherFRKeyboard')
+backToscreenKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToscreenKeyboard')
+backToProblemWithPaymentOrdersKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToProblemWithPaymentOrdersKeyboard')
+backToCashBoxProblemsKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToCashBoxProblemsKeyboard')
+backToProblemsAfterOrderPaymentKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToProblemsAfterOrderPaymentKeyboard')
+backToInternetKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToInternetKeyboard')
+backToInternetOnCashboxKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToInternetOnCashboxKeyboard')
+backToDeliveryKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToDeliveryKeyboard')
+backToElectronicQueueAndTVKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToElectronicQueueAndTVKeyboard')
+backTohowMuchCanEarnKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backTohowMuchCanEarnKeyboard')
+backTotoolsAndPromotionKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backTotoolsAndPromotionKeyboard')
+backToProblemsInTheOfficeKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToProblemsInTheOfficeKeyboard')
+backToNoAccessToRMSKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToNoAccessToRMSKeyboard')
+backToChainProblemKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToChainProblemKeyboard')
+backToThePrinterIsNotWorkingKeyboard=InlineKeyboardButton(text="Вернуться назад",callback_data='backToThePrinterIsNotWorkingKeyboard')
+
+
 
 @dp.message_handler(commands='start')
 async def firstButton(message: types.Message):
@@ -634,7 +658,8 @@ async def Delivery(callDelivery: types.CallbackQuery):
 
 @dp.callback_query_handler(text='NoPermissionToSell')
 async def NoPermissionToSell(callNPTS: types.CallbackQuery):
-    await callNPTS.message.edit_text(text='Необходимо обратиться к специалисту по ценообразованию Евтиной Дарье +7-913-680-80-90', reply_markup=callTechSuppKeyboard)
+    await callNPTS.message.edit_text(text='Необходимо обратиться к специалисту по ценообразованию Евтиной Дарье +7-913-680-80-90',
+                                     reply_markup=callTechSuppKeyboard)
     logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
 
 @dp.callback_query_handler(text='DisabledOnPoint')
@@ -644,12 +669,14 @@ async def DisabledOnPoint(callDOP: types.CallbackQuery):
 
 @dp.callback_query_handler(text='CannotBeTransferred')
 async def CannotBeTransferred(callCBT: types.CallbackQuery):
-    await callCBT.message.edit_text(text='Необходимо обратиться в службу доставки по тел. 8-800-700-67-76', reply_markup=callTechSuppKeyboard)
+    await callCBT.message.edit_text(text='Необходимо обратиться в службу доставки по тел. 8-800-700-67-76',
+                                    reply_markup=callTechSuppKeyboard)
     logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
 
 @dp.callback_query_handler(text='PointOfSaleNotSynced')
 async def PointOfSaleNotSynced(callPOSNS: types.CallbackQuery):
-    await callPOSNS.message.edit_text(text='Необходимо обратиться в службу доставки по тел. 8-800-700-67-76', reply_markup=callTechSuppKeyboard)
+    await callPOSNS.message.edit_text(text='Необходимо обратиться в службу доставки по тел. 8-800-700-67-76',
+                                      reply_markup=callTechSuppKeyboard)
     logger.debug('Пользователь нажал кнопку "Какие продукты рекомендовать"')
 
 @dp.callback_query_handler(text='RequestErrorInIIKO')
@@ -755,15 +782,23 @@ async def Other(callOther: types.CallbackQuery):
 async def backToMainMenu(callbTMM: types.CallbackQuery):
     await callbTMM.message.edit_text(text='Выберите интересующий раздел', reply_markup=firstMenuKeyboard)
 
+
+# @dp.message_handler(commands='get_id')
+# async def callTechSupp(callTSupppp : types.Message):
+#     chatid = callTSupppp.chat.id
+#     await bot.send_message(callTSupppp.from_user.id, text=chatid)
+
 @dp.callback_query_handler(text='callTechSupp')
 async def callTechSupp(callTSupp : types.Message):
-    await bot.send_message(chat_id='Оператор скоро вам ответит')
+    print(callTSupp.data)
+    await bot.forward_message(to_chat_id='-1001645401143', from_chat_id='@TPSM_bot', message_id=callTSupp.message_id)
+
 
 #https://t.me/+wGeFnHb6ACBkOWFi
 
-@dp.callback_query_handler(text='helpButton')
-async def helpMessage(helpMessage : types.Message):
-    await helpMessage.answer('Оператор скоро вам ответит')
+# @dp.callback_query_handler(text='helpButton')
+# async def helpMessage(helpMessage : types.Message):
+#     await helpMessage.answer('Оператор скоро вам ответит')
 
 @dp.message_handler(content_types=['text'])
 async def messageKeyboard(message):
