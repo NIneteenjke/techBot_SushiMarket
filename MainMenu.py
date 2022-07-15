@@ -1,7 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 from aiogram import Bot, types
-from aiogram.dispatcher import Dispatcher
+from aiogram.contrib.fsm_storage.memory import MemoryStorage
+from aiogram.dispatcher import Dispatcher, FSMContext
 from aiogram.utils import executor
 import os
 #import config
@@ -12,9 +13,10 @@ import logging
 from aiogram.utils.markdown import hlink
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
+from states.forward_mess import ForwMess
 
 bot = Bot(token='5570461721:AAFy2ZLk3yKjN6Ej6XUFF60HdQqWwRGshxc')
-dp = Dispatcher(bot)
+dp = Dispatcher(bot, storage=MemoryStorage())
 log_format='%(asctime)s - %(filename)s: - %(message)s - %(name)s'
 logging.basicConfig(level='DEBUG', filename='metrics.log', format=log_format, datefmt='%Y-%m-%d %H:%M:%S')
 
@@ -857,16 +859,33 @@ async def backToElectronicQueueAndTVKeyboard(callbtEQATVK: types.CallbackQuery):
     logger.debug('Пользователь нажал кнопку "QR-код"')
 
 
+@dp.callback_query_handler(text='callTechSupp')
+async def callTechSupp(calltsupp:types.Message):
+    await ForwMess.Forward_message.set()
+    await bot.send_message(calltsupp.from_user.id, 'Пожалуйста, опишите свою проблему детальнее одним сообщением')
+# -1001673754768 channel
+# -1001645401143 group
+
+
+@dp.message_handler(state=ForwMess.Forward_message)
+async def forward_message(message: types.Message, state: FSMContext):
+    await bot.send_message('-1001673754768', f'НОВАЯ ЗАЯВКА! \n'
+                                             f'От: @{message.from_user.username} \n'
+                                             f'Описание проблемы: {message.text}')
+    await bot.send_message(message.from_user.id, text='Ваша заявка отправлена. \n'
+                                                      'Обратите внимание, техподдержка работает с 8:00 до 00:00')
+
+    # await bot.forward_message(chat_id='-1001645401143',
+    #                           from_chat_id=message.from_user.id,
+    #                           message_id=message.message_id)
+    await state.finish()
+
 
 # @dp.message_handler(commands='get_id')
 # async def callTechSupp(callTSupppp : types.Message):
 #     chatid = callTSupppp.chat.id
 #     await bot.send_message(callTSupppp.from_user.id, text=chatid)
 
-@dp.callback_query_handler(text='callTechSupp')
-async def callTechSupp(callTSupp : types.Message):
-    print(callTSupp.data)
-    await bot.forward_message(to_chat_id='-1001645401143', from_chat_id='@TPSM_bot', message_id=callTSupp.message_id)
 
 
 #https://t.me/+wGeFnHb6ACBkOWFi
