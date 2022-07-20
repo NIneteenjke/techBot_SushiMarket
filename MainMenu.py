@@ -229,11 +229,12 @@ callTechSuppKeyboard.add(callTechSuppButton, backToMainMenuButton)#, helpButton)
 
 
 
-@dp.message_handler(commands='start')
-async def firstButton(message: types.Message):
+@dp.message_handler(commands='start', state="*")
+async def firstButton(message: types.Message, state: FSMContext):
+    await state.finish()
     await message.answer('Здравствуйте!\n'
                          'Какие у вас появились вопросы?\n'
-                        'Выберите интересующий раздел, нажав на кнопку.', reply_markup=firstMenuKeyboard)
+                         'Выберите интересующий раздел, нажав на кнопку.', reply_markup=firstMenuKeyboard)
 
 #Блок iiko--
 
@@ -862,7 +863,7 @@ async def backToElectronicQueueAndTVKeyboard(callbtEQATVK: types.CallbackQuery):
 @dp.callback_query_handler(text='callTechSupp')
 async def callTechSupp(calltsupp:types.Message):
     await ForwMess.Forward_message.set()
-    await bot.send_message(calltsupp.from_user.id, 'Пожалуйста, опишите свою проблему детальнее одним сообщением')
+    await bot.send_message(calltsupp.from_user.id, 'Напишите текст сообщения для техподдержки')
 # -1001673754768 channel
 # -1001645401143 group
 
