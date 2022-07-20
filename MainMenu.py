@@ -872,8 +872,8 @@ async def forward_message(message: types.Message, state: FSMContext):
     await bot.send_message('-1001673754768', f'НОВАЯ ЗАЯВКА! \n'
                                              f'От: @{message.from_user.username} \n'
                                              f'Описание проблемы: {message.text}')
-    await bot.send_message(message.from_user.id, text='Ваша заявка отправлена. \n'
-                                                      'Обратите внимание, техподдержка работает с 8:00 до 00:00')
+    await bot.send_message(message.from_user.id, text='Ваша заявка отправлена! \n'
+                                                      'Обратите внимание, техподдержка работает с 8.00 до 24.00 по Омскому времени (+3 от Мск)')
 
     # await bot.forward_message(chat_id='-1001645401143',
     #                           from_chat_id=message.from_user.id,
